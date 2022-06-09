@@ -1,6 +1,7 @@
 package com.oriolsoler.costcontroler.integration
 
 import com.oriolsoler.costcontroler.integration.acceptance.ApplicationTestCase
+import com.oriolsoler.costcontroler.integration.acceptance.RegisterNewCostFeature
 import com.oriolsoler.costcontroler.integration.helper.DockerComposeHelper
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Nested
@@ -24,4 +25,7 @@ class ApplicationIntegrationTest {
 
     @Nested
     inner class ApplicationNested : ApplicationTestCase()
+
+    @Nested
+    inner class RegisterNewCostFeatureNested : RegisterNewCostFeature()
 }
