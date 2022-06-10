@@ -21,5 +21,7 @@ abstract class RegisterNewCostFeature : IntegrationTest() {
             .post("/api/cost/register")
             .then()
             .assertThat(status().isCreated)
+
+        //assertNotNull(costRepositoryForTest.findBy(Description("Spotify subscription")))
     }
 }
