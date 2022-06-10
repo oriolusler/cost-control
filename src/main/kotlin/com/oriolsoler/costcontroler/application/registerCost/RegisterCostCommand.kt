@@ -1,6 +1,7 @@
 package com.oriolsoler.costcontroler.application.registerCost
 
 import com.oriolsoler.costcontroler.domain.contracts.Cost
+import com.oriolsoler.costcontroler.domain.contracts.Description
 import java.time.LocalDate
 
 data class RegisterCostCommand(
@@ -12,4 +13,4 @@ data class RegisterCostCommand(
     val amount: Double
 )
 
-fun RegisterCostCommand.toCost() = Cost(date, description, category, subcategory, comment, amount)
+fun RegisterCostCommand.toCost() = Cost(date, Description(description), category, subcategory, comment, amount)

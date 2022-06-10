@@ -4,9 +4,11 @@ import java.time.LocalDate
 
 data class Cost(
     val date: LocalDate,
-    val description: String,
+    val description: Description,
     val category: String,
     val subcategory: String,
     val comment: String,
     val amount: Double
 )
+
+data class Description(val value: String)
