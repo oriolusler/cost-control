@@ -1,7 +1,7 @@
 package com.oriolsoler.costcontroler.application.registerCost
 
-import com.oriolsoler.costcontroler.domain.contracts.Cost
-import com.oriolsoler.costcontroler.domain.contracts.Description
+import com.oriolsoler.costcontroler.domain.Cost
+import com.oriolsoler.costcontroler.domain.Description
 import java.time.LocalDate
 
 data class RegisterCostCommand(

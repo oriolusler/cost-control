@@ -1,4 +1,4 @@
-package com.oriolsoler.costcontroler.domain.contracts
+package com.oriolsoler.costcontroler.domain
 
 import java.time.LocalDate
 

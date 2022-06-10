@@ -1,6 +1,6 @@
 package com.oriolsoler.costcontroler.infrastructure.repository
 
-import com.oriolsoler.costcontroler.domain.contracts.Cost
+import com.oriolsoler.costcontroler.domain.Cost
 import com.oriolsoler.costcontroler.domain.contracts.CostRepository
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate

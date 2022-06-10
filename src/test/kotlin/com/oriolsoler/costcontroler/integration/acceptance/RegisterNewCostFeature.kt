@@ -1,6 +1,6 @@
 package com.oriolsoler.costcontroler.integration.acceptance
 
-import com.oriolsoler.costcontroler.domain.contracts.Description
+import com.oriolsoler.costcontroler.domain.Description
 import com.oriolsoler.costcontroler.integration.helper.IntegrationTest
 import com.oriolsoler.costcontroler.integration.helper.repository.CostRepositoryForTest
 import io.restassured.http.ContentType.JSON
