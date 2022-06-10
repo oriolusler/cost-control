@@ -2,7 +2,7 @@ package com.oriolsoler.costcontroler.integration
 
 import com.oriolsoler.costcontroler.integration.acceptance.ApplicationTestCase
 import com.oriolsoler.costcontroler.integration.acceptance.RegisterNewCostFeature
-import com.oriolsoler.costcontroler.integration.helper.DockerComposeHelper
+import com.oriolsoler.costcontroler.integration.helper.docker.DockerComposeHelper
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Nested
 import org.testcontainers.junit.jupiter.Container

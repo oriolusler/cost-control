@@ -1,4 +1,4 @@
-package com.oriolsoler.costcontroler.integration.helper
+package com.oriolsoler.costcontroler.integration.helper.docker
 
 
 import org.testcontainers.containers.DockerComposeContainer
@@ -12,18 +12,16 @@ class DockerComposeHelper {
 
     companion object {
 
-        /* SET HERE YOUR SERVICE
-        private const val SERVICE = "service"
-        private const val SERVICE_PORT = 1234
-        */
+        private const val POSTGRES = "postgres"
+        private const val POSTGRES_PORT = 5432
 
         fun create(): DockerComposeContainer<*> {
             return DockerComposeContainer<Nothing>(File("docker-compose.yml"))
-            /*  .apply { withLocalCompose(true) }
+                .apply { withLocalCompose(true) }
                 .apply {
                     withExposedService(
-                        SERVICE,
-                        SERVICE_PORT,
+                        POSTGRES,
+                        POSTGRES_PORT,
                         WaitAllStrategy(WaitAllStrategy.Mode.WITH_INDIVIDUAL_TIMEOUTS_ONLY)
                             .apply { withStrategy(forListeningPort()) }
                             .apply {
@@ -35,14 +33,14 @@ class DockerComposeHelper {
                                 )
                             }
                     )
-                }*/
+                }
         }
 
         fun setSystemProperties(container: DockerComposeContainer<*>) {
-            /*val postgresHost = container.getServiceHost(SERVICE, SERVICE_PORT)
-            val postgresPort = container.getServicePort(SERVICE, SERVICE_PORT)
+            val postgresHost = container.getServiceHost(POSTGRES, POSTGRES_PORT)
+            val postgresPort = container.getServicePort(POSTGRES, POSTGRES_PORT)
             setProperty("database.host", postgresHost)
-            setProperty("database.port", postgresPort.toString())*/
+            setProperty("database.port", postgresPort.toString())
         }
     }
 }

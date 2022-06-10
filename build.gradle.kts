@@ -28,6 +28,7 @@ dependencies {
     // Database
     implementation("org.springframework.boot:spring-boot-starter-jdbc")
     implementation("org.postgresql:postgresql:42.3.4")
+    implementation("org.flywaydb:flyway-core:8.5.10")
 
     // Test
     testImplementation("org.springframework.boot:spring-boot-starter-test:2.6.1")
