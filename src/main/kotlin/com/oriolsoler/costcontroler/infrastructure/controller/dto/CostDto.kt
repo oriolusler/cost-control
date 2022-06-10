@@ -2,6 +2,7 @@ package com.oriolsoler.costcontroler.infrastructure.controller.dto
 
 import com.fasterxml.jackson.annotation.JsonFormat
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.oriolsoler.costcontroler.application.registerCost.RegisterCostCommand
 import java.time.LocalDate
 
 data class CostDto(
@@ -12,3 +13,5 @@ data class CostDto(
     @JsonProperty("comment") val comment: String,
     @JsonProperty("amount") val amount: Double
 )
+
+fun CostDto.toCommand() = RegisterCostCommand(date, description, category, subcategory, comment, amount)
