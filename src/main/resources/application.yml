@@ -13,3 +13,6 @@ database:
   name: "costcontrol"
   username: "root"
   password: "safe_password"
+
+server:
+  port: 5000
