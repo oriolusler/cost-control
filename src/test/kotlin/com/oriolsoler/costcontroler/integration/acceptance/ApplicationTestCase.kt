@@ -33,4 +33,16 @@ abstract class ApplicationTestCase : IntegrationTest() {
             .assertThat(status().isOk)
             .body("status", equalTo("UP"))
     }
+
+
+
+    @Test
+    fun `should say hello world`() {
+        given()
+            .`when`()
+            .get("/")
+            .then()
+            .assertThat(status().isOk)
+            .body(equalTo("Hello world! This is osoler"))
+    }
 }
