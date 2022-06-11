@@ -1,4 +1,4 @@
-name: Execute application tests
+name: CI/CD
 
 on:
   push:
@@ -21,13 +21,14 @@ jobs:
         distribution: 'temurin'
     - name: Check with Gradle
       run: gradle clean build
-      
-    - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@v1
+
+    - name: Deploy to EB
+      uses: einaregilsson/beanstalk-deploy@v20
       with:
-        aws-access-key-id: ${{ secrets.ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.SECRET_ACCESS_KEY }}
-        aws-region: "us-west-1"
-    
-    - name: Upload package to S3 bucket
-      run: aws s3 cp build/libs/cost-controler-0.0.1-SNAPSHOT.jar s3://costcontrolapplication/
+        aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        application_name: CostControllerApplication
+        environment_name: Costcontrollerapplication-env
+        version_label: 12345
+        region: eu-west-1
+        deployment_package: build/libs/cost-controler-0.0.1-SNAPSHOT.jar
