@@ -1,18 +1,11 @@
 spring:
   datasource:
-    url: "jdbc:postgresql://${database.host}:${database.port}/${database.name}"
-    username: "${database.username}"
-    password: "${database.password}"
+    url: "jdbc:postgresql://${DB_HOST}:${DB_PORT}/"
+    username: "${DB_USER}"
+    password: "${DB_PWD}"
     driver-class-name: "org.postgresql.Driver"
   flyway:
     enabled: true
-
-database:
-  host: "localhost"
-  port: 5432
-  name: "costcontrol"
-  username: "root"
-  password: "safe_password"
 
 server:
   port: 5000

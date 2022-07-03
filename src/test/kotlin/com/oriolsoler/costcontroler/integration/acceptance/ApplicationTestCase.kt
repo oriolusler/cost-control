@@ -21,7 +21,7 @@ abstract class ApplicationTestCase : IntegrationTest() {
 
         val actual = jdbcTemplate.queryForObject("SELECT version()", String::class.java)
 
-        Assertions.assertThat(actual).startsWith("PostgreSQL 14.2")
+        Assertions.assertThat(actual).startsWith("PostgreSQL 13.4")
     }
 
     @Test
