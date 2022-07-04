@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Form</h1>
+<form action="#" th:action="@{/register}" th:object="${cost}" method="post">
+    <p>Date:
+        <label>
+            <input type="date" th:field="*{date}"/>
+        </label>
+    </p>
+    <p>Description: <input type="text" th:field="*{description}"/></p>
+    <p>Category: <input type="text" th:field="*{category}"/></p>
+    <p>Subcategory: <input type="text" th:field="*{subcategory}"/></p>
+    <p>Comment: <input type="text" th:field="*{comment}"/></p>
+    <p>Amoufnt: <input type="number" step="any" th:field="*{amount}"/></p>
+    <p><input type="submit" value="Submit"/> <input type="reset" value="Reset"/></p>
+</form>
+</body>
+</html>
