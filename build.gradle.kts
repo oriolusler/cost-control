@@ -30,6 +30,9 @@ dependencies {
     implementation("org.postgresql:postgresql:42.3.4")
     implementation("org.flywaydb:flyway-core:8.5.10")
 
+    // Thymeleaf
+    implementation("org.springframework.boot:spring-boot-starter-thymeleaf:2.7.1")
+
     // Test
     testImplementation("org.springframework.boot:spring-boot-starter-test:2.6.1")
     testImplementation("io.rest-assured:spring-mock-mvc:4.4.0")
