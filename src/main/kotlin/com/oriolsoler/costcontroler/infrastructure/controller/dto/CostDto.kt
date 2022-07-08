@@ -29,3 +29,4 @@ data class CostDto(
 
 fun CostDto.toCommand() = RegisterCostCommand(date, description, category, subcategory, comment, amount)
 fun CostDto.toCost() = Cost(date, Description(description), category, subcategory, comment, amount)
+fun Cost.toDto() = CostDto(date, description.value, category, subcategory, comment, amount)

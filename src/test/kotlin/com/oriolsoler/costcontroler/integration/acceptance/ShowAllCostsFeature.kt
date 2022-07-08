@@ -1,5 +1,6 @@
 package com.oriolsoler.costcontroler.integration.acceptance
 
+import com.oriolsoler.costcontroler.infrastructure.controller.dto.toDto
 import com.oriolsoler.costcontroler.integration.helper.IntegrationTest
 import io.restassured.module.mockmvc.RestAssuredMockMvc.given
 import org.hamcrest.Matchers.hasItem
@@ -16,7 +17,7 @@ abstract class ShowAllCostsFeature : IntegrationTest() {
             .get("/show")
             .then()
             .expect(model().attributeExists("costs"))
-            .expect(model().attribute("costs", hasItem(cost1)))
-            .expect(model().attribute("costs", hasItem(cost2)))
+            .expect(model().attribute("costs", hasItem(cost1.toDto())))
+            .expect(model().attribute("costs", hasItem(cost2.toDto())))
     }
 }
