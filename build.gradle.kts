@@ -35,10 +35,8 @@ dependencies {
 
     // Test
     testImplementation("org.springframework.boot:spring-boot-starter-test:2.6.1")
-    testImplementation("io.rest-assured:spring-mock-mvc:4.4.0")
     testImplementation("org.testcontainers:junit-jupiter:1.16.2")
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
-    testImplementation("com.github.tomakehurst:wiremock:2.27.2")
 
     // Kotlin test
     testImplementation("org.jetbrains.kotlin:kotlin-test:1.6.0")

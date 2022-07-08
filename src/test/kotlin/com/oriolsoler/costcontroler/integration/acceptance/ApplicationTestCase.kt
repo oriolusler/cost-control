@@ -1,14 +1,16 @@
 package com.oriolsoler.costcontroler.integration.acceptance
 
 import com.oriolsoler.costcontroler.integration.helper.IntegrationTest
-import io.restassured.module.mockmvc.RestAssuredMockMvc.given
-import org.assertj.core.api.Assertions
-import org.hamcrest.Matchers.equalTo
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.jdbc.core.JdbcTemplate
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import javax.sql.DataSource
+import org.hamcrest.Matchers.`is` as hIs
 
 abstract class ApplicationTestCase : IntegrationTest() {
 
@@ -21,28 +23,21 @@ abstract class ApplicationTestCase : IntegrationTest() {
 
         val actual = jdbcTemplate.queryForObject("SELECT version()", String::class.java)
 
-        Assertions.assertThat(actual).startsWith("PostgreSQL 13.4")
+        assertThat(actual).startsWith("PostgreSQL 13.4")
     }
 
     @Test
     fun `should be alive`() {
-        given()
-            .`when`()
-            .get("/actuator/health")
-            .then()
-            .assertThat(status().isOk)
-            .body("status", equalTo("UP"))
+        mvc.perform(get("/actuator/health"))
+            .andExpect(status().isOk)
+            .andExpect(jsonPath("status", hIs("UP")))
     }
-
 
 
     @Test
     fun `should say hello world`() {
-        given()
-            .`when`()
-            .get("/")
-            .then()
-            .assertThat(status().isOk)
-            .body(equalTo("Hello world! This is osoler"))
+        mvc.perform(get("/"))
+            .andExpect(status().isOk)
+            .andExpect(content().string("Hello world! This is osoler"))
     }
 }
