@@ -18,6 +18,12 @@ class CostRepositoryForTest(private val namedParameterJdbcTemplate: NamedParamet
         return namedParameterJdbcTemplate.query(sql, params, mapTo()).firstOrNull()
     }
 
+    fun truncate() {
+        val sql = "TRUNCATE COST"
+        val params = MapSqlParameterSource()
+        namedParameterJdbcTemplate.update(sql, params)
+    }
+
     private fun mapTo() = RowMapper { rs: ResultSet, _: Int ->
         Cost(
             rs.getDate("date").toLocalDate(),
