@@ -33,6 +33,10 @@ dependencies {
     // Thymeleaf
     implementation("org.springframework.boot:spring-boot-starter-thymeleaf:2.7.1")
 
+    //Security
+    implementation("org.springframework.boot:spring-boot-starter-security")
+    testImplementation("org.springframework.security:spring-security-test")
+
     // Test
     testImplementation("org.springframework.boot:spring-boot-starter-test:2.6.1")
     testImplementation("org.testcontainers:junit-jupiter:1.16.2")

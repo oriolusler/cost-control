@@ -5,6 +5,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.jdbc.core.JdbcTemplate
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
@@ -39,5 +40,21 @@ abstract class ApplicationTestCase : IntegrationTest() {
         mvc.perform(get("/"))
             .andExpect(status().isOk)
             .andExpect(content().string("Hello world! This is osoler"))
+    }
+
+    @Test
+    fun `should say greetings to authorized user`() {
+        mvc.perform(
+            get("/greeting")
+                .with(user("Oriol"))
+        )
+            .andExpect(status().isOk)
+            .andExpect(content().string("Hello, Oriol"))
+    }
+
+    @Test
+    fun `should unauthorized greetings to unknown user`() {
+        mvc.perform(get("/greeting"))
+            .andExpect(status().isUnauthorized)
     }
 }
