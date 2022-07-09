@@ -1,6 +1,7 @@
 package com.oriolsoler.costcontroler.integration
 
 import com.oriolsoler.costcontroler.integration.acceptance.ApplicationTestCase
+import com.oriolsoler.costcontroler.integration.acceptance.LoginFeature
 import com.oriolsoler.costcontroler.integration.acceptance.RegisterNewCostFeature
 import com.oriolsoler.costcontroler.integration.acceptance.ShowAllCostsFeature
 import com.oriolsoler.costcontroler.integration.helper.docker.DockerComposeHelper
@@ -32,4 +33,7 @@ class ApplicationIntegrationTest {
 
     @Nested
     inner class ShowAllCostsFeatureNested : ShowAllCostsFeature()
+
+    @Nested
+    inner class LoginFeatureNested : LoginFeature()
 }
