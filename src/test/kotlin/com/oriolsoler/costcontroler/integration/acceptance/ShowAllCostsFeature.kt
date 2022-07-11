@@ -4,6 +4,7 @@ import com.oriolsoler.costcontroler.infrastructure.controller.dto.toDto
 import com.oriolsoler.costcontroler.integration.helper.IntegrationTest
 import org.hamcrest.Matchers.hasItem
 import org.junit.jupiter.api.Test
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.model
 
@@ -13,7 +14,7 @@ abstract class ShowAllCostsFeature : IntegrationTest() {
         val cost1 = registerCost("Description cost 1", "Category1", "Subcategory1", "Comment1", 1.0)
         val cost2 = registerCost("Description cost 2", "Category2", "Subcategory2", "Comment2", 2.0)
 
-        mvc.perform(get("/show"))
+        mvc.perform(get("/show").with(user("Oriol")))
             .andExpect(model().attribute("costs", hasItem(cost1.toDto())))
             .andExpect(model().attribute("costs", hasItem(cost2.toDto())))
     }

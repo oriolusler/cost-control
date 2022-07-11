@@ -5,6 +5,7 @@ import com.oriolsoler.costcontroler.integration.helper.IntegrationTest
 import org.junit.jupiter.api.Test
 import org.springframework.http.MediaType.MULTIPART_FORM_DATA
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user
 import org.springframework.test.web.servlet.post
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import org.springframework.web.servlet.function.RequestPredicates.contentType
@@ -15,6 +16,7 @@ abstract class RegisterNewCostFeature : IntegrationTest() {
     @Test
     fun `should register new cost`() {
         mvc.post("/register") {
+            with(user("Oriol"))
             with(csrf())
             contentType(MULTIPART_FORM_DATA)
             param("date", "2022-02-01")

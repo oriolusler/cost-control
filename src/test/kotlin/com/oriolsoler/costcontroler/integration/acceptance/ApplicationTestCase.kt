@@ -8,7 +8,9 @@ import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import javax.sql.DataSource
 import org.hamcrest.Matchers.`is` as hIs
@@ -29,7 +31,7 @@ abstract class ApplicationTestCase : IntegrationTest() {
 
     @Test
     fun `should be alive`() {
-        mvc.perform(get("/actuator/health"))
+        mvc.perform(get("/actuator/health").with(user("user")))
             .andExpect(status().isOk)
             .andExpect(jsonPath("status", hIs("UP")))
     }
@@ -55,6 +57,7 @@ abstract class ApplicationTestCase : IntegrationTest() {
     @Test
     fun `should unauthorized greetings to unknown user`() {
         mvc.perform(get("/greeting"))
-            .andExpect(status().isUnauthorized)
+            .andExpect(status().isFound)
+            .andExpect(redirectedUrl("http://localhost/login"))
     }
 }
