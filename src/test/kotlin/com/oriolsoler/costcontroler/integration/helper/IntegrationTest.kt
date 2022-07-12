@@ -5,6 +5,7 @@ import com.oriolsoler.costcontroler.domain.Cost
 import com.oriolsoler.costcontroler.domain.Description
 import com.oriolsoler.costcontroler.domain.contracts.CostRepository
 import com.oriolsoler.costcontroler.integration.helper.repository.CostRepositoryForTest
+import com.oriolsoler.costcontroler.integration.helper.repository.UserRepositoryForTest
 import org.junit.jupiter.api.BeforeEach
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
@@ -36,6 +37,9 @@ class IntegrationTest {
 
     @Autowired
     lateinit var costRepositoryForTest: CostRepositoryForTest
+
+    @Autowired
+    lateinit var userRepositoryForTest: UserRepositoryForTest
 
     @Autowired
     lateinit var context: WebApplicationContext
