@@ -10,6 +10,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.model
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import javax.sql.DataSource
@@ -46,12 +47,9 @@ abstract class ApplicationTestCase : IntegrationTest() {
 
     @Test
     fun `should say greetings to authorized user`() {
-        mvc.perform(
-            get("/greeting")
-                .with(user("Oriol"))
-        )
+        mvc.perform(get("/greeting").with(user("Oriol")))
             .andExpect(status().isOk)
-            .andExpect(content().string("Hello, Oriol"))
+            .andExpect(model().attribute("username", "Oriol"))
     }
 
     @Test

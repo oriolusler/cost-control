@@ -1,11 +1,15 @@
 package com.oriolsoler.costcontroler.infrastructure.controller
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.stereotype.Controller
+import org.springframework.ui.Model
+import org.springframework.web.bind.annotation.RequestMapping
 
-@RestController
+@Controller
 class GreetingController {
-    @GetMapping("/greeting")
-    fun helloWord(@AuthenticationPrincipal(expression = "username") username: String) = "Hello, $username"
+    @RequestMapping("/greeting")
+    fun helloWord(@AuthenticationPrincipal(expression = "username") username: String,  model:Model): String {
+        model.addAttribute("username", username)
+        return "greeting"
+    }
 }
