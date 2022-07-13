@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute
 import org.springframework.web.bind.annotation.PostMapping
 
 @Controller
-class CostRegistrationController(private val regitserCostUseCase: RegisterCost) {
+class CostRegistrationController(private val registerCostUseCase: RegisterCost) {
 
     @GetMapping("/register")
     fun registerForm(model: Model): String {
@@ -20,7 +20,7 @@ class CostRegistrationController(private val regitserCostUseCase: RegisterCost) 
 
     @PostMapping("/register")
     fun registerNewCost(@ModelAttribute cost: CostDto, model: Model): String {
-        regitserCostUseCase.execute(cost.toCommand())
+        registerCostUseCase.execute(cost.toCommand())
         return "redirect:/show"
     }
 }

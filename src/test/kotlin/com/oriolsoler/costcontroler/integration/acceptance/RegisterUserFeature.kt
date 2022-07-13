@@ -4,12 +4,18 @@ import com.oriolsoler.costcontroler.integration.helper.IntegrationTest
 import org.junit.jupiter.api.Test
 import org.springframework.http.MediaType.MULTIPART_FORM_DATA
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf
+import org.springframework.test.web.servlet.get
 import org.springframework.test.web.servlet.post
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import org.springframework.web.servlet.function.RequestPredicates.contentType
 import kotlin.test.assertNotNull
 
 abstract class RegisterUserFeature : IntegrationTest() {
+
+    @Test
+    fun `should get user registration page`(){
+        mvc.get("/user/registration").andExpect { status().isOk }
+    }
 
     @Test
     fun `should register new user`() {
