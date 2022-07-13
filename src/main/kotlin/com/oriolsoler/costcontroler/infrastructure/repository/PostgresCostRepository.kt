@@ -27,11 +27,14 @@ class PostgresCostRepository(private val namedParameterJdbcTemplate: NamedParame
         namedParameterJdbcTemplate.update(sql, params)
     }
 
-    override fun find(): List<Cost> {
+    override fun findBy(username: String): List<Cost> {
         val sql = """
-            SELECT * FROM COST
+            SELECT * 
+            FROM COST
+            WHERE username = :username
             """.trimIndent()
         val params = MapSqlParameterSource()
+        params.addValue("username", username)
         return namedParameterJdbcTemplate.query(sql, params, mapTo())
     }
 

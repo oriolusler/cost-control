@@ -4,5 +4,5 @@ import com.oriolsoler.costcontroler.domain.Cost
 
 interface CostRepository {
     fun register(cost: Cost)
-    fun find(): List<Cost>
+    fun findBy(username: String): List<Cost>
 }

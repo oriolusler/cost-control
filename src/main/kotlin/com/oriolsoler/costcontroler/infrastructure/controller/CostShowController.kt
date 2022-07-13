@@ -1,18 +1,18 @@
 package com.oriolsoler.costcontroler.infrastructure.controller
 
+import com.oriolsoler.costcontroler.application.showCosts.ShowCostCommand
 import com.oriolsoler.costcontroler.application.showCosts.ShowCosts
-import com.oriolsoler.costcontroler.domain.Cost
-import com.oriolsoler.costcontroler.domain.Description
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
-import java.time.LocalDate
+import java.security.Principal
 
 @Controller
 class CostShowController(private val showCostsUseCase: ShowCosts) {
     @GetMapping("/show")
-    fun registerForm(model: Model): String {
-        val costs = showCostsUseCase.execute()
+    fun registerForm(model: Model, principal: Principal): String {
+        val showCostCommand = ShowCostCommand(principal.name)
+        val costs = showCostsUseCase.execute(showCostCommand)
         model.addAttribute("costs", costs)
         return "cost/show"
     }

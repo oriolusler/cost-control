@@ -4,6 +4,7 @@ import com.nhaarman.mockito_kotlin.given
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.willReturn
+import com.oriolsoler.costcontroler.application.showCosts.ShowCostCommand
 import com.oriolsoler.costcontroler.application.showCosts.ShowCosts
 import com.oriolsoler.costcontroler.domain.Cost
 import com.oriolsoler.costcontroler.domain.Description
@@ -16,7 +17,8 @@ class ShowCostsShould {
     @Test
     fun `should show costs`() {
         val costRepository = mock<CostRepository>()
-        given { costRepository.find() } willReturn {
+        val showCostCommand = ShowCostCommand("Oriol")
+        given { costRepository.findBy(showCostCommand.username) } willReturn {
             listOf(
                 Cost(
                     now(),
@@ -32,9 +34,9 @@ class ShowCostsShould {
 
         val showCostsUseCase = ShowCosts(costRepository)
 
-        val result = showCostsUseCase.execute()
+        val result = showCostsUseCase.execute(showCostCommand)
         assertEquals(1, result.size)
 
-        verify(costRepository).find()
+        verify(costRepository).findBy(showCostCommand.username)
     }
 }
