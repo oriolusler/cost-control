@@ -3,7 +3,6 @@ package com.oriolsoler.costcontroler.infrastructure.controller.dto
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.oriolsoler.costcontroler.application.registerCost.RegisterCostCommand
 import com.oriolsoler.costcontroler.domain.Cost
-import com.oriolsoler.costcontroler.domain.Description
 import org.springframework.format.annotation.DateTimeFormat
 import org.springframework.format.annotation.DateTimeFormat.ISO.DATE
 import java.time.LocalDate
@@ -27,6 +26,7 @@ data class CostDto(
     )
 }
 
-fun CostDto.toCommand() = RegisterCostCommand(date, description, category, subcategory, comment, amount)
-fun CostDto.toCost() = Cost(date, Description(description), category, subcategory, comment, amount)
+fun CostDto.toCommandWith(username: String) =
+    RegisterCostCommand(date, description, category, subcategory, comment, amount, username)
+
 fun Cost.toDto() = CostDto(date, description.value, category, subcategory, comment, amount)

@@ -11,7 +11,6 @@ import com.oriolsoler.costcontroler.domain.contracts.CostRepository
 import org.junit.jupiter.api.Test
 import java.time.LocalDate.now
 import kotlin.test.assertEquals
-import kotlin.test.assertTrue
 
 class ShowCostsShould {
     @Test
@@ -25,7 +24,8 @@ class ShowCostsShould {
                     "Category",
                     "Subcategory",
                     "Comment",
-                    1.0
+                    1.0,
+                    "Oriol"
                 )
             )
         }

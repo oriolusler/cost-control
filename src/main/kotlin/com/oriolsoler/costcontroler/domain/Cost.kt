@@ -8,7 +8,8 @@ data class Cost(
     val category: String,
     val subcategory: String,
     val comment: String,
-    val amount: Double
+    val amount: Double,
+    val username: String
 )
 
 data class Description(val value: String)

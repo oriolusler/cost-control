@@ -10,7 +10,8 @@ data class RegisterCostCommand(
     val category: String,
     val subcategory: String,
     val comment: String,
-    val amount: Double
+    val amount: Double,
+    val username: String
 )
 
-fun RegisterCostCommand.toCost() = Cost(date, Description(description), category, subcategory, comment, amount)
+fun RegisterCostCommand.toCost() = Cost(date, Description(description), category, subcategory, comment, amount, username)

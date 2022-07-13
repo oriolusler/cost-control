@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.core.env.Environment
-import org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers
 import org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.setup.DefaultMockMvcBuilder
@@ -58,10 +57,11 @@ class IntegrationTest {
         category: String,
         subcategory: String,
         comment: String,
-        amount: Double
+        amount: Double,
+        user: String
     ): Cost {
         val desc = Description(description)
-        val cost = Cost(LocalDate.now(), desc, category, subcategory, comment, amount)
+        val cost = Cost(LocalDate.now(), desc, category, subcategory, comment, amount, user)
         costRepository.register(cost)
         return cost
     }

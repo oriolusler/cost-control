@@ -11,8 +11,8 @@ import java.sql.ResultSet
 class PostgresCostRepository(private val namedParameterJdbcTemplate: NamedParameterJdbcTemplate) : CostRepository {
     override fun register(cost: Cost) {
         val sql = """
-            |INSERT INTO cost (date, description, category, subcategory, comment, amount)
-            |VALUES (:date, :description, :category, :subcategory, :comment, :amount)
+            |INSERT INTO cost (date, description, category, subcategory, comment, amount, username)
+            |VALUES (:date, :description, :category, :subcategory, :comment, :amount, :username)
         """.trimMargin()
 
         val params = MapSqlParameterSource()
@@ -22,6 +22,7 @@ class PostgresCostRepository(private val namedParameterJdbcTemplate: NamedParame
         params.addValue("subcategory", cost.subcategory)
         params.addValue("comment", cost.comment)
         params.addValue("amount", cost.amount)
+        params.addValue("username", cost.username)
 
         namedParameterJdbcTemplate.update(sql, params)
     }
@@ -41,7 +42,8 @@ class PostgresCostRepository(private val namedParameterJdbcTemplate: NamedParame
             rs.getString("category"),
             rs.getString("subcategory"),
             rs.getString("comment"),
-            rs.getDouble("amount")
+            rs.getDouble("amount"),
+            rs.getString("username")
         )
     }
 }

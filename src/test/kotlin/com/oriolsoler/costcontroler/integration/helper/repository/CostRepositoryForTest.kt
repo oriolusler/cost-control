@@ -31,7 +31,8 @@ class CostRepositoryForTest(private val namedParameterJdbcTemplate: NamedParamet
             rs.getString("category"),
             rs.getString("subcategory"),
             rs.getString("comment"),
-            rs.getDouble("amount")
+            rs.getDouble("amount"),
+            rs.getString("username"),
         )
     }
 }

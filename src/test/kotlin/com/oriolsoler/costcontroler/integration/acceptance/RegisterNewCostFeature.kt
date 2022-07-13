@@ -12,6 +12,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import org.springframework.web.servlet.function.RequestPredicates.contentType
+import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 
 abstract class RegisterNewCostFeature : IntegrationTest() {
@@ -35,7 +36,9 @@ abstract class RegisterNewCostFeature : IntegrationTest() {
             param("amount", "15.99")
         }.andExpect { status().isFound }
 
-        assertNotNull(costRepositoryForTest.findBy(Description("Spotify subscription")))
+        val actual = costRepositoryForTest.findBy(Description("Spotify subscription"))
+        assertNotNull(actual)
+        assertEquals("Oriol", actual.username)
     }
 
     @Test

@@ -19,7 +19,8 @@ class RegisterCostShould {
             "Online services",
             "Television",
             "Monthly subscription",
-            12.99
+            12.99,
+            "Oriol"
         )
 
         val registerCostUseCase = RegisterCost(costRepository)
