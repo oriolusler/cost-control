@@ -6,6 +6,7 @@ import org.hamcrest.Matchers.hasItem
 import org.junit.jupiter.api.Test
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.model
 
 abstract class ShowAllCostsFeature : IntegrationTest() {
@@ -17,5 +18,12 @@ abstract class ShowAllCostsFeature : IntegrationTest() {
         mvc.perform(get("/show").with(user("Oriol")))
             .andExpect(model().attribute("costs", hasItem(cost1.toDto())))
             .andExpect(model().attribute("costs", hasItem(cost2.toDto())))
+    }
+
+    @Test
+    fun `should unauthorized cost show to unknown user`() {
+        mvc.perform(get("/show"))
+            .andExpect(MockMvcResultMatchers.status().isFound)
+            .andExpect(MockMvcResultMatchers.redirectedUrl("http://localhost/login"))
     }
 }

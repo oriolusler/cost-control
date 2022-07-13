@@ -8,6 +8,8 @@ import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequ
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user
 import org.springframework.test.web.servlet.get
 import org.springframework.test.web.servlet.post
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import org.springframework.web.servlet.function.RequestPredicates.contentType
 import kotlin.test.assertNotNull
@@ -34,5 +36,12 @@ abstract class RegisterNewCostFeature : IntegrationTest() {
         }.andExpect { status().isFound }
 
         assertNotNull(costRepositoryForTest.findBy(Description("Spotify subscription")))
+    }
+
+    @Test
+    fun `should unauthorized cost registration to unknown user`() {
+        mvc.perform(MockMvcRequestBuilders.get("/register"))
+            .andExpect(status().isFound)
+            .andExpect(MockMvcResultMatchers.redirectedUrl("http://localhost/login"))
     }
 }
