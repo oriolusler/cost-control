@@ -3,19 +3,47 @@
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <title>Spring Security Example </title>
+
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 </head>
-<body>
-<div th:if="${param.error}">
-    Invalid username and password.
-</div>
-<div th:if="${param.logout}">
-    You have been logged out.
-</div>
-<form th:action="@{/login}" method="post">
-    <h1>Login</h1>
-    <div><label> User Name : <input type="text" name="username"/> </label></div>
-    <div><label> Password: <input type="password" name="password"/> </label></div>
-    <div><input type="submit" value="Sign In"/></div>
-</form>
+<body style="background-color: #becbb4;">
+
+<section>
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                    <div class="card-body p-5">
+                        <form th:action="@{/login}" method="post">
+                            <h3 class="mb-5 text-center">Sign in</h3>
+
+                            <div class="form-outline mb-4">
+                                <input type="text" id="usernameEmail" class="form-control form-control-lg"
+                                       placeholder="Introduce your username" name="username"/>
+                            </div>
+                            <div class="form-outline mb-4">
+                                <input type="password" id="loginPassword" class="form-control form-control-lg"
+                                       placeholder="Introduce your password" name="password"/>
+                            </div>
+                            <button class="btn btn-primary btn-lg btn-block" type="submit">Login</button>
+                        </form>
+                        <div style="color: red">
+                            <div th:if="${param.error}">
+                                Invalid username and password.
+                            </div>
+                            <div th:if="${param.logout}">
+                                You have been logged out.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
 </body>
 </html>
