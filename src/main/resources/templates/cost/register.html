@@ -1,23 +1,65 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Spring Security Example </title>
+
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 </head>
-<body>
-<h1>Form</h1>
-<form action="#" th:action="@{/register}" th:object="${cost}" method="post">
-    <p>Date:
-        <label>
-            <input type="date" th:field="*{date}"/>
-        </label>
-    </p>
-    <p>Description: <input type="text" th:field="*{description}"/></p>
-    <p>Category: <input type="text" th:field="*{category}"/></p>
-    <p>Subcategory: <input type="text" th:field="*{subcategory}"/></p>
-    <p>Comment: <input type="text" th:field="*{comment}"/></p>
-    <p>Amoufnt: <input type="number" step="any" th:field="*{amount}"/></p>
-    <p><input type="submit" value="Submit"/> <input type="reset" value="Reset"/></p>
-</form>
+<body style="background-color: #becbb4;">
+
+<section>
+    <div class="container py-5">
+        <div class="">
+            <div class="col-12">
+                <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                    <div class="card-body p-5">
+                        <form action="#" th:action="@{/register}" th:object="${cost}" method="post">
+                            <h3 class="mb-5 text-center">Register in</h3>
+                            <div class="form-outline mb-4">
+                                <input type="date" id="dateCostRegister" class="form-control form-control-lg"
+                                       placeholder="Select a day" th:field="*{date}"/>
+                            </div>
+                            <div class="form-outline mb-4">
+                                <input type="text" id="descriptionCostRegister" class="form-control form-control-lg"
+                                       placeholder="Write a description" th:field="*{description}"/>
+                            </div>
+                            <div class="form-outline mb-4">
+                                <input type="text" id="categoryCostRegister" class="form-control form-control-lg"
+                                       placeholder="Select a category" th:field="*{category}"/>
+                            </div>
+                            <div class="form-outline mb-4">
+                                <input type="text" id="subcategoryCostRegister" class="form-control form-control-lg"
+                                       placeholder="Select a subcategory" th:field="*{subcategory}"/>
+                            </div>
+                            <div class="form-outline mb-4">
+                                <input type="text" id="commentCostRegister" class="form-control form-control-lg"
+                                       placeholder="Write a comment" th:field="*{comment}"/>
+                            </div>
+                            <div class="form-outline mb-4">
+                                <input type="text" id="amountCostRegister" class="form-control form-control-lg"
+                                       placeholder="Introduce the amount" th:field="*{amount}"/>
+                            </div>
+
+                            <div class="d-flex justify-content-center">
+                                <p>
+                                    <button class="btn btn-primary btn-lg" type="submit" value="Submit">Register
+                                    </button>
+                                    <button class="btn btn-warning btn-lg" type="reset" value="reset">Clean form
+                                    </button>
+                                </p>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
 </body>
 </html>
