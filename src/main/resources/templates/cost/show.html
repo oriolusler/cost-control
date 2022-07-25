@@ -1,19 +1,58 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Spring Security Example </title>
+
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <style>
+        @media (min-width: 1200px) {
+            .container {
+                max-width: 2200px !important;
+            }
+        }
+    </style>
 </head>
-<body>
-<table>
-    <th:block th:each="cost : ${costs}">
-        <tr>
-            <td th:text="${cost.date}"></td>
-            <td th:text="${cost.description}"></td>
-            <td th:text="${cost.category}"></td>
-            <td th:text="${cost.subcategory}"></td>
-        </tr>
-    </th:block>
-</table>
+<body style="background-color: #becbb4;">
+
+<section>
+    <div class="container py-5">
+        <div class="">
+            <div class="col-12">
+                <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                    <div class="card-body p-5">
+                        <table class="table table-responsive table-hover">
+                            <thead>
+                            <tr>
+                                <th scope="col">Date</th>
+                                <th scope="col">Amount</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Category</th>
+                                <th scope="col">Subcategory</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <th:block th:each="cost : ${costs}">
+                                <tr>
+                                    <td th:text="${cost.date}"></td>
+                                    <td th:text="${cost.amount}"></td>
+                                    <td th:text="${cost.description}"></td>
+                                    <td th:text="${cost.category}"></td>
+                                    <td th:text="${cost.subcategory}"></td>
+                                </tr>
+                            </th:block>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 </body>
 </html>
+
+
