@@ -28,4 +28,15 @@ class PostgresUserRepository(private val namedParameterJdbcTemplate: NamedParame
         namedParameterJdbcTemplate.update(userSql, userParams)
         namedParameterJdbcTemplate.update(authoritySql, authorityParams)
     }
+
+    override fun exists(username: String): Boolean {
+        val existsSql = """
+            SELECT EXISTS(SELECT 1 FROM USERS WHERE username=:username)
+        """.trimIndent()
+
+        val existsParams = MapSqlParameterSource()
+        existsParams.addValue("username", username)
+
+        return namedParameterJdbcTemplate.queryForObject(existsSql, existsParams, Boolean::class.java) == true
+    }
 }

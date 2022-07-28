@@ -22,4 +22,14 @@ class UserRepositoryForTest(private val namedParameterJdbcTemplate: NamedParamet
             rs.getString("password")
         )
     }
+
+    fun create(username: String) {
+        val sql = "INSERT INTO USERS (username, password) VALUES (:username, :password)"
+
+        val params = MapSqlParameterSource()
+        params.addValue("username", username)
+        params.addValue("password", "12345")
+
+        namedParameterJdbcTemplate.update(sql, params)
+    }
 }
