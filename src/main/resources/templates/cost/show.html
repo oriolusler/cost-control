@@ -4,9 +4,16 @@
 <head>
     <title>Spring Security Example </title>
 
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!--Links to boostrap-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!--Links to table data-->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
+    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
 
     <style>
         @media (min-width: 1200px) {
@@ -24,12 +31,12 @@
             <div class="col-12">
                 <div class="card shadow-2-strong" style="border-radius: 1rem;">
                     <div class="card-body p-5">
-                        <table class="table table-responsive table-hover">
+                        <table class="table table-responsive table-hover" id="showTableId">
                             <thead>
                             <tr>
                                 <th style="width: 15%" scope="col">Date</th>
-                                <th style="width: 5%" scope="col">Amount</th>
-                                <th style="width: 50%" scope="col">Description</th>
+                                <th style="width: 10%" scope="col">Amount</th>
+                                <th style="width: 45%" scope="col">Description</th>
                                 <th style="width: 15%" scope="col">Category</th>
                                 <th style="width: 15%" scope="col">Subcategory</th>
                             </tr>
@@ -53,6 +60,9 @@
     </div>
 </section>
 </body>
+<script>
+    $('#showTableId').DataTable();
+</script>
 </html>
 
 
