@@ -9,7 +9,6 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
     <link rel="stylesheet" th:href="@{/css/styles.css}"/>
-
 </head>
 <body class="main">
 <section>
@@ -29,12 +28,21 @@
                                        placeholder="Write a description" th:field="*{description}"/>
                             </div>
                             <div class="form-outline mb-4">
-                                <input type="text" id="categoryCostRegister" class="form-control form-control-lg"
-                                       placeholder="Select a category" th:field="*{category}"/>
+                                <select id="categoryCostRegister"
+                                        class="form-control form-control-lg"
+                                        th:field="*{category}">
+                                    <option value="" disabled selected>Select a category</option>
+                                    <option th:each="category : ${categoriesMap.keySet()}"
+                                            th:value="${category}"
+                                            th:text="${category}"></option>
+                                </select>
                             </div>
                             <div class="form-outline mb-4">
-                                <input type="text" id="subcategoryCostRegister" class="form-control form-control-lg"
-                                       placeholder="Select a subcategory" th:field="*{subcategory}"/>
+                                <select id="subcategoryCostRegister"
+                                        class="form-control form-control-lg"
+                                        th:field="*{subcategory}">
+                                    <option value="" disabled selected>Select a subcategory</option>
+                                </select>
                             </div>
                             <div class="form-outline mb-4">
                                 <input type="text" id="commentCostRegister" class="form-control form-control-lg"
@@ -62,5 +70,9 @@
     </div>
 
 </section>
+<script th:inline="javascript">
+    const categoriesMap = [[${categoriesMap}]];
+</script>
+<script type="text/javascript" th:src="@{/js/register_cost.js}"></script>
 </body>
 </html>

@@ -60,7 +60,7 @@ data class Cost(
 
 data class Description(val value: String)
 
-enum class CostCategories(subtypes: List<CostSubCategorises>) {
+enum class CostCategories(val subtypes: List<CostSubCategorises>) {
     INCOME(listOf(PAYCHECK, RETURNED_PURCHASE, PAYBACK)),
     SHOPPING(listOf(CLOTHING, BOOKS, ELECTRONICS_AND_SOFTWARE, HOBBIES, SPORTING_GOODS, HOUSEHOLD_APPLIANCE, CLOTHES_AND_SHOES, FURNITURE_DECORATION, REPLACEMENT)),
     EDUCATION(listOf(BOOKS, EVENTS)),

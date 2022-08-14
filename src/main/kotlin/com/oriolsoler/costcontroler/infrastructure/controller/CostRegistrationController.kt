@@ -1,6 +1,7 @@
 package com.oriolsoler.costcontroler.infrastructure.controller
 
 import com.oriolsoler.costcontroler.application.registerCost.RegisterCost
+import com.oriolsoler.costcontroler.domain.CostCategories
 import com.oriolsoler.costcontroler.infrastructure.controller.dto.CostDto
 import com.oriolsoler.costcontroler.infrastructure.controller.dto.toCommandWith
 import org.springframework.stereotype.Controller
@@ -16,6 +17,8 @@ class CostRegistrationController(private val registerCostUseCase: RegisterCost) 
     @GetMapping("/register")
     fun registerForm(model: Model): String {
         model.addAttribute("cost", CostDto())
+        val map = CostCategories.values().associate { it.name to it.subtypes }
+        model.addAttribute("categoriesMap", map)
         return "cost/register"
     }
 
