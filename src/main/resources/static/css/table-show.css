@@ -1,3 +1,23 @@
+.date_cell{
+    width: 15%;
+}
+
+.amount_cell{
+    width: 10%;
+}
+
+.description_cell{
+    width: 45%;
+}
+
+.category_cell{
+    width: 25%;
+}
+
+.subcategory_cell{
+    width: 15%;
+}
+
 table.dataTable thead .sorting:after,
 table.dataTable thead .sorting:before,
 table.dataTable thead .sorting_asc:after,

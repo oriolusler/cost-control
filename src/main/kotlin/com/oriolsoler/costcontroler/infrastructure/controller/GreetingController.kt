@@ -10,6 +10,6 @@ class GreetingController {
     @RequestMapping("/greeting")
     fun helloWord(@AuthenticationPrincipal(expression = "username") username: String,  model:Model): String {
         model.addAttribute("username", username)
-        return "greeting"
+        return "cost/greeting"
     }
 }

@@ -22,7 +22,7 @@ class RegisterController(private val registerUser: RegisterUser) {
     fun showRegistrationForm(request: WebRequest?, model: Model): String? {
         val userDto = UserDto()
         model.addAttribute("user", userDto)
-        return "registration"
+        return "user/registration"
     }
 
     @PostMapping("/user/registration")
@@ -36,7 +36,7 @@ class RegisterController(private val registerUser: RegisterUser) {
     fun handleUsernameAlreadyUsedException(e: UsernameAlreadyUsedException): ModelAndView {
         val modelView = ModelAndView()
         val userDto = UserDto()
-        modelView.viewName = "registration"
+        modelView.viewName = "user/registration"
         modelView.addObject("user", userDto)
         modelView.addObject("error", e.message)
         return modelView

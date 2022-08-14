@@ -15,17 +15,11 @@
     <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
 
-    <link rel="stylesheet" th:href="@{/styles.css}"/>
-
-    <style>
-        @media (min-width: 1200px) {
-            .container {
-                max-width: 2200px !important;
-            }
-        }
-    </style>
+    <link rel="stylesheet" th:href="@{/css/styles.css}"/>
+    <link rel="stylesheet" th:href="@{/css/table-show.css}"/>
 </head>
-<body style="background-color: #becbb4;">
+
+<body class="main">
 <section>
     <div class="container py-5">
         <div class="">
@@ -37,11 +31,11 @@
                                data-search-highlight="true">
                             <thead>
                             <tr>
-                                <th style="width: 15%" scope="col">Date</th>
-                                <th style="width: 10%" scope="col">Amount</th>
-                                <th style="width: 45%" scope="col">Description</th>
-                                <th style="width: 25%" scope="col">Category</th>
-                                <th style="width: 15%" scope="col">Subcategory</th>
+                                <th class="date_cell" scope="col">Date</th>
+                                <th class="amount_cell" scope="col">Amount</th>
+                                <th class="description_cell" scope="col">Description</th>
+                                <th class="category_cell" scope="col">Category</th>
+                                <th class="subcategory_cell" scope="col">Subcategory</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -62,28 +56,8 @@
         </div>
     </div>
 </section>
+<script type="text/javascript" th:src="@{/js/show_table.js}"></script>
 </body>
-<script>
-    $(document).ready(function () {
-        $('#showTableId').DataTable({
-            "bInfo": false,
-            "pagingType": "full_numbers",
-            "bLengthChange": false,
-            "aaSorting": [],
-            columnDefs: [{
-                orderable: false,
-                targets: 2
-            }, {
-                orderable: false,
-                targets: 3
-            }, {
-                orderable: false,
-                targets: 4
-            }]
-        });
-        $('.dataTables_length').addClass('bs-select');
-    });
-</script>
 </html>
 
 
