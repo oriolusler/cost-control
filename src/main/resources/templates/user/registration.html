@@ -35,8 +35,14 @@
                                     <p th:text="${error}"></p>
                                 </div>
                             </div>
-                            <button class="btn btn-primary btn-lg btn-block" type="submit" value="Submit">Register
-                            </button>
+                            <div class="btn-group w-100">
+                                <div class="col-sm d-flex justify-content-center">
+                                    <button class="btn btn-primary btn-lg btn-block mr-1" type="submit" value="Submit">Register</button>
+                                    <a th:href="@{/login}">
+                                        <button type="button" class="btn btn-secondary btn-lg btn-block">Login</button>
+                                    </a>
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>
