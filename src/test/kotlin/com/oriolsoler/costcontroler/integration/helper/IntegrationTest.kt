@@ -58,10 +58,22 @@ class IntegrationTest {
         subcategory: String,
         comment: String,
         amount: Double,
-        user: String
+        user: String,
+        isPendingToPay: Boolean,
+        pendingToPayAmount: Double?
     ): Cost {
         val desc = Description(description)
-        val cost = Cost(LocalDate.now(), desc, category, subcategory, comment, amount, user)
+        val cost = Cost(
+            LocalDate.now(),
+            desc,
+            category,
+            subcategory,
+            comment,
+            amount,
+            user,
+            isPendingToPay,
+            pendingToPayAmount
+        )
         costRepository.register(cost)
         return cost
     }

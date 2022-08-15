@@ -11,7 +11,19 @@ data class RegisterCostCommand(
     val subcategory: String,
     val comment: String,
     val amount: Double,
-    val username: String
+    val username: String,
+    val isPendingToPay: Boolean,
+    val pendingToPayAmount: Double?
 )
 
-fun RegisterCostCommand.toCost() = Cost(date, Description(description), category, subcategory, comment, amount, username)
+fun RegisterCostCommand.toCost() = Cost(
+    date,
+    Description(description),
+    category,
+    subcategory,
+    comment,
+    amount,
+    username,
+    isPendingToPay,
+    pendingToPayAmount
+)

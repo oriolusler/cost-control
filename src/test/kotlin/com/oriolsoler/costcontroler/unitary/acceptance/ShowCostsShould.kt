@@ -27,7 +27,9 @@ class ShowCostsShould {
                     "Subcategory",
                     "Comment",
                     1.0,
-                    "Oriol"
+                    "Oriol",
+                    false,
+                    null
                 )
             )
         }

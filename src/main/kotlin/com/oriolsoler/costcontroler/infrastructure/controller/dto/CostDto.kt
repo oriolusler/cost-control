@@ -27,6 +27,6 @@ data class CostDto(
 }
 
 fun CostDto.toCommandWith(username: String) =
-    RegisterCostCommand(date, description, category, subcategory, comment, amount, username)
+    RegisterCostCommand(date, description, category, subcategory, comment, amount, username, false, null)
 
 fun Cost.toDto() = CostDto(date, description.value, category, subcategory, comment, amount)

@@ -46,6 +46,7 @@ import com.oriolsoler.costcontroler.domain.CostSubCategorises.STREAMING_SERVICES
 import com.oriolsoler.costcontroler.domain.CostSubCategorises.SUBSCRIPTIONS
 import com.oriolsoler.costcontroler.domain.CostSubCategorises.VIDEO_GAMES
 import com.oriolsoler.costcontroler.domain.CostSubCategorises.WATER
+import com.oriolsoler.costcontroler.domain.exceptions.InvalidPendingAmountException
 import java.time.LocalDate
 
 data class Cost(
@@ -55,14 +56,34 @@ data class Cost(
     val subcategory: String,
     val comment: String,
     val amount: Double,
-    val username: String
-)
+    val username: String,
+    val isPendingToPay: Boolean,
+    val pendingToPayAmount: Double?
+) {
+    init {
+        if (isPendingToPay && (pendingToPayAmount == null || pendingToPayAmount <= 0)) {
+            throw InvalidPendingAmountException()
+        }
+    }
+}
 
 data class Description(val value: String)
 
 enum class CostCategories(val subtypes: List<CostSubCategorises>) {
     INCOME(listOf(PAYCHECK, RETURNED_PURCHASE, PAYBACK)),
-    SHOPPING(listOf(CLOTHING, BOOKS, ELECTRONICS_AND_SOFTWARE, HOBBIES, SPORTING_GOODS, HOUSEHOLD_APPLIANCE, CLOTHES_AND_SHOES, FURNITURE_DECORATION, REPLACEMENT)),
+    SHOPPING(
+        listOf(
+            CLOTHING,
+            BOOKS,
+            ELECTRONICS_AND_SOFTWARE,
+            HOBBIES,
+            SPORTING_GOODS,
+            HOUSEHOLD_APPLIANCE,
+            CLOTHES_AND_SHOES,
+            FURNITURE_DECORATION,
+            REPLACEMENT
+        )
+    ),
     EDUCATION(listOf(BOOKS, EVENTS)),
     TRAVEL(listOf(AIR_TRAVEL, HOTEL, RENTAL_CAR_AND_TAXI)),
     TRANSPORT(listOf(GAS_FUEL, BIKE_RENT, MOTO_RENT, CAR_RENT, PARKING)),

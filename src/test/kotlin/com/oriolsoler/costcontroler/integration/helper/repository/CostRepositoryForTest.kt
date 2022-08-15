@@ -33,6 +33,8 @@ class CostRepositoryForTest(private val namedParameterJdbcTemplate: NamedParamet
             rs.getString("comment"),
             rs.getDouble("amount"),
             rs.getString("username"),
+            rs.getBoolean("is_pending_to_pay"),
+            rs.getDouble("pending_to_pay_amount")
         )
     }
 }
