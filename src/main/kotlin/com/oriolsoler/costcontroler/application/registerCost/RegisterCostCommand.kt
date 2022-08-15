@@ -2,6 +2,7 @@ package com.oriolsoler.costcontroler.application.registerCost
 
 import com.oriolsoler.costcontroler.domain.Cost
 import com.oriolsoler.costcontroler.domain.Description
+import java.math.BigDecimal
 import java.time.LocalDate
 
 data class RegisterCostCommand(
@@ -10,10 +11,10 @@ data class RegisterCostCommand(
     val category: String,
     val subcategory: String,
     val comment: String,
-    val amount: Double,
+    val amount: BigDecimal,
     val username: String,
     val isPendingToPay: Boolean,
-    val pendingToPayAmount: Double?
+    val pendingToPayAmount: BigDecimal?
 )
 
 fun RegisterCostCommand.toCost() = Cost(

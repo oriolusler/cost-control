@@ -47,6 +47,8 @@ import com.oriolsoler.costcontroler.domain.CostSubCategorises.SUBSCRIPTIONS
 import com.oriolsoler.costcontroler.domain.CostSubCategorises.VIDEO_GAMES
 import com.oriolsoler.costcontroler.domain.CostSubCategorises.WATER
 import com.oriolsoler.costcontroler.domain.exceptions.InvalidPendingAmountException
+import java.math.BigDecimal
+import java.math.BigDecimal.ZERO
 import java.time.LocalDate
 
 data class Cost(
@@ -55,13 +57,13 @@ data class Cost(
     val category: String,
     val subcategory: String,
     val comment: String,
-    val amount: Double,
+    val amount: BigDecimal,
     val username: String,
     val isPendingToPay: Boolean,
-    val pendingToPayAmount: Double?
+    val pendingToPayAmount: BigDecimal?
 ) {
     init {
-        if (isPendingToPay && (pendingToPayAmount == null || pendingToPayAmount <= 0)) {
+        if (isPendingToPay && (pendingToPayAmount == null || pendingToPayAmount <= ZERO)) {
             throw InvalidPendingAmountException()
         }
     }

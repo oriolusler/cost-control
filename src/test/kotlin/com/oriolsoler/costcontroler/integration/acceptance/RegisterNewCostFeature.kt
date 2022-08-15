@@ -34,6 +34,8 @@ abstract class RegisterNewCostFeature : IntegrationTest() {
             param("subcategory", "Music")
             param("comment", "Subscription for 5 persons")
             param("amount", "15.99")
+            param("isPendingToPay", "true")
+            param("pendingToPayAmount", "13.32")
         }.andExpect { status().isFound }
 
         val actual = costRepositoryForTest.findBy(Description("Spotify subscription"))

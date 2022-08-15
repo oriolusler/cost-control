@@ -13,13 +13,14 @@
 <body class="main">
 <div class="row">
     <div class="col"></div>
-    <div class="col-6">
+    <div class="col-8">
         <div class="container py-5">
             <div class="">
                 <div class="col-12">
                     <div class="card shadow-2-strong" style="border-radius: 1rem;">
                         <div class="card-body p-5">
-                            <form action="#" th:action="@{/register}" th:object="${cost}" method="post">
+                            <form action="#" th:action="@{/register}" th:object="${cost}" method="post"
+                                  id="costRegistrationId">
                                 <h3 class="mb-5 text-center">Register in</h3>
                                 <div class="form-outline mb-4">
                                     <input type="date" id="dateCostRegister" class="form-control form-control-lg"
@@ -53,6 +54,22 @@
                                 <div class="form-outline mb-4">
                                     <input type="text" id="amountCostRegister" class="form-control form-control-lg"
                                            placeholder="Introduce the amount" th:field="*{amount}"/>
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <label for="isPendingToPayCostRegister">Do you want share the price?
+                                        <input type="checkbox"
+                                               id="isPendingToPayCostRegister"
+                                               name="isPendingToPay"
+                                               th:checked="*{isPendingToPay}"/>
+                                    </label>
+                                </div>
+
+                                <div class="form-outline mb-4" id="pendingToPayAmountCostRegisterDiv">
+                                    <input type="text" id="pendingToPayAmountCostRegister"
+                                           class="form-control form-control-lg"
+                                           placeholder="Introduce the amount to share"
+                                           th:field="*{pendingToPayAmount}"
+                                    />
                                 </div>
 
                                 <div class="d-flex justify-content-center">

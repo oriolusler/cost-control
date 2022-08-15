@@ -6,6 +6,7 @@ import com.oriolsoler.costcontroler.domain.contracts.CostRepository
 import org.springframework.jdbc.core.RowMapper
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate
+import java.math.BigDecimal
 import java.sql.ResultSet
 
 class PostgresCostRepository(private val namedParameterJdbcTemplate: NamedParameterJdbcTemplate) : CostRepository {
@@ -47,10 +48,10 @@ class PostgresCostRepository(private val namedParameterJdbcTemplate: NamedParame
             rs.getString("category"),
             rs.getString("subcategory"),
             rs.getString("comment"),
-            rs.getDouble("amount"),
+            rs.getBigDecimal("amount"),
             rs.getString("username"),
             rs.getBoolean("is_pending_to_pay"),
-            rs.getDouble("pending_to_pay_amount")
+            rs.getBigDecimal("pending_to_pay_amount")
         )
     }
 }

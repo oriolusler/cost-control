@@ -11,6 +11,7 @@ import com.oriolsoler.costcontroler.domain.contracts.CostRepository
 import com.oriolsoler.costcontroler.domain.exceptions.InvalidPendingAmountException
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
+import java.math.BigDecimal
 import java.time.LocalDate.now
 
 class RegisterCostShould {
@@ -23,7 +24,7 @@ class RegisterCostShould {
             "Online services",
             "Television",
             "Monthly subscription",
-            12.99,
+            BigDecimal.valueOf(12.99),
             "Oriol",
             false,
             null
@@ -45,10 +46,10 @@ class RegisterCostShould {
             "Online services",
             "Television",
             "Monthly subscription",
-            12.99,
+            BigDecimal.valueOf(12.99),
             "Oriol",
             true,
-            10.32
+            BigDecimal.valueOf(10)
         )
 
         val registerCostUseCase = RegisterCost(costRepository)
@@ -67,7 +68,7 @@ class RegisterCostShould {
             "Online services",
             "Television",
             "Monthly subscription",
-            12.99,
+            BigDecimal.valueOf(12.99),
             "Oriol",
             true,
             null

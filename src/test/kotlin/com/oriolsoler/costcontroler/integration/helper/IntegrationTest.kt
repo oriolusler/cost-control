@@ -16,6 +16,7 @@ import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.setup.DefaultMockMvcBuilder
 import org.springframework.test.web.servlet.setup.MockMvcBuilders
 import org.springframework.web.context.WebApplicationContext
+import java.math.BigDecimal
 import java.time.LocalDate
 
 
@@ -57,10 +58,10 @@ class IntegrationTest {
         category: String,
         subcategory: String,
         comment: String,
-        amount: Double,
+        amount: BigDecimal,
         user: String,
         isPendingToPay: Boolean,
-        pendingToPayAmount: Double?
+        pendingToPayAmount: BigDecimal?
     ): Cost {
         val desc = Description(description)
         val cost = Cost(
