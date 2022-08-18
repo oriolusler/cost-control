@@ -3,6 +3,7 @@ package com.oriolsoler.costcontroler.integration.helper
 import com.oriolsoler.costcontroler.CostControlerApplication
 import com.oriolsoler.costcontroler.domain.Cost
 import com.oriolsoler.costcontroler.domain.Description
+import com.oriolsoler.costcontroler.domain.SharedCost
 import com.oriolsoler.costcontroler.domain.contracts.CostRepository
 import com.oriolsoler.costcontroler.integration.helper.repository.CostRepositoryForTest
 import com.oriolsoler.costcontroler.integration.helper.repository.UserRepositoryForTest
@@ -60,8 +61,7 @@ class IntegrationTest {
         comment: String,
         amount: BigDecimal,
         user: String,
-        isPendingToPay: Boolean,
-        pendingToPayAmount: BigDecimal?
+        shared: List<SharedCost>
     ): Cost {
         val desc = Description(description)
         val cost = Cost(
@@ -72,8 +72,7 @@ class IntegrationTest {
             comment,
             amount,
             user,
-            isPendingToPay,
-            pendingToPayAmount
+            shared
         )
         costRepository.register(cost)
         return cost

@@ -2,13 +2,12 @@ $(function () {
     const costRegisterForm = document.getElementById("costRegistrationId");
     const categoriesSelector = document.getElementById("categoryCostRegister");
     const subcategoriesSelector = document.getElementById("subcategoryCostRegister");
-    const isPendingToPayCheckbox = document.getElementById("isPendingToPayCostRegister")
-    const pendingToPayAmountDiv = document.getElementById("pendingToPayAmountCostRegisterDiv")
+    const buttonAddSharedCost = document.getElementById("buttonAddSharedCost");
 
     window.addEventListener("load", () => {
         costRegisterForm.reset();
         emptyAmountField();
-        checkIsPendingToPayCheckbox()
+        setDefaultCategoriesSelectorsOption();
     });
 
     categoriesSelector.addEventListener("change", function () {
@@ -20,29 +19,29 @@ $(function () {
         createSubcategoryOptions(subcategories);
     });
 
-    isPendingToPayCheckbox.addEventListener("change", function () {
-        checkIsPendingToPayCheckbox()
+    buttonAddSharedCost.addEventListener("click", function () {
+        const table = document.getElementById('sharedCosts');
+        let length = table.rows.length - 1;
+        const nextLength = length++;
+
+        const nextSharedName = "shared[" + nextLength + "]";
+        const nextSharedId = "shared" + nextLength + "";
+
+        const cellDebtorHtml = "<td><input class=form-control name='" + nextSharedName + ".debtor' id='" + nextSharedId + ".debtor'></td>"
+        const cellAmountHtml = "<td><input type=number step=any class=form-control name='" + nextSharedName + ".amount' id='" + nextSharedId + ".amount'></td>"
+        const cellPaidHtml = "<td class=centered><div><input type=checkbox class=form-check-input name='" + nextSharedName + ".paid' id='" + nextSharedId + ".paid'></div></td>"
+
+        const newRow = table.insertRow(table.rows.length);
+        const newCellDebtor = newRow.insertCell(0);
+        const newCellAmount = newRow.insertCell(1);
+        const newCellPaid = newRow.insertCell(2);
+
+        newCellPaid.classList.add("centered");
+
+        newCellDebtor.innerHTML = cellDebtorHtml;
+        newCellAmount.innerHTML = cellAmountHtml;
+        newCellPaid.innerHTML = cellPaidHtml;
     });
-
-    function checkIsPendingToPayCheckbox() {
-        const currentStatus = isPendingToPayCheckbox.checked
-
-        isPendingToPayCheckbox.value = currentStatus;
-
-        if (currentStatus === true) {
-            showElement(pendingToPayAmountDiv)
-        } else {
-            hideElement(pendingToPayAmountDiv)
-        }
-    }
-
-    function hideElement(element) {
-        element.style.display = "none";
-    }
-
-    function showElement(element) {
-        element.style.display = "block";
-    }
 
     function getSubcategoriesFor(value) {
         return categoriesMap[value];
@@ -77,5 +76,10 @@ $(function () {
 
     function emptyAmountField() {
         document.getElementById("amountCostRegister").value = ''
+    }
+
+    function setDefaultCategoriesSelectorsOption() {
+        categoriesSelector.selectedIndex = 0;
+        subcategoriesSelector.selectedIndex = 0;
     }
 });

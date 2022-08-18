@@ -30,8 +30,7 @@ class ShowCostsShould {
                     "Comment",
                     ONE,
                     "Oriol",
-                    false,
-                    null
+                    emptyList()
                 )
             )
         }

@@ -7,3 +7,8 @@
 .main {
     background-color: #dae2f1;
 }
+
+.centered {
+    text-align: center!important;
+    padding-top: 20px!important;
+}

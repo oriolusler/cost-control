@@ -1,5 +1,6 @@
 package com.oriolsoler.costcontroler.domain
 
+import com.oriolsoler.costcontroler.NoArgAnnotation
 import com.oriolsoler.costcontroler.domain.CostSubCategorises.ACTIVITIES
 import com.oriolsoler.costcontroler.domain.CostSubCategorises.AIR_TRAVEL
 import com.oriolsoler.costcontroler.domain.CostSubCategorises.BANK_FEE
@@ -51,23 +52,24 @@ import java.math.BigDecimal
 import java.math.BigDecimal.ZERO
 import java.time.LocalDate
 
+@NoArgAnnotation
 data class Cost(
-    val date: LocalDate,
-    val description: Description,
-    val category: String,
-    val subcategory: String,
-    val comment: String,
-    val amount: BigDecimal,
-    val username: String,
-    val isPendingToPay: Boolean,
-    val pendingToPayAmount: BigDecimal?
-) {
-    init {
-        if (isPendingToPay && (pendingToPayAmount == null || pendingToPayAmount <= ZERO)) {
-            throw InvalidPendingAmountException()
-        }
-    }
-}
+    val date: LocalDate?,
+    val description: Description?,
+    val category: String?,
+    val subcategory: String?,
+    val comment: String?,
+    val amount: BigDecimal?,
+    val username: String?,
+    val shared: List<SharedCost>? = ArrayList(20)
+)
+
+@NoArgAnnotation
+data class SharedCost(
+    var amount: BigDecimal?,
+    var isPaid: Boolean?,
+    var debtor: String?
+)
 
 data class Description(val value: String)
 

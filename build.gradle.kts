@@ -3,8 +3,12 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     id("org.springframework.boot") version "2.6.5"
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
-    kotlin("jvm") version "1.6.10"
-    kotlin("plugin.spring") version "1.6.10"
+    id("java-library")
+    kotlin("jvm") version "1.7.10"
+    kotlin("plugin.spring") version "1.7.10"
+    kotlin("plugin.serialization") version "1.7.10"
+    id("org.jetbrains.kotlin.plugin.allopen") version "1.7.10"
+    id("org.jetbrains.kotlin.plugin.noarg")version "1.7.10"
 }
 
 group = "com.oriolsoler"
@@ -58,4 +62,13 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+allOpen {
+    annotation("com.oriolsoler.costcontroler.AllOpenAnnotation")
+}
+
+noArg {
+    annotation("com.oriolsoler.costcontroler.NoArgAnnotation")
+    invokeInitializers = true
 }

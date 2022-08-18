@@ -1,0 +1,3 @@
+package com.oriolsoler.costcontroler
+
+annotation class AllOpenAnnotation

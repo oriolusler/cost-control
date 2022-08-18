@@ -22,8 +22,7 @@ abstract class ShowAllCostsFeature : IntegrationTest() {
             "Comment1",
             BigDecimal.valueOf(1.0),
             "Oriol",
-            false,
-            null
+            emptyList()
         )
         val cost2 = registerCost(
             "Description cost 2",
@@ -32,8 +31,7 @@ abstract class ShowAllCostsFeature : IntegrationTest() {
             "Comment2",
             BigDecimal.valueOf(2.0),
             "Oriol",
-            false,
-            null
+            emptyList()
         )
         val cost3 = registerCost(
             "Description cost 3",
@@ -42,8 +40,7 @@ abstract class ShowAllCostsFeature : IntegrationTest() {
             "Comment3",
             BigDecimal.valueOf(3.0),
             "Jonny",
-            false,
-            null
+            emptyList()
         )
 
         mvc.perform(get("/show").with(user("Oriol")))

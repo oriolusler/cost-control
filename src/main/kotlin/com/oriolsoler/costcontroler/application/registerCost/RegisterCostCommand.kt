@@ -2,6 +2,7 @@ package com.oriolsoler.costcontroler.application.registerCost
 
 import com.oriolsoler.costcontroler.domain.Cost
 import com.oriolsoler.costcontroler.domain.Description
+import com.oriolsoler.costcontroler.domain.SharedCost
 import java.math.BigDecimal
 import java.time.LocalDate
 
@@ -13,18 +14,27 @@ data class RegisterCostCommand(
     val comment: String,
     val amount: BigDecimal,
     val username: String,
-    val isPendingToPay: Boolean,
-    val pendingToPayAmount: BigDecimal?
+    val shared: List<SharedCostCommand>
 )
 
-fun RegisterCostCommand.toCost() = Cost(
-    date,
-    Description(description),
-    category,
-    subcategory,
-    comment,
-    amount,
-    username,
-    isPendingToPay,
-    pendingToPayAmount
+data class SharedCostCommand(
+    val amount: BigDecimal,
+    val debtor: String,
+    val isPaid: Boolean
 )
+
+fun RegisterCostCommand.toCost(): Cost {
+    val toList = shared.map { SharedCost(it.amount, it.isPaid, it.debtor) }.toList()
+
+    return Cost(
+        date,
+        Description(description),
+        category,
+        subcategory,
+        comment,
+        amount,
+        username,
+        shared.map { SharedCost(it.amount, it.isPaid, it.debtor) }.toList()
+
+    )
+}

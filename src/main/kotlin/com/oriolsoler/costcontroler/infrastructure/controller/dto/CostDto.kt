@@ -1,49 +1,52 @@
 package com.oriolsoler.costcontroler.infrastructure.controller.dto
 
-import com.fasterxml.jackson.annotation.JsonProperty
+import com.oriolsoler.costcontroler.NoArgAnnotation
 import com.oriolsoler.costcontroler.application.registerCost.RegisterCostCommand
+import com.oriolsoler.costcontroler.application.registerCost.SharedCostCommand
 import com.oriolsoler.costcontroler.domain.Cost
 import org.springframework.format.annotation.DateTimeFormat
-import org.springframework.format.annotation.DateTimeFormat.ISO.DATE
 import java.math.BigDecimal
 import java.math.BigDecimal.ZERO
 import java.time.LocalDate
 
+@NoArgAnnotation
 data class CostDto(
-    @JsonProperty("date") @DateTimeFormat(iso = DATE) val date: LocalDate,
-    @JsonProperty("description") val description: String,
-    @JsonProperty("category") val category: String,
-    @JsonProperty("subcategory") val subcategory: String,
-    @JsonProperty("comment") val comment: String,
-    @JsonProperty("amount") val amount: BigDecimal,
-    @JsonProperty("isPendingToPay") val isPendingToPay: Boolean? = false,
-    @JsonProperty("pendingToPayAmount") val pendingToPayAmount: BigDecimal?
-) {
+    @field:DateTimeFormat(pattern = "yyyy-MM-dd") var date: LocalDate? = LocalDate.now(),
+    var description: String? = "",
+    var category: String? = "",
+    var subcategory: String? = "",
+    var comment: String? = "",
+    var amount: BigDecimal? = ZERO,
+    var shared: List<SharedCostDto> = ArrayList(20)
+)
 
-    constructor() : this(
-        LocalDate.now(),
-        "",
-        "",
-        "",
-        "",
-        ZERO,
-        false,
-        null
+@NoArgAnnotation
+data class SharedCostDto(
+    var amount: BigDecimal? = ZERO,
+    var debtor: String? = "",
+    var paid: Boolean? = false
+)
+
+fun CostDto.toCommandWith(username: String): RegisterCostCommand {
+    val toList = shared.map {
+        SharedCostCommand(
+            it.amount!!,
+            it.debtor!!,
+            it.paid!!
+        )
+    }.toList()
+    return RegisterCostCommand(
+        date!!,
+        description!!,
+        category!!,
+        subcategory!!,
+        comment!!,
+        amount!!,
+        username,
+        toList
+        // shared!!.map { ObjectMapper().readValue(it,SharedCostDto::class.java) }.toList()
     )
 }
 
-fun CostDto.toCommandWith(username: String) =
-    RegisterCostCommand(
-        date,
-        description,
-        category,
-        subcategory,
-        comment,
-        amount,
-        username,
-        isPendingToPay!!,
-        pendingToPayAmount
-    )
 
-fun Cost.toDto() =
-    CostDto(date, description.value, category, subcategory, comment, amount, isPendingToPay, pendingToPayAmount)
+fun Cost.toDto() = CostDto(date!!, description!!.value, category!!, subcategory!!, comment!!, amount!!)

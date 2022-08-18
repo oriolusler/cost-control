@@ -26,8 +26,7 @@ class RegisterCostShould {
             "Monthly subscription",
             BigDecimal.valueOf(12.99),
             "Oriol",
-            false,
-            null
+            emptyList()
         )
 
         val registerCostUseCase = RegisterCost(costRepository)
@@ -48,8 +47,7 @@ class RegisterCostShould {
             "Monthly subscription",
             BigDecimal.valueOf(12.99),
             "Oriol",
-            true,
-            BigDecimal.valueOf(10)
+            emptyList()
         )
 
         val registerCostUseCase = RegisterCost(costRepository)
@@ -57,27 +55,5 @@ class RegisterCostShould {
         registerCostUseCase.execute(registerCostCommand)
 
         verify(costRepository).register(registerCostCommand.toCost())
-    }
-
-    @Test
-    fun `should throw an exception if cost is pending to pay but not amount set`() {
-        val costRepository = mock<CostRepository>()
-        val registerCostCommand = RegisterCostCommand(
-            now(),
-            "Netflix subscription",
-            "Online services",
-            "Television",
-            "Monthly subscription",
-            BigDecimal.valueOf(12.99),
-            "Oriol",
-            true,
-            null
-        )
-
-        val registerCostUseCase = RegisterCost(costRepository)
-
-        assertThrows<InvalidPendingAmountException> { registerCostUseCase.execute(registerCostCommand) }
-
-        verify(costRepository, never()).register(any())
     }
 }
