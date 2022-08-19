@@ -9,11 +9,6 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
     <link rel="stylesheet" th:href="@{/css/styles.css}"/>
-    <style>
-        input[type=checkbox] {
-            transform: scale(2);
-        }
-    </style>
 </head>
 <body class="main">
 <div class="row">
@@ -41,8 +36,8 @@
                                             th:field="*{category}">
                                         <option value="" disabled selected>Select a category</option>
                                         <option th:each="category : ${categoriesMap.keySet()}"
-                                                th:value="${category}"
-                                                th:text="${category}"></option>
+                                                th:value="${category.name}"
+                                                th:text="${category.displayName}"></option>
                                     </select>
                                 </div>
                                 <div class="form-outline mb-4">
@@ -83,9 +78,15 @@
                                             </tr>
                                         </table>
                                     </div>
-                                    <input class="btn btn-light" id="buttonAddSharedCost" type="button"
-                                           value="Share cost"
-                                           name="buttonShareCosr"/>
+                                    <div class="d-flex">
+                                        <input class="btn btn-success mr-1" id="buttonAddSharedCost" type="button"
+                                               value="Split cost"
+                                               name="buttonShareCost"/>
+
+                                        <input class="btn btn-danger mr-1" id="buttonDeleteSharedCost" type="button"
+                                               value="Delete cost"
+                                               name="buttonDeleteCost"/>
+                                    </div>
                                 </div>
                                 <div class="d-flex justify-content-center">
                                     <p>
@@ -107,6 +108,7 @@
 </div>
 <script th:inline="javascript">
     const categoriesMap = [[${categoriesMap}]];
+    console.log(categoriesMap);
 </script>
 <script type="text/javascript" th:src="@{/js/register_cost.js}"></script>
 </body>

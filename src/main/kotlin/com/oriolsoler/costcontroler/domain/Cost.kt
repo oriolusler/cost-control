@@ -9,7 +9,6 @@ import com.oriolsoler.costcontroler.domain.CostSubCategorises.BOOKS
 import com.oriolsoler.costcontroler.domain.CostSubCategorises.CAR_RENT
 import com.oriolsoler.costcontroler.domain.CostSubCategorises.CINEMA
 import com.oriolsoler.costcontroler.domain.CostSubCategorises.CLOTHES_AND_SHOES
-import com.oriolsoler.costcontroler.domain.CostSubCategorises.CLOTHING
 import com.oriolsoler.costcontroler.domain.CostSubCategorises.DEPOSIT
 import com.oriolsoler.costcontroler.domain.CostSubCategorises.DOCUMENTATION
 import com.oriolsoler.costcontroler.domain.CostSubCategorises.ELECTRICITY
@@ -47,9 +46,7 @@ import com.oriolsoler.costcontroler.domain.CostSubCategorises.STREAMING_SERVICES
 import com.oriolsoler.costcontroler.domain.CostSubCategorises.SUBSCRIPTIONS
 import com.oriolsoler.costcontroler.domain.CostSubCategorises.VIDEO_GAMES
 import com.oriolsoler.costcontroler.domain.CostSubCategorises.WATER
-import com.oriolsoler.costcontroler.domain.exceptions.InvalidPendingAmountException
 import java.math.BigDecimal
-import java.math.BigDecimal.ZERO
 import java.time.LocalDate
 
 @NoArgAnnotation
@@ -73,11 +70,10 @@ data class SharedCost(
 
 data class Description(val value: String)
 
-enum class CostCategories(val subtypes: List<CostSubCategorises>) {
-    INCOME(listOf(PAYCHECK, RETURNED_PURCHASE, PAYBACK)),
+enum class CostCategories(val displayName: String, val subtypes: List<CostSubCategorises>) {
+    INCOME("Income", listOf(PAYCHECK, RETURNED_PURCHASE, PAYBACK)),
     SHOPPING(
-        listOf(
-            CLOTHING,
+        "Shopping", listOf(
             BOOKS,
             ELECTRONICS_AND_SOFTWARE,
             HOBBIES,
@@ -88,28 +84,38 @@ enum class CostCategories(val subtypes: List<CostSubCategorises>) {
             REPLACEMENT
         )
     ),
-    EDUCATION(listOf(BOOKS, EVENTS)),
-    TRAVEL(listOf(AIR_TRAVEL, HOTEL, RENTAL_CAR_AND_TAXI)),
-    TRANSPORT(listOf(GAS_FUEL, BIKE_RENT, MOTO_RENT, CAR_RENT, PARKING)),
-    HOUSING(listOf(RENT, WATER, ELECTRICITY, GAS, INTERNET, INSURANCE, DEPOSIT)),
-    TAXES_AND_FEES(listOf(STATE_TAX, BANK_FEE, HOUSE_FEE, DOCUMENTATION)),
-    FOOD(listOf(GROCERIES, RESTAURANTS, FOOD_DELIVERY, ESTABLISHMENT)),
-    PERSONAL_SPENDING(listOf(GYM, SPORTS, GIFTS, HAIRDRESSER)),
-    RECREATION_ENTERTAINMENT(listOf(STREAMING_SERVICES, ACTIVITIES, VIDEO_GAMES, CINEMA, SUBSCRIPTIONS)),
-    INVESTMENTS(listOf(ROBOADVISOR)),
-    CASH(listOf())
+    EDUCATION("Education", listOf(BOOKS, EVENTS)),
+    TRAVEL("Travel", listOf(AIR_TRAVEL, HOTEL, RENTAL_CAR_AND_TAXI)),
+    TRANSPORT("Transport", listOf(GAS_FUEL, BIKE_RENT, MOTO_RENT, CAR_RENT, PARKING)),
+    HOUSING("Housing", listOf(RENT, WATER, ELECTRICITY, GAS, INTERNET, INSURANCE, DEPOSIT)),
+    TAXES_AND_FEES("Taxes and fees", listOf(STATE_TAX, BANK_FEE, HOUSE_FEE, DOCUMENTATION)),
+    FOOD("Food", listOf(GROCERIES, RESTAURANTS, FOOD_DELIVERY, ESTABLISHMENT)),
+    PERSONAL_SPENDING("Personal spending", listOf(GYM, SPORTS, GIFTS, HAIRDRESSER)),
+    RECREATION_ENTERTAINMENT(
+        "Recreation and entertainment",
+        listOf(STREAMING_SERVICES, ACTIVITIES, VIDEO_GAMES, CINEMA, SUBSCRIPTIONS)
+    ),
+    INVESTMENTS("Investments", listOf(ROBOADVISOR)),
+    CASH("Cash", listOf())
 }
 
-enum class CostSubCategorises {
-    PAYCHECK, RETURNED_PURCHASE, PAYBACK,
-    CLOTHING, BOOKS, ELECTRONICS_AND_SOFTWARE, HOBBIES, SPORTING_GOODS, HOUSEHOLD_APPLIANCE, REPLACEMENT,
-    EVENTS,
-    AIR_TRAVEL, HOTEL, RENTAL_CAR_AND_TAXI,
-    GAS_FUEL, BIKE_RENT, MOTO_RENT, CAR_RENT, PARKING,
-    RENT, WATER, ELECTRICITY, GAS, INTERNET, INSURANCE, FURNITURE_DECORATION, DEPOSIT,
-    STATE_TAX, BANK_FEE, HOUSE_FEE, DOCUMENTATION,
-    GROCERIES, RESTAURANTS, FOOD_DELIVERY, ESTABLISHMENT,
-    GYM, SPORTS, GIFTS, CLOTHES_AND_SHOES, HAIRDRESSER,
-    STREAMING_SERVICES, ACTIVITIES, VIDEO_GAMES, CINEMA, SUBSCRIPTIONS,
-    ROBOADVISOR
+enum class CostSubCategorises(val displayName: String) {
+    PAYCHECK("Paycheck"), RETURNED_PURCHASE("Returned purchase"), PAYBACK("Payback"), BOOKS("Books"), ELECTRONICS_AND_SOFTWARE(
+        "Electronics and software"
+    ),
+    HOBBIES("Hobbies"), SPORTING_GOODS("Sporting goods"), HOUSEHOLD_APPLIANCE("Household appliance"), REPLACEMENT("Replacement"),
+    EVENTS("Events"),
+    AIR_TRAVEL("Air travel"), HOTEL("Hotel"), RENTAL_CAR_AND_TAXI("Rental car and taxi"),
+    GAS_FUEL("Gas fuel"), BIKE_RENT("Bike rent"), MOTO_RENT("Moto rent"), CAR_RENT("Car rent"), PARKING("Parking"),
+    RENT("Rent"), WATER("Water"), ELECTRICITY("Electricity"), GAS("Gas"), INTERNET("Internet"), INSURANCE("Insurance"), FURNITURE_DECORATION(
+        "Furniture decoration"
+    ),
+    DEPOSIT("Deposit"),
+    STATE_TAX("State tax"), BANK_FEE("Bank fee"), HOUSE_FEE("House fee"), DOCUMENTATION("Documentation"),
+    GROCERIES("Groceries"), RESTAURANTS("Restaurants"), FOOD_DELIVERY("Food delivery"), ESTABLISHMENT("Establishment"),
+    GYM("Gym"), SPORTS("Sports"), GIFTS("Gifts"), CLOTHES_AND_SHOES("Clothes and shoes"), HAIRDRESSER("Hairdresser"),
+    STREAMING_SERVICES("Streaming services"), ACTIVITIES("Activities"), VIDEO_GAMES("Video games"), CINEMA("Cinema"), SUBSCRIPTIONS(
+        "Subscription"
+    ),
+    ROBOADVISOR("Roboadvisor")
 }

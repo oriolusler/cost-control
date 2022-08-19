@@ -3,6 +3,7 @@ $(function () {
     const categoriesSelector = document.getElementById("categoryCostRegister");
     const subcategoriesSelector = document.getElementById("subcategoryCostRegister");
     const buttonAddSharedCost = document.getElementById("buttonAddSharedCost");
+    const buttonDeleteSharedCost = document.getElementById("buttonDeleteSharedCost");
 
     window.addEventListener("load", () => {
         costRegisterForm.reset();
@@ -17,6 +18,14 @@ $(function () {
         clear(subcategoriesSelector)
         createSubcategoryDefaultOption(subcategoriesSelector);
         createSubcategoryOptions(subcategories);
+    });
+
+    buttonDeleteSharedCost.addEventListener("click", function () {
+        const table = document.getElementById('sharedCosts');
+        const length = table.rows.length - 1;
+        if (length > 0) {
+            table.deleteRow(length);
+        }
     });
 
     buttonAddSharedCost.addEventListener("click", function () {
@@ -51,7 +60,8 @@ $(function () {
         let option, i;
         for (i = 0; i < subcategories.length; i++) {
             option = document.createElement('option');
-            option.value = option.text = subcategories[i];
+            option.value = subcategories[i].name;
+            option.text = subcategories[i].displayName;
             subcategoriesSelector.add(option);
         }
     }
