@@ -19,7 +19,7 @@ class CostRegistrationController(private val registerCostUseCase: RegisterCost) 
 
     @GetMapping("/register")
     fun registerForm(model: Model): String {
-        val sharedCosts = MutableList(1) { SharedCostDto() }
+        val sharedCosts = mutableListOf<SharedCostDto>()
         model.addAttribute("cost", CostDto(null, null, null, null, null, null, sharedCosts))
         val map = CostCategories.values()
             .associateWith { it.subtypes.map { sub -> SubtypeDto(sub.name, sub.displayName) }.toList() }

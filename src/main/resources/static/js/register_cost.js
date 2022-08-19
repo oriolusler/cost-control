@@ -36,8 +36,8 @@ $(function () {
         const nextSharedName = "shared[" + nextLength + "]";
         const nextSharedId = "shared" + nextLength + "";
 
-        const cellDebtorHtml = "<td><input class=form-control name='" + nextSharedName + ".debtor' id='" + nextSharedId + ".debtor'></td>"
-        const cellAmountHtml = "<td><input type=number step=any class=form-control name='" + nextSharedName + ".amount' id='" + nextSharedId + ".amount'></td>"
+        const cellDebtorHtml = "<td><input placeholder='Introduce a name' class=form-control name='" + nextSharedName + ".debtor' id='" + nextSharedId + ".debtor'></td>"
+        const cellAmountHtml = "<td><input placeholder='Introduce an amount' type=number step=any class=form-control name='" + nextSharedName + ".amount' id='" + nextSharedId + ".amount'></td>"
         const cellPaidHtml = "<td class=centered><div><input type=checkbox class=form-check-input name='" + nextSharedName + ".paid' id='" + nextSharedId + ".paid'></div></td>"
 
         const newRow = table.insertRow(table.rows.length);
