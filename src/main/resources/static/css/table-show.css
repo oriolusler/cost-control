@@ -7,15 +7,15 @@
 }
 
 .description_cell{
-    width: 45%;
+    width: 30%;
 }
 
 .category_cell{
-    width: 25%;
+    width: 30%;
 }
 
 .subcategory_cell{
-    width: 15%;
+    width: 25%;
 }
 
 table.dataTable thead .sorting:after,
