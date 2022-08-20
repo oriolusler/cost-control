@@ -1,8 +1,7 @@
 package com.oriolsoler.costcontroler.infrastructure.controller
 
 import com.oriolsoler.costcontroler.application.registerCost.RegisterCost
-import com.oriolsoler.costcontroler.domain.CostCategories
-import com.oriolsoler.costcontroler.domain.CostSubCategorises
+import com.oriolsoler.costcontroler.domain.Categories
 import com.oriolsoler.costcontroler.infrastructure.controller.dto.CostDto
 import com.oriolsoler.costcontroler.infrastructure.controller.dto.SharedCostDto
 import com.oriolsoler.costcontroler.infrastructure.controller.dto.toCommandWith
@@ -21,7 +20,7 @@ class CostRegistrationController(private val registerCostUseCase: RegisterCost) 
     fun registerForm(model: Model): String {
         val sharedCosts = mutableListOf<SharedCostDto>()
         model.addAttribute("cost", CostDto(null, null, null, null, null, null, sharedCosts))
-        val map = CostCategories.values()
+        val map = Categories.values()
             .associateWith { it.subtypes.map { sub -> SubtypeDto(sub.name, sub.displayName) }.toList() }
         model.addAttribute("categoriesMap", map)
         return "cost/register"

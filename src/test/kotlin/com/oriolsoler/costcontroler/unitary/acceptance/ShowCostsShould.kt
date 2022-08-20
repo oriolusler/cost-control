@@ -6,8 +6,10 @@ import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.willReturn
 import com.oriolsoler.costcontroler.application.showCosts.ShowCostCommand
 import com.oriolsoler.costcontroler.application.showCosts.ShowCosts
+import com.oriolsoler.costcontroler.domain.Categories
 import com.oriolsoler.costcontroler.domain.Cost
 import com.oriolsoler.costcontroler.domain.Description
+import com.oriolsoler.costcontroler.domain.Subcategorises
 import com.oriolsoler.costcontroler.domain.contracts.CostRepository
 import org.junit.jupiter.api.Test
 import java.math.BigDecimal
@@ -25,8 +27,8 @@ class ShowCostsShould {
                 Cost(
                     now(),
                     Description("Description"),
-                    "Category",
-                    "Subcategory",
+                    Categories.FOOD,
+                    Subcategorises.GROCERIES,
                     "Comment",
                     ONE,
                     "Oriol",

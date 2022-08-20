@@ -49,4 +49,4 @@ fun CostDto.toCommandWith(username: String): RegisterCostCommand {
 }
 
 
-fun Cost.toDto() = CostDto(date!!, description!!.value, category!!, subcategory!!, comment!!, amount!!)
+fun Cost.toDto() = CostDto(date!!, description!!.value, category?.displayName, subcategory?.displayName, comment!!, amount!!)

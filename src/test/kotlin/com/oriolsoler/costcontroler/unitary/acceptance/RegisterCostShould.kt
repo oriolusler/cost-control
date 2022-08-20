@@ -21,8 +21,8 @@ class RegisterCostShould {
         val registerCostCommand = RegisterCostCommand(
             now(),
             "Netflix subscription",
-            "Online services",
-            "Television",
+            "RECREATION_ENTERTAINMENT",
+            "STREAMING_SERVICES",
             "Monthly subscription",
             BigDecimal.valueOf(12.99),
             "Oriol",
@@ -42,8 +42,8 @@ class RegisterCostShould {
         val registerCostCommand = RegisterCostCommand(
             now(),
             "Netflix subscription",
-            "Online services",
-            "Television",
+            "RECREATION_ENTERTAINMENT",
+            "STREAMING_SERVICES",
             "Monthly subscription",
             BigDecimal.valueOf(12.99),
             "Oriol",

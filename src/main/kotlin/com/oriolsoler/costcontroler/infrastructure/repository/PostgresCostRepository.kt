@@ -1,8 +1,10 @@
 package com.oriolsoler.costcontroler.infrastructure.repository
 
+import com.oriolsoler.costcontroler.domain.Categories
 import com.oriolsoler.costcontroler.domain.Cost
 import com.oriolsoler.costcontroler.domain.Description
 import com.oriolsoler.costcontroler.domain.SharedCost
+import com.oriolsoler.costcontroler.domain.Subcategorises
 import com.oriolsoler.costcontroler.domain.contracts.CostRepository
 import org.springframework.jdbc.core.RowMapper
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource
@@ -21,8 +23,8 @@ class PostgresCostRepository(private val namedParameterJdbcTemplate: NamedParame
         val params = MapSqlParameterSource()
         params.addValue("date", cost.date)
         params.addValue("description", cost.description!!.value)
-        params.addValue("category", cost.category)
-        params.addValue("subcategory", cost.subcategory)
+        params.addValue("category", cost.category?.name)
+        params.addValue("subcategory", cost.subcategory?.name)
         params.addValue("comment", cost.comment)
         params.addValue("amount", cost.amount)
         params.addValue("username", cost.username)
@@ -68,8 +70,8 @@ class PostgresCostRepository(private val namedParameterJdbcTemplate: NamedParame
         Cost(
             rs.getDate("date").toLocalDate(),
             Description(rs.getString("description")),
-            rs.getString("category"),
-            rs.getString("subcategory"),
+            Categories.valueOf(rs.getString("category")),
+            Subcategorises.valueOf(rs.getString("subcategory")),
             rs.getString("comment"),
             rs.getBigDecimal("amount"),
             rs.getString("username"),

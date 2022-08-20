@@ -1,9 +1,11 @@
 package com.oriolsoler.costcontroler.integration.helper
 
 import com.oriolsoler.costcontroler.CostControlerApplication
+import com.oriolsoler.costcontroler.domain.Categories
 import com.oriolsoler.costcontroler.domain.Cost
 import com.oriolsoler.costcontroler.domain.Description
 import com.oriolsoler.costcontroler.domain.SharedCost
+import com.oriolsoler.costcontroler.domain.Subcategorises
 import com.oriolsoler.costcontroler.domain.contracts.CostRepository
 import com.oriolsoler.costcontroler.integration.helper.repository.CostRepositoryForTest
 import com.oriolsoler.costcontroler.integration.helper.repository.UserRepositoryForTest
@@ -56,8 +58,8 @@ class IntegrationTest {
 
     fun registerCost(
         description: String,
-        category: String,
-        subcategory: String,
+        category: Categories,
+        subcategory: Subcategorises,
         comment: String,
         amount: BigDecimal,
         user: String,

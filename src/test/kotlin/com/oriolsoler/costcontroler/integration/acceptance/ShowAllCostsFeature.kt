@@ -1,5 +1,7 @@
 package com.oriolsoler.costcontroler.integration.acceptance
 
+import com.oriolsoler.costcontroler.domain.Categories
+import com.oriolsoler.costcontroler.domain.Subcategorises
 import com.oriolsoler.costcontroler.infrastructure.controller.dto.toDto
 import com.oriolsoler.costcontroler.integration.helper.IntegrationTest
 import org.hamcrest.Matchers.hasItem
@@ -17,8 +19,8 @@ abstract class ShowAllCostsFeature : IntegrationTest() {
     fun `should show all user costs`() {
         val cost1 = registerCost(
             "Description cost 1",
-            "Category1",
-            "Subcategory1",
+            Categories.FOOD,
+            Subcategorises.GROCERIES,
             "Comment1",
             BigDecimal.valueOf(1.0),
             "Oriol",
@@ -26,8 +28,8 @@ abstract class ShowAllCostsFeature : IntegrationTest() {
         )
         val cost2 = registerCost(
             "Description cost 2",
-            "Category2",
-            "Subcategory2",
+            Categories.FOOD,
+            Subcategorises.GROCERIES,
             "Comment2",
             BigDecimal.valueOf(2.0),
             "Oriol",
@@ -35,8 +37,8 @@ abstract class ShowAllCostsFeature : IntegrationTest() {
         )
         val cost3 = registerCost(
             "Description cost 3",
-            "Category3",
-            "Subcategory3",
+            Categories.FOOD,
+            Subcategorises.GROCERIES,
             "Comment3",
             BigDecimal.valueOf(3.0),
             "Jonny",

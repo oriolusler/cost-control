@@ -1,51 +1,51 @@
 package com.oriolsoler.costcontroler.domain
 
 import com.oriolsoler.costcontroler.NoArgAnnotation
-import com.oriolsoler.costcontroler.domain.CostSubCategorises.ACTIVITIES
-import com.oriolsoler.costcontroler.domain.CostSubCategorises.AIR_TRAVEL
-import com.oriolsoler.costcontroler.domain.CostSubCategorises.BANK_FEE
-import com.oriolsoler.costcontroler.domain.CostSubCategorises.BIKE_RENT
-import com.oriolsoler.costcontroler.domain.CostSubCategorises.BOOKS
-import com.oriolsoler.costcontroler.domain.CostSubCategorises.CAR_RENT
-import com.oriolsoler.costcontroler.domain.CostSubCategorises.CINEMA
-import com.oriolsoler.costcontroler.domain.CostSubCategorises.CLOTHES_AND_SHOES
-import com.oriolsoler.costcontroler.domain.CostSubCategorises.DEPOSIT
-import com.oriolsoler.costcontroler.domain.CostSubCategorises.DOCUMENTATION
-import com.oriolsoler.costcontroler.domain.CostSubCategorises.ELECTRICITY
-import com.oriolsoler.costcontroler.domain.CostSubCategorises.ELECTRONICS_AND_SOFTWARE
-import com.oriolsoler.costcontroler.domain.CostSubCategorises.ESTABLISHMENT
-import com.oriolsoler.costcontroler.domain.CostSubCategorises.EVENTS
-import com.oriolsoler.costcontroler.domain.CostSubCategorises.FOOD_DELIVERY
-import com.oriolsoler.costcontroler.domain.CostSubCategorises.FURNITURE_DECORATION
-import com.oriolsoler.costcontroler.domain.CostSubCategorises.GAS
-import com.oriolsoler.costcontroler.domain.CostSubCategorises.GAS_FUEL
-import com.oriolsoler.costcontroler.domain.CostSubCategorises.GIFTS
-import com.oriolsoler.costcontroler.domain.CostSubCategorises.GROCERIES
-import com.oriolsoler.costcontroler.domain.CostSubCategorises.GYM
-import com.oriolsoler.costcontroler.domain.CostSubCategorises.HAIRDRESSER
-import com.oriolsoler.costcontroler.domain.CostSubCategorises.HOBBIES
-import com.oriolsoler.costcontroler.domain.CostSubCategorises.HOTEL
-import com.oriolsoler.costcontroler.domain.CostSubCategorises.HOUSEHOLD_APPLIANCE
-import com.oriolsoler.costcontroler.domain.CostSubCategorises.HOUSE_FEE
-import com.oriolsoler.costcontroler.domain.CostSubCategorises.INSURANCE
-import com.oriolsoler.costcontroler.domain.CostSubCategorises.INTERNET
-import com.oriolsoler.costcontroler.domain.CostSubCategorises.MOTO_RENT
-import com.oriolsoler.costcontroler.domain.CostSubCategorises.PARKING
-import com.oriolsoler.costcontroler.domain.CostSubCategorises.PAYBACK
-import com.oriolsoler.costcontroler.domain.CostSubCategorises.PAYCHECK
-import com.oriolsoler.costcontroler.domain.CostSubCategorises.RENT
-import com.oriolsoler.costcontroler.domain.CostSubCategorises.RENTAL_CAR_AND_TAXI
-import com.oriolsoler.costcontroler.domain.CostSubCategorises.REPLACEMENT
-import com.oriolsoler.costcontroler.domain.CostSubCategorises.RESTAURANTS
-import com.oriolsoler.costcontroler.domain.CostSubCategorises.RETURNED_PURCHASE
-import com.oriolsoler.costcontroler.domain.CostSubCategorises.ROBOADVISOR
-import com.oriolsoler.costcontroler.domain.CostSubCategorises.SPORTING_GOODS
-import com.oriolsoler.costcontroler.domain.CostSubCategorises.SPORTS
-import com.oriolsoler.costcontroler.domain.CostSubCategorises.STATE_TAX
-import com.oriolsoler.costcontroler.domain.CostSubCategorises.STREAMING_SERVICES
-import com.oriolsoler.costcontroler.domain.CostSubCategorises.SUBSCRIPTIONS
-import com.oriolsoler.costcontroler.domain.CostSubCategorises.VIDEO_GAMES
-import com.oriolsoler.costcontroler.domain.CostSubCategorises.WATER
+import com.oriolsoler.costcontroler.domain.Subcategorises.ACTIVITIES
+import com.oriolsoler.costcontroler.domain.Subcategorises.AIR_TRAVEL
+import com.oriolsoler.costcontroler.domain.Subcategorises.BANK_FEE
+import com.oriolsoler.costcontroler.domain.Subcategorises.BIKE_RENT
+import com.oriolsoler.costcontroler.domain.Subcategorises.BOOKS
+import com.oriolsoler.costcontroler.domain.Subcategorises.CAR_RENT
+import com.oriolsoler.costcontroler.domain.Subcategorises.CINEMA
+import com.oriolsoler.costcontroler.domain.Subcategorises.CLOTHES_AND_SHOES
+import com.oriolsoler.costcontroler.domain.Subcategorises.DEPOSIT
+import com.oriolsoler.costcontroler.domain.Subcategorises.DOCUMENTATION
+import com.oriolsoler.costcontroler.domain.Subcategorises.ELECTRICITY
+import com.oriolsoler.costcontroler.domain.Subcategorises.ELECTRONICS_AND_SOFTWARE
+import com.oriolsoler.costcontroler.domain.Subcategorises.ESTABLISHMENT
+import com.oriolsoler.costcontroler.domain.Subcategorises.EVENTS
+import com.oriolsoler.costcontroler.domain.Subcategorises.FOOD_DELIVERY
+import com.oriolsoler.costcontroler.domain.Subcategorises.FURNITURE_DECORATION
+import com.oriolsoler.costcontroler.domain.Subcategorises.GAS
+import com.oriolsoler.costcontroler.domain.Subcategorises.GAS_FUEL
+import com.oriolsoler.costcontroler.domain.Subcategorises.GIFTS
+import com.oriolsoler.costcontroler.domain.Subcategorises.GROCERIES
+import com.oriolsoler.costcontroler.domain.Subcategorises.GYM
+import com.oriolsoler.costcontroler.domain.Subcategorises.HAIRDRESSER
+import com.oriolsoler.costcontroler.domain.Subcategorises.HOBBIES
+import com.oriolsoler.costcontroler.domain.Subcategorises.HOTEL
+import com.oriolsoler.costcontroler.domain.Subcategorises.HOUSEHOLD_APPLIANCE
+import com.oriolsoler.costcontroler.domain.Subcategorises.HOUSE_FEE
+import com.oriolsoler.costcontroler.domain.Subcategorises.INSURANCE
+import com.oriolsoler.costcontroler.domain.Subcategorises.INTERNET
+import com.oriolsoler.costcontroler.domain.Subcategorises.MOTO_RENT
+import com.oriolsoler.costcontroler.domain.Subcategorises.PARKING
+import com.oriolsoler.costcontroler.domain.Subcategorises.PAYBACK
+import com.oriolsoler.costcontroler.domain.Subcategorises.PAYCHECK
+import com.oriolsoler.costcontroler.domain.Subcategorises.RENT
+import com.oriolsoler.costcontroler.domain.Subcategorises.RENTAL_CAR_AND_TAXI
+import com.oriolsoler.costcontroler.domain.Subcategorises.REPLACEMENT
+import com.oriolsoler.costcontroler.domain.Subcategorises.RESTAURANTS
+import com.oriolsoler.costcontroler.domain.Subcategorises.RETURNED_PURCHASE
+import com.oriolsoler.costcontroler.domain.Subcategorises.ROBOADVISOR
+import com.oriolsoler.costcontroler.domain.Subcategorises.SPORTING_GOODS
+import com.oriolsoler.costcontroler.domain.Subcategorises.SPORTS
+import com.oriolsoler.costcontroler.domain.Subcategorises.STATE_TAX
+import com.oriolsoler.costcontroler.domain.Subcategorises.STREAMING_SERVICES
+import com.oriolsoler.costcontroler.domain.Subcategorises.SUBSCRIPTIONS
+import com.oriolsoler.costcontroler.domain.Subcategorises.VIDEO_GAMES
+import com.oriolsoler.costcontroler.domain.Subcategorises.WATER
 import java.math.BigDecimal
 import java.time.LocalDate
 
@@ -53,8 +53,8 @@ import java.time.LocalDate
 data class Cost(
     val date: LocalDate?,
     val description: Description?,
-    val category: String?,
-    val subcategory: String?,
+    val category: Categories?,
+    val subcategory: Subcategorises?,
     val comment: String?,
     val amount: BigDecimal?,
     val username: String?,
@@ -70,7 +70,7 @@ data class SharedCost(
 
 data class Description(val value: String)
 
-enum class CostCategories(val displayName: String, val subtypes: List<CostSubCategorises>) {
+enum class Categories(val displayName: String, val subtypes: List<Subcategorises>) {
     INCOME("Income", listOf(PAYCHECK, RETURNED_PURCHASE, PAYBACK)),
     SHOPPING(
         "Shopping", listOf(
@@ -99,7 +99,7 @@ enum class CostCategories(val displayName: String, val subtypes: List<CostSubCat
     CASH("Cash", listOf())
 }
 
-enum class CostSubCategorises(val displayName: String) {
+enum class Subcategorises(val displayName: String) {
     PAYCHECK("Paycheck"), RETURNED_PURCHASE("Returned purchase"), PAYBACK("Payback"), BOOKS("Books"), ELECTRONICS_AND_SOFTWARE(
         "Electronics and software"
     ),

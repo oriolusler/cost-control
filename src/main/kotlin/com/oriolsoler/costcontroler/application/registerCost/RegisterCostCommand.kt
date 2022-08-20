@@ -1,8 +1,10 @@
 package com.oriolsoler.costcontroler.application.registerCost
 
+import com.oriolsoler.costcontroler.domain.Categories
 import com.oriolsoler.costcontroler.domain.Cost
 import com.oriolsoler.costcontroler.domain.Description
 import com.oriolsoler.costcontroler.domain.SharedCost
+import com.oriolsoler.costcontroler.domain.Subcategorises
 import java.math.BigDecimal
 import java.time.LocalDate
 
@@ -29,8 +31,8 @@ fun RegisterCostCommand.toCost(): Cost {
     return Cost(
         date,
         Description(description),
-        category,
-        subcategory,
+        Categories.valueOf(category),
+        Subcategorises.valueOf(subcategory),
         comment,
         amount,
         username,

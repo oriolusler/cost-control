@@ -40,8 +40,8 @@ abstract class RegisterNewCostFeature : IntegrationTest() {
             contentType(MULTIPART_FORM_DATA)
             param("date", "2022-02-01")
             param("description", "Spotify subscription")
-            param("category", "Online services")
-            param("subcategory", "Music")
+            param("category", "RECREATION_ENTERTAINMENT")
+            param("subcategory", "STREAMING_SERVICES")
             param("comment", "Subscription for 5 persons")
             param("amount", "15.99")
         }.andExpect { status().isFound }
@@ -59,8 +59,8 @@ abstract class RegisterNewCostFeature : IntegrationTest() {
             params
             param("date", "2022-01-01")
             param("description", "Spotify subscription")
-            param("category", "Online services")
-            param("subcategory", "Music")
+            param("category", "RECREATION_ENTERTAINMENT")
+            param("subcategory", "STREAMING_SERVICES")
             param("comment", "Subscription for 5 persons")
             param("amount", "15.99")
             param("shared[0].amount", "2.67")
