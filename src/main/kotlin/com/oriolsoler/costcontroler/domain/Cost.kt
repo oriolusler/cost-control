@@ -30,6 +30,7 @@ import com.oriolsoler.costcontroler.domain.Subcategorises.HOUSE_FEE
 import com.oriolsoler.costcontroler.domain.Subcategorises.INSURANCE
 import com.oriolsoler.costcontroler.domain.Subcategorises.INTERNET
 import com.oriolsoler.costcontroler.domain.Subcategorises.MOTO_RENT
+import com.oriolsoler.costcontroler.domain.Subcategorises.NO_APPLY
 import com.oriolsoler.costcontroler.domain.Subcategorises.PARKING
 import com.oriolsoler.costcontroler.domain.Subcategorises.PAYBACK
 import com.oriolsoler.costcontroler.domain.Subcategorises.PAYCHECK
@@ -96,7 +97,7 @@ enum class Categories(val displayName: String, val subtypes: List<Subcategorises
         listOf(STREAMING_SERVICES, ACTIVITIES, VIDEO_GAMES, CINEMA, SUBSCRIPTIONS)
     ),
     INVESTMENTS("Investments", listOf(ROBOADVISOR)),
-    CASH("Cash", listOf())
+    CASH("Cash", listOf(NO_APPLY))
 }
 
 enum class Subcategorises(val displayName: String) {
@@ -117,5 +118,14 @@ enum class Subcategorises(val displayName: String) {
     STREAMING_SERVICES("Streaming services"), ACTIVITIES("Activities"), VIDEO_GAMES("Video games"), CINEMA("Cinema"), SUBSCRIPTIONS(
         "Subscription"
     ),
-    ROBOADVISOR("Roboadvisor")
+    ROBOADVISOR("Roboadvisor"),
+    NO_APPLY("-");
+
+    companion object {
+        fun getOrEmpty(subcategory: String) = try {
+            Subcategorises.valueOf(subcategory)
+        } catch (e: IllegalArgumentException) {
+            NO_APPLY
+        }
+    }
 }

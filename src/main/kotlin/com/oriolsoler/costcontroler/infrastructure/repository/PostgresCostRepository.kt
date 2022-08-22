@@ -71,7 +71,7 @@ class PostgresCostRepository(private val namedParameterJdbcTemplate: NamedParame
             rs.getDate("date").toLocalDate(),
             Description(rs.getString("description")),
             Categories.valueOf(rs.getString("category")),
-            Subcategorises.valueOf(rs.getString("subcategory")),
+            Subcategorises.getOrEmpty(rs.getString("subcategory")),
             rs.getString("comment"),
             rs.getBigDecimal("amount"),
             rs.getString("username"),
