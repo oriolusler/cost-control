@@ -1,9 +1,13 @@
 package com.oriolsoler.costcontroler.integration.acceptance
 
 import com.oriolsoler.costcontroler.domain.Categories
+import com.oriolsoler.costcontroler.domain.Cost
+import com.oriolsoler.costcontroler.domain.Description
+import com.oriolsoler.costcontroler.domain.Id
 import com.oriolsoler.costcontroler.domain.Subcategorises
 import com.oriolsoler.costcontroler.infrastructure.controller.dto.toDto
 import com.oriolsoler.costcontroler.integration.helper.IntegrationTest
+import org.hamcrest.Matchers.equalTo
 import org.hamcrest.Matchers.hasItem
 import org.hamcrest.Matchers.hasSize
 import org.junit.jupiter.api.Test
@@ -12,12 +16,13 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.model
 import java.math.BigDecimal
+import java.time.LocalDate
 
 
-abstract class ShowAllCostsFeature : IntegrationTest() {
+abstract class GetCostFeature : IntegrationTest() {
     @Test
-    fun `should show all user costs`() {
-        val cost1 = registerCost(
+    fun `should get cost`() {
+        val cost = registerCost(
             "Description cost 1",
             Categories.FOOD,
             Subcategorises.GROCERIES,
@@ -27,40 +32,25 @@ abstract class ShowAllCostsFeature : IntegrationTest() {
             emptyList(),
             1
         )
-        val cost2 = registerCost(
-            "Description cost 2",
-            Categories.FOOD,
-            Subcategorises.GROCERIES,
-            "Comment2",
-            BigDecimal.valueOf(2.0),
-            "Oriol",
-            emptyList(),
-            2
-        )
-        val cost3 = registerCost(
-            "Description cost 3",
-            Categories.FOOD,
-            Subcategorises.GROCERIES,
-            "Comment3",
-            BigDecimal.valueOf(3.0),
-            "Jonny",
-            emptyList(),
-            3
-        )
 
-        mvc.perform(get("/show").with(user("Oriol")))
-            .andExpect(model().attribute("costs", hasSize<Int>(2)))
-            .andExpect(model().attribute("costs", hasItem(cost1.toDto())))
-            .andExpect(model().attribute("costs", hasItem(cost2.toDto())))
-
-        mvc.perform(get("/show").with(user("Jonny")))
-            .andExpect(model().attribute("costs", hasSize<Int>(1)))
-            .andExpect(model().attribute("costs", hasItem(cost3.toDto())))
+        mvc.perform(get("/get/1").with(user("Oriol")))
+            .andExpect(model().attribute("cost", equalTo(cost.toDto())))
     }
 
     @Test
     fun `should unauthorized cost show to unknown user`() {
-        mvc.perform(get("/show"))
+        registerCost(
+            "Description cost 1",
+            Categories.FOOD,
+            Subcategorises.GROCERIES,
+            "Comment1",
+            BigDecimal.valueOf(1.0),
+            "Oriol",
+            emptyList(),
+            1
+        )
+
+        mvc.perform(get("/get/0"))
             .andExpect(MockMvcResultMatchers.status().isFound)
             .andExpect(MockMvcResultMatchers.redirectedUrl("http://localhost/login"))
     }

@@ -3,6 +3,7 @@ package com.oriolsoler.costcontroler.infrastructure.repository
 import com.oriolsoler.costcontroler.domain.Categories
 import com.oriolsoler.costcontroler.domain.Cost
 import com.oriolsoler.costcontroler.domain.Description
+import com.oriolsoler.costcontroler.domain.Id
 import com.oriolsoler.costcontroler.domain.SharedCost
 import com.oriolsoler.costcontroler.domain.Subcategorises
 import com.oriolsoler.costcontroler.domain.contracts.CostRepository
@@ -49,6 +50,17 @@ class PostgresCostRepository(private val namedParameterJdbcTemplate: NamedParame
         return namedParameterJdbcTemplate.query(sql, params, mapTo())
     }
 
+    override fun findBy(id: Id): Cost? {
+        val sql = """
+            SELECT * 
+            FROM COST
+            WHERE id = :id
+            """.trimIndent()
+        val params = MapSqlParameterSource()
+        params.addValue("id", id.value)
+        return namedParameterJdbcTemplate.query(sql, params, mapTo()).firstOrNull()
+    }
+
     override fun insertSharedCostFor(costId: Number, sharedCost: List<SharedCost>) {
         val sql = """
             |INSERT INTO COST_SHARE (cost, amount, isPaid, debtor)
@@ -75,7 +87,8 @@ class PostgresCostRepository(private val namedParameterJdbcTemplate: NamedParame
             rs.getString("comment"),
             rs.getBigDecimal("amount"),
             rs.getString("username"),
-            getSharedCosts(rs.getInt("id"))
+            getSharedCosts(rs.getInt("id")),
+            Id(rs.getLong("id"))
         )
     }
 

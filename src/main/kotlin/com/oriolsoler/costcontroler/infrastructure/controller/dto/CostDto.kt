@@ -17,7 +17,8 @@ data class CostDto(
     var subcategory: String? = "",
     var comment: String? = "",
     var amount: BigDecimal? = ZERO,
-    var shared: List<SharedCostDto> = ArrayList(20)
+    var shared: List<SharedCostDto> = ArrayList(20),
+    var id: Long? = 0
 )
 
 @NoArgAnnotation
@@ -49,4 +50,13 @@ fun CostDto.toCommandWith(username: String): RegisterCostCommand {
 }
 
 
-fun Cost.toDto() = CostDto(date!!, description!!.value, category?.displayName, subcategory?.displayName, comment!!, amount!!)
+fun Cost.toDto() = CostDto(
+    date!!,
+    description!!.value,
+    category?.displayName,
+    subcategory?.displayName,
+    comment!!,
+    amount!!,
+    shared!!.map { SharedCostDto(it.amount, it.debtor, it.isPaid) },
+    id?.value
+)

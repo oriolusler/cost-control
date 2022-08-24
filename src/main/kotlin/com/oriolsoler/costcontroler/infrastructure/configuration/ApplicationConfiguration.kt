@@ -1,5 +1,6 @@
 package com.oriolsoler.costcontroler.infrastructure.configuration
 
+import com.oriolsoler.costcontroler.application.getcost.GetCost
 import com.oriolsoler.costcontroler.application.registerCost.RegisterCost
 import com.oriolsoler.costcontroler.application.registerUser.RegisterUser
 import com.oriolsoler.costcontroler.application.showCosts.ShowCosts
@@ -23,4 +24,8 @@ class ApplicationConfiguration {
 
     @Bean
     fun showCosts(costRepository: CostRepository) = ShowCosts(costRepository)
+
+
+    @Bean
+    fun getCosts(costRepository: CostRepository) = GetCost(costRepository)
 }

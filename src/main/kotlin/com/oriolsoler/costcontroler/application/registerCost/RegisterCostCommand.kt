@@ -26,7 +26,7 @@ data class SharedCostCommand(
 )
 
 fun RegisterCostCommand.toCost(): Cost {
-    val toList = shared.map { SharedCost(it.amount, it.isPaid, it.debtor) }.toList()
+    val sharedCostList = shared.map { SharedCost(it.amount, it.isPaid, it.debtor) }.toList()
 
     return Cost(
         date,
@@ -36,7 +36,6 @@ fun RegisterCostCommand.toCost(): Cost {
         comment,
         amount,
         username,
-        shared.map { SharedCost(it.amount, it.isPaid, it.debtor) }.toList()
-
+        sharedCostList
     )
 }

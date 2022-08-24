@@ -59,8 +59,11 @@ data class Cost(
     val comment: String?,
     val amount: BigDecimal?,
     val username: String?,
-    val shared: List<SharedCost>? = ArrayList(20)
+    val shared: List<SharedCost>? = ArrayList(20),
+    val id: Id? = null
 )
+
+data class Id(val value: Long)
 
 @NoArgAnnotation
 data class SharedCost(
