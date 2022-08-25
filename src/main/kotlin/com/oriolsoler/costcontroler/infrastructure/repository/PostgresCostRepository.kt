@@ -3,7 +3,7 @@ package com.oriolsoler.costcontroler.infrastructure.repository
 import com.oriolsoler.costcontroler.domain.Categories
 import com.oriolsoler.costcontroler.domain.Cost
 import com.oriolsoler.costcontroler.domain.Description
-import com.oriolsoler.costcontroler.domain.Id
+import com.oriolsoler.costcontroler.domain.CostIdentifier
 import com.oriolsoler.costcontroler.domain.SharedCost
 import com.oriolsoler.costcontroler.domain.Subcategorises
 import com.oriolsoler.costcontroler.domain.contracts.CostRepository
@@ -17,8 +17,8 @@ import java.sql.ResultSet
 class PostgresCostRepository(private val namedParameterJdbcTemplate: NamedParameterJdbcTemplate) : CostRepository {
     override fun register(cost: Cost) {
         val sql = """
-            |INSERT INTO cost (date, description, category, subcategory, comment, amount, username)
-            |VALUES (:date, :description, :category, :subcategory, :comment, :amount, :username)
+            |INSERT INTO cost (date, description, category, subcategory, comment, amount, username, identifier)
+            |VALUES (:date, :description, :category, :subcategory, :comment, :amount, :username, :identifier)
         """.trimMargin()
 
         val params = MapSqlParameterSource()
@@ -29,6 +29,7 @@ class PostgresCostRepository(private val namedParameterJdbcTemplate: NamedParame
         params.addValue("comment", cost.comment)
         params.addValue("amount", cost.amount)
         params.addValue("username", cost.username)
+        params.addValue("identifier", cost.costIdentifier.value)
 
         val keyHolder = GeneratedKeyHolder()
 
@@ -50,14 +51,14 @@ class PostgresCostRepository(private val namedParameterJdbcTemplate: NamedParame
         return namedParameterJdbcTemplate.query(sql, params, mapTo())
     }
 
-    override fun findBy(id: Id): Cost? {
+    override fun findBy(costIdentifier: CostIdentifier): Cost? {
         val sql = """
             SELECT * 
             FROM COST
-            WHERE id = :id
+            WHERE identifier = :identifier
             """.trimIndent()
         val params = MapSqlParameterSource()
-        params.addValue("id", id.value)
+        params.addValue("identifier", costIdentifier.value)
         return namedParameterJdbcTemplate.query(sql, params, mapTo()).firstOrNull()
     }
 
@@ -88,7 +89,7 @@ class PostgresCostRepository(private val namedParameterJdbcTemplate: NamedParame
             rs.getBigDecimal("amount"),
             rs.getString("username"),
             getSharedCosts(rs.getInt("id")),
-            Id(rs.getLong("id"))
+            CostIdentifier(rs.getString("identifier"))
         )
     }
 

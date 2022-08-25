@@ -50,6 +50,8 @@ import com.oriolsoler.costcontroler.domain.Subcategorises.WATER
 import com.oriolsoler.costcontroler.infrastructure.controller.SubtypeDto
 import java.math.BigDecimal
 import java.time.LocalDate
+import java.util.*
+import kotlin.collections.ArrayList
 
 @NoArgAnnotation
 data class Cost(
@@ -61,10 +63,12 @@ data class Cost(
     val amount: BigDecimal?,
     val username: String?,
     val shared: List<SharedCost>? = ArrayList(20),
-    val id: Id? = null
+    val costIdentifier: CostIdentifier = CostIdentifier()
 )
 
-data class Id(val value: Long)
+data class CostIdentifier(val value: UUID? = UUID.randomUUID()) {
+    constructor(id: String) : this(UUID.fromString(id))
+}
 
 @NoArgAnnotation
 data class SharedCost(

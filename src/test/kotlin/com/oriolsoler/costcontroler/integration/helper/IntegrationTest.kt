@@ -4,7 +4,7 @@ import com.oriolsoler.costcontroler.CostControlerApplication
 import com.oriolsoler.costcontroler.domain.Categories
 import com.oriolsoler.costcontroler.domain.Cost
 import com.oriolsoler.costcontroler.domain.Description
-import com.oriolsoler.costcontroler.domain.Id
+import com.oriolsoler.costcontroler.domain.CostIdentifier
 import com.oriolsoler.costcontroler.domain.SharedCost
 import com.oriolsoler.costcontroler.domain.Subcategorises
 import com.oriolsoler.costcontroler.domain.contracts.CostRepository
@@ -65,7 +65,7 @@ class IntegrationTest {
         amount: BigDecimal,
         user: String,
         shared: List<SharedCost>,
-        id: Long
+        costIdentifier: CostIdentifier
     ): Cost {
         val desc = Description(description)
         val cost = Cost(
@@ -77,7 +77,7 @@ class IntegrationTest {
             amount,
             user,
             shared,
-            Id(id)
+            costIdentifier
         )
         costRepositoryForTest.register(cost)
         return cost

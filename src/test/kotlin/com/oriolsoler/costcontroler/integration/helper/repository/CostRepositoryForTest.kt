@@ -15,12 +15,11 @@ class CostRepositoryForTest(private val namedParameterJdbcTemplate: NamedParamet
 
     fun register(cost: Cost) {
         val sql = """
-            |INSERT INTO cost (id, date, description, category, subcategory, comment, amount, username)
-            |VALUES (:id, :date, :description, :category, :subcategory, :comment, :amount, :username)
+            |INSERT INTO cost (date, description, category, subcategory, comment, amount, username, identifier)
+            |VALUES (:date, :description, :category, :subcategory, :comment, :amount, :username, :identifier)
         """.trimMargin()
 
         val params = MapSqlParameterSource()
-        params.addValue("id", cost.id?.value)
         params.addValue("date", cost.date)
         params.addValue("description", cost.description!!.value)
         params.addValue("category", cost.category?.name)
@@ -28,6 +27,7 @@ class CostRepositoryForTest(private val namedParameterJdbcTemplate: NamedParamet
         params.addValue("comment", cost.comment)
         params.addValue("amount", cost.amount)
         params.addValue("username", cost.username)
+        params.addValue("identifier", cost.costIdentifier.value)
 
         val keyHolder = GeneratedKeyHolder()
 

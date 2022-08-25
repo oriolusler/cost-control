@@ -1,0 +1,2 @@
+ALTER TABLE COST
+    ADD identifier UUID

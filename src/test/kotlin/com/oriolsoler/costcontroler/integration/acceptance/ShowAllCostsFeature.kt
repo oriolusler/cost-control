@@ -1,6 +1,7 @@
 package com.oriolsoler.costcontroler.integration.acceptance
 
 import com.oriolsoler.costcontroler.domain.Categories
+import com.oriolsoler.costcontroler.domain.CostIdentifier
 import com.oriolsoler.costcontroler.domain.Subcategorises
 import com.oriolsoler.costcontroler.infrastructure.controller.dto.toDto
 import com.oriolsoler.costcontroler.integration.helper.IntegrationTest
@@ -25,7 +26,7 @@ abstract class ShowAllCostsFeature : IntegrationTest() {
             BigDecimal.valueOf(1.0),
             "Oriol",
             emptyList(),
-            1
+            CostIdentifier()
         )
         val cost2 = registerCost(
             "Description cost 2",
@@ -35,7 +36,7 @@ abstract class ShowAllCostsFeature : IntegrationTest() {
             BigDecimal.valueOf(2.0),
             "Oriol",
             emptyList(),
-            2
+            CostIdentifier()
         )
         val cost3 = registerCost(
             "Description cost 3",
@@ -45,7 +46,7 @@ abstract class ShowAllCostsFeature : IntegrationTest() {
             BigDecimal.valueOf(3.0),
             "Jonny",
             emptyList(),
-            3
+            CostIdentifier()
         )
 
         mvc.perform(get("/show").with(user("Oriol")))

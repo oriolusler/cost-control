@@ -57,6 +57,5 @@ fun Cost.toDto() = CostDto(
     subcategory?.displayName,
     comment!!,
     amount!!.toEngineeringString(),
-    shared!!.map { SharedCostDto(it.amount, it.debtor, it.isPaid) },
-    id?.value
+    shared!!.map { SharedCostDto(it.amount, it.debtor, it.isPaid) }
 )

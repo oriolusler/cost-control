@@ -10,7 +10,7 @@ import com.oriolsoler.costcontroler.application.getcost.GetCost
 import com.oriolsoler.costcontroler.domain.Categories
 import com.oriolsoler.costcontroler.domain.Cost
 import com.oriolsoler.costcontroler.domain.Description
-import com.oriolsoler.costcontroler.domain.Id
+import com.oriolsoler.costcontroler.domain.CostIdentifier
 import com.oriolsoler.costcontroler.domain.Subcategorises
 import com.oriolsoler.costcontroler.domain.contracts.CostRepository
 import com.oriolsoler.costcontroler.domain.exceptions.CostNotFoundException
@@ -36,15 +36,15 @@ class GetCostShould {
             emptyList()
         )
 
-        val id = Id(0)
+        val costIdentifier = CostIdentifier()
 
-        given { costRepository.findBy(id) } willReturn { expect }
+        given { costRepository.findBy(costIdentifier) } willReturn { expect }
 
         val getCost = GetCost(costRepository)
-        val command = GetCostCommand(0)
+        val command = GetCostCommand(costIdentifier.value.toString())
         val result = getCost.execute(command)
 
-        verify(costRepository).findBy(id)
+        verify(costRepository).findBy(costIdentifier)
         assertEquals(expect, result)
     }
 
@@ -52,13 +52,13 @@ class GetCostShould {
     fun `throw error if cost not found`() {
         val costRepository = mock<CostRepository>()
 
-        given { costRepository.findBy(any<Id>()) } willReturn { null }
+        given { costRepository.findBy(any<CostIdentifier>()) } willReturn { null }
 
         val getCost = GetCost(costRepository)
-        val command = GetCostCommand(0)
+        val command = GetCostCommand(CostIdentifier().value.toString())
 
         assertThrows<CostNotFoundException> { getCost.execute(command) }
 
-        verify(costRepository).findBy(any<Id>())
+        verify(costRepository).findBy(any<CostIdentifier>())
     }
 }
