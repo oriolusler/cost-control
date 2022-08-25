@@ -2,6 +2,7 @@ package com.oriolsoler.costcontroler.infrastructure.controller
 
 import com.oriolsoler.costcontroler.application.getcost.GetCostCommand
 import com.oriolsoler.costcontroler.application.getcost.GetCost
+import com.oriolsoler.costcontroler.domain.Categories
 import com.oriolsoler.costcontroler.infrastructure.controller.dto.toDto
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -15,6 +16,10 @@ class CostGetController(private val getCost: GetCost) {
     fun registerForm(@PathVariable id: Long, model: Model, principal: Principal): String {
         val cost = getCost.execute(GetCostCommand(id))
         model.addAttribute("cost", cost.toDto())
+
+        val map = Categories.getCategoriesWithSubtypes()
+        model.addAttribute("categoriesMap", map)
+
         return "cost/get"
     }
 }

@@ -47,6 +47,7 @@ import com.oriolsoler.costcontroler.domain.Subcategorises.STREAMING_SERVICES
 import com.oriolsoler.costcontroler.domain.Subcategorises.SUBSCRIPTIONS
 import com.oriolsoler.costcontroler.domain.Subcategorises.VIDEO_GAMES
 import com.oriolsoler.costcontroler.domain.Subcategorises.WATER
+import com.oriolsoler.costcontroler.infrastructure.controller.SubtypeDto
 import java.math.BigDecimal
 import java.time.LocalDate
 
@@ -100,7 +101,12 @@ enum class Categories(val displayName: String, val subtypes: List<Subcategorises
         listOf(STREAMING_SERVICES, ACTIVITIES, VIDEO_GAMES, CINEMA, SUBSCRIPTIONS)
     ),
     INVESTMENTS("Investments", listOf(ROBOADVISOR)),
-    CASH("Cash", listOf(NO_APPLY))
+    CASH("Cash", listOf(NO_APPLY));
+
+    companion object {
+        fun getCategoriesWithSubtypes() = Categories.values()
+            .associateWith { it.subtypes.map { sub -> SubtypeDto(sub.name, sub.displayName) }.toList() }
+    }
 }
 
 enum class Subcategorises(val displayName: String) {

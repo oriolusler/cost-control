@@ -7,6 +7,7 @@ import com.oriolsoler.costcontroler.domain.Cost
 import org.springframework.format.annotation.DateTimeFormat
 import java.math.BigDecimal
 import java.math.BigDecimal.ZERO
+import java.math.BigDecimal.valueOf
 import java.time.LocalDate
 
 @NoArgAnnotation
@@ -16,7 +17,7 @@ data class CostDto(
     var category: String? = "",
     var subcategory: String? = "",
     var comment: String? = "",
-    var amount: BigDecimal? = ZERO,
+    var amount: String? = "",
     var shared: List<SharedCostDto> = ArrayList(20),
     var id: Long? = 0
 )
@@ -42,10 +43,9 @@ fun CostDto.toCommandWith(username: String): RegisterCostCommand {
         category!!,
         subcategory!!,
         comment!!,
-        amount!!,
+        BigDecimal(amount),
         username,
         toList
-        // shared!!.map { ObjectMapper().readValue(it,SharedCostDto::class.java) }.toList()
     )
 }
 
@@ -56,7 +56,7 @@ fun Cost.toDto() = CostDto(
     category?.displayName,
     subcategory?.displayName,
     comment!!,
-    amount!!,
+    amount!!.toEngineeringString(),
     shared!!.map { SharedCostDto(it.amount, it.debtor, it.isPaid) },
     id?.value
 )

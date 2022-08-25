@@ -3,10 +3,117 @@
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <title>Spring Security Example </title>
+
+
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" th:href="@{/css/styles.css}"/>
 </head>
 
 <body class="main">
+<div class="row">
+    <div class="col"></div>
+    <div class="col-8">
+        <div class="container py-5">
+            <div class="">
+                <div class="col-12">
+                    <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                        <div class="card-body p-5">
+                            <form action="#" th:object="${cost}" method="post"
+                                  id="costRegistrationId">
+                                <h3 class="mb-5 text-center">Edit cost</h3>
+                                <div class="form-outline mb-4">
+                                    <input type="date" id="dateCostRegister" class="form-control form-control-lg"
+                                           placeholder="Select a day" th:field="*{date}"/>
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <input type="text" id="descriptionCostRegister" class="form-control form-control-lg"
+                                           placeholder="Write a description" th:field="*{description}"/>
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <select id="categoryCostRegister"
+                                            class="form-control form-control-lg"
+                                            th:field="*{category}">
+                                        <option value="" disabled selected>Select a category</option>
+                                        <option th:each="category : ${categoriesMap.keySet()}"
+                                                th:value="${category.name}"
+                                                th:text="${category.displayName}"></option>
+                                    </select>
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <select id="subcategoryCostRegister"
+                                            class="form-control form-control-lg"
+                                            th:field="*{subcategory}">
+                                        <option value="" disabled selected>Select a subcategory</option>
+                                    </select>
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <input type="text" id="commentCostRegister" class="form-control form-control-lg"
+                                           placeholder="Write a comment" th:field="*{comment}"/>
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <input type="number" step="any" id="amountCostRegister" class="form-control form-control-lg"
+                                           placeholder="Introduce the amount" th:field="*{amount}"/>
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped" id="sharedCosts">
+                                            <tr>
+                                                <th>Who?</th>
+                                                <th>How much?</th>
+                                                <th>Paid?</th>
+                                            </tr>
+                                            <tr th:each="parent, stat : *{shared}">
+                                                <td><input type="text" class="form-control"
+                                                           th:name="*{shared[__${stat.index}__].debtor}"
+                                                           th:field="*{shared[__${stat.index}__].debtor}"></td>
+                                                <td><input type="number" step="any" class="form-control"
+                                                           th:name="*{shared[__${stat.index}__].amount}"
+                                                           th:field="*{shared[__${stat.index}__].amount}"></td>
+                                                <td class="centered">
+                                                    <input type="checkbox" class="form-check-input"
+                                                           th:name="*{shared[__${stat.index}__].paid}"
+                                                           th:field="*{shared[__${stat.index}__].paid}">
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="d-flex">
+                                        <input class="btn btn-success mr-1" id="buttonAddSharedCost" type="button"
+                                               value="Split cost"
+                                               name="buttonShareCost"/>
 
+                                        <input class="btn btn-danger mr-1" id="buttonDeleteSharedCost" type="button"
+                                               value="Delete last split"
+                                               name="buttonDeleteCost"/>
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-center">
+                                    <p>
+                                        <button class="btn btn-primary btn-lg"
+                                                type="submit"
+                                                value="Submit">
+                                            Confirm changes
+                                        </button>
+                                    </p>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col"></div>
+</div>
+<script th:inline="javascript">
+    const categoriesMap = [[${categoriesMap}]];
+    console.log(categoriesMap);
+</script>
+<!--<script type="text/javascript" th:src="@{/js/register_cost.js}"></script>-->
 </body>
 </html>
 
