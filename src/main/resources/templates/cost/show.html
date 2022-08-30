@@ -41,7 +41,7 @@
                                 </thead>
                                 <tbody>
                                 <th:block th:each="cost : ${costs}">
-                                    <tr>
+                                    <tr th:id="${cost.id}" onclick="handleClickCost(this)">
                                         <td th:text="${cost.date}"></td>
                                         <td th:text="${cost.amount}"></td>
                                         <td th:text="${cost.description}"></td>
@@ -58,6 +58,11 @@
         </div>
     </div>
 </section>
+<script>
+    function handleClickCost(param) {
+        window.location.href = "/get/" + param.id
+    }
+</script>
 <script type="text/javascript" th:src="@{/js/show_table.js}"></script>
 </body>
 </html>
