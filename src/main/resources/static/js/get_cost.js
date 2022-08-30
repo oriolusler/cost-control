@@ -7,7 +7,7 @@ $(function () {
     });
 
     window.addEventListener("load", () => {
-        setCurrentCategoryOption(categoriesSelector, updateSubcategoryValue);
+        setCurrentCategoryOption(categoriesSelector);
         setCurrentSubcategoryOption(subcategoriesSelector);
     });
 
@@ -44,7 +44,7 @@ $(function () {
         }
     }
 
-    function setCurrentCategoryOption(categoriesSelector, updateSubcategoryValue) {
+    function setCurrentCategoryOption(categoriesSelector) {
         for (let i = 0; i < categoriesSelector.length; i++) {
             const option = categoriesSelector.options[i];
             if (option.text === currentCategory) {
