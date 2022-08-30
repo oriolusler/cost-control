@@ -22,18 +22,18 @@
                     <div class="card shadow-2-strong" style="border-radius: 1rem;">
                         <div class="card-body p-5">
                             <form action="#" th:object="${cost}" method="post"
-                                  id="costRegistrationId">
+                                  id="costGetId">
                                 <h3 class="mb-5 text-center">Edit cost</h3>
                                 <div class="form-outline mb-4">
-                                    <input type="date" id="dateCostRegister" class="form-control form-control-lg"
+                                    <input type="date" id="dateCostGet" class="form-control form-control-lg"
                                            placeholder="Select a day" th:field="*{date}"/>
                                 </div>
                                 <div class="form-outline mb-4">
-                                    <input type="text" id="descriptionCostRegister" class="form-control form-control-lg"
+                                    <input type="text" id="descriptionCostGet" class="form-control form-control-lg"
                                            placeholder="Write a description" th:field="*{description}"/>
                                 </div>
                                 <div class="form-outline mb-4">
-                                    <select id="categoryCostRegister"
+                                    <select id="categoryCostGet"
                                             class="form-control form-control-lg"
                                             th:field="*{category}">
                                         <option value="" disabled selected>Select a category</option>
@@ -43,23 +43,22 @@
                                     </select>
                                 </div>
                                 <div class="form-outline mb-4">
-                                    <select id="subcategoryCostRegister"
+                                    <select id="subcategoryCostGet"
                                             class="form-control form-control-lg"
                                             th:field="*{subcategory}">
-                                        <option value="" disabled selected>Select a subcategory</option>
                                     </select>
                                 </div>
                                 <div class="form-outline mb-4">
-                                    <input type="text" id="commentCostRegister" class="form-control form-control-lg"
+                                    <input type="text" id="commentCostGet" class="form-control form-control-lg"
                                            placeholder="Write a comment" th:field="*{comment}"/>
                                 </div>
                                 <div class="form-outline mb-4">
-                                    <input type="number" step="any" id="amountCostRegister" class="form-control form-control-lg"
+                                    <input type="number" step="any" id="amountCostGet" class="form-control form-control-lg"
                                            placeholder="Introduce the amount" th:field="*{amount}"/>
                                 </div>
                                 <div class="form-outline mb-4">
                                     <div class="table-responsive">
-                                        <table class="table table-striped" id="sharedCosts">
+                                        <table class="table table-striped" id="sharedCostsGet">
                                             <tr>
                                                 <th>Who?</th>
                                                 <th>How much?</th>
@@ -111,9 +110,10 @@
 </div>
 <script th:inline="javascript">
     const categoriesMap = [[${categoriesMap}]];
-    console.log(categoriesMap);
+    const currentCategory = [[${cost.category}]];
+    const currentSubcategory = [[${cost.subcategory}]];
 </script>
-<!--<script type="text/javascript" th:src="@{/js/register_cost.js}"></script>-->
+<script type="text/javascript" th:src="@{/js/get_cost.js}"></script>
 </body>
 </html>
 

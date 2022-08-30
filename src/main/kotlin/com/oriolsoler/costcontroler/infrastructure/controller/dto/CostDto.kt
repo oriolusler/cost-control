@@ -19,7 +19,7 @@ data class CostDto(
     var comment: String? = "",
     var amount: String? = "",
     var shared: List<SharedCostDto> = ArrayList(20),
-    var id: Long? = 0
+    var id: String? = ""
 )
 
 @NoArgAnnotation
@@ -57,5 +57,6 @@ fun Cost.toDto() = CostDto(
     subcategory?.displayName,
     comment!!,
     amount!!.toEngineeringString(),
-    shared!!.map { SharedCostDto(it.amount, it.debtor, it.isPaid) }
+    shared!!.map { SharedCostDto(it.amount, it.debtor, it.isPaid) },
+    costIdentifier.value.toString()
 )
