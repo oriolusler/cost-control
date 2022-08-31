@@ -63,7 +63,7 @@ data class Cost(
     val amount: BigDecimal?,
     val username: String?,
     val shared: List<SharedCost>? = ArrayList(20),
-    val costIdentifier: CostIdentifier = CostIdentifier()
+    val identifier: CostIdentifier = CostIdentifier()
 )
 
 data class CostIdentifier(val value: UUID? = UUID.randomUUID()) {

@@ -1,11 +1,10 @@
 package com.oriolsoler.costcontroler.infrastructure.controller
 
 import com.oriolsoler.costcontroler.application.registerCost.RegisterCost
-import com.oriolsoler.costcontroler.domain.Categories
 import com.oriolsoler.costcontroler.domain.Categories.Companion.getCategoriesWithSubtypes
 import com.oriolsoler.costcontroler.infrastructure.controller.dto.CostDto
 import com.oriolsoler.costcontroler.infrastructure.controller.dto.SharedCostDto
-import com.oriolsoler.costcontroler.infrastructure.controller.dto.toCommandWith
+import com.oriolsoler.costcontroler.infrastructure.controller.dto.toRegisterCommandWith
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
@@ -28,7 +27,7 @@ class CostRegistrationController(private val registerCostUseCase: RegisterCost) 
 
     @RequestMapping(value = ["register"], method = [RequestMethod.POST])
     fun registerNewCost(@ModelAttribute("cost") cost: CostDto, model: Model, principal: Principal): String {
-        val registerCostCommand = cost.toCommandWith(principal.name)
+        val registerCostCommand = cost.toRegisterCommandWith(principal.name)
         registerCostUseCase.execute(registerCostCommand)
         return "redirect:/show"
     }

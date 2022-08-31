@@ -6,6 +6,7 @@ import com.oriolsoler.costcontroler.integration.acceptance.LoginFeature
 import com.oriolsoler.costcontroler.integration.acceptance.RegisterNewCostFeature
 import com.oriolsoler.costcontroler.integration.acceptance.RegisterUserFeature
 import com.oriolsoler.costcontroler.integration.acceptance.ShowAllCostsFeature
+import com.oriolsoler.costcontroler.integration.acceptance.UpdateCostFeature
 import com.oriolsoler.costcontroler.integration.helper.docker.DockerComposeHelper
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Nested
@@ -44,4 +45,7 @@ class ApplicationIntegrationTest {
 
     @Nested
     inner class GetCostFeatureNested : GetCostFeature()
+
+    @Nested
+    inner class UpdateCostFeatureNested : UpdateCostFeature()
 }
