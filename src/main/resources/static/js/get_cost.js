@@ -1,18 +1,16 @@
 $(document).ready(function () {
-
     const categoriesSelector = document.getElementById("categoryCostGet");
-    const subcategoriesSelector = document.getElementById("subcategoryCostGet");
 
+    const subcategoriesSelector = document.getElementById("subcategoryCostGet");
     const buttonAddSharedCost = document.getElementById("buttonAddSharedCostGet");
+
     const buttonDeleteSharedCost = document.getElementById("buttonDeleteSharedCostGet");
+
+    setCurrentCategoryOption(categoriesSelector);
+    setCurrentSubcategoryOption(subcategoriesSelector);
 
     categoriesSelector.addEventListener("change", function () {
         updateSubcategoryValue();
-    });
-
-    window.addEventListener('load', () => {
-        setCurrentCategoryOption(categoriesSelector);
-        setCurrentSubcategoryOption(subcategoriesSelector);
     });
 
     buttonDeleteSharedCost.addEventListener("click", function () {
