@@ -12,14 +12,11 @@ $(function () {
     });
 
     window.addEventListener('load', () => {
-        setCurrentCategoryOption(categoriesSelector);
-        setCurrentSubcategoryOption(subcategoriesSelector);
+        setTimeout(function(){
+            setCurrentCategoryOption(categoriesSelector);
+            setCurrentSubcategoryOption(subcategoriesSelector);
+        }, 2000);
     });
-
-    document.addEventListener("deviceready", function() {
-        setCurrentCategoryOption(categoriesSelector);
-        setCurrentSubcategoryOption(subcategoriesSelector);
-    }, false);
 
     buttonDeleteSharedCost.addEventListener("click", function () {
         const table = document.getElementById('sharedCostsGet');
