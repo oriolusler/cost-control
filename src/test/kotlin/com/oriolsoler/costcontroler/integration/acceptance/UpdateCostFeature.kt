@@ -1,10 +1,10 @@
 package com.oriolsoler.costcontroler.integration.acceptance
 
-import com.nhaarman.mockito_kotlin.eq
 import com.oriolsoler.costcontroler.domain.Categories
 import com.oriolsoler.costcontroler.domain.CostIdentifier
 import com.oriolsoler.costcontroler.domain.Subcategorises
 import com.oriolsoler.costcontroler.integration.helper.IntegrationTest
+import org.hamcrest.Matchers.equalTo
 import org.junit.jupiter.api.Test
 import org.springframework.http.MediaType.MULTIPART_FORM_DATA
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf
@@ -88,7 +88,7 @@ abstract class UpdateCostFeature : IntegrationTest() {
             param("shared[0].paid", "true")
         }.andExpect {
             status { isBadRequest() }
-            content { eq("Cost with id: 61049049-13f7-4c87-99a6-99852af28ed not found") }
+            content { equalTo("Cost with id: 6104902249-13f7-4c87-99a6-99852af28ed not found") }
         }
     }
 
