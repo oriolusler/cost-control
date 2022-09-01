@@ -11,11 +11,15 @@ $(function () {
         updateSubcategoryValue();
     });
 
-    window.onload = function() {
+    window.addEventListener('load', () => {
         setCurrentCategoryOption(categoriesSelector);
         setCurrentSubcategoryOption(subcategoriesSelector);
-    }
+    });
 
+    document.addEventListener("deviceready", function() {
+        setCurrentCategoryOption(categoriesSelector);
+        setCurrentSubcategoryOption(subcategoriesSelector);
+    }, false);
 
     buttonDeleteSharedCost.addEventListener("click", function () {
         const table = document.getElementById('sharedCostsGet');
