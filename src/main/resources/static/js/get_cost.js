@@ -11,10 +11,11 @@ $(function () {
         updateSubcategoryValue();
     });
 
-    window.addEventListener('load', () => {
+    window.onload = function() {
         setCurrentCategoryOption(categoriesSelector);
         setCurrentSubcategoryOption(subcategoriesSelector);
-    });
+    }
+
 
     buttonDeleteSharedCost.addEventListener("click", function () {
         const table = document.getElementById('sharedCostsGet');
