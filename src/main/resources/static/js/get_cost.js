@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(function () {
     const categoriesSelector = document.getElementById("categoryCostGet");
 
     const subcategoriesSelector = document.getElementById("subcategoryCostGet");
