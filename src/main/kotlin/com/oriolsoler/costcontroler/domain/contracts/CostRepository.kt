@@ -10,4 +10,6 @@ interface CostRepository {
     fun insertSharedCostFor(id: Number, shared: List<SharedCost>)
     fun findBy(costIdentifier: CostIdentifier): Cost?
     fun update(cost: Cost)
+    fun updateSharedCostWith(id: Number, shared: List<SharedCost>?)
+    fun deleteSharedCostFor(id: Number)
 }

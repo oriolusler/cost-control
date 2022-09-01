@@ -105,12 +105,12 @@ class PostgresCostRepository(private val namedParameterJdbcTemplate: NamedParame
         updateSharedCostWith(dbCostId, cost.shared)
     }
 
-    private fun updateSharedCostWith(id: Number, shared: List<SharedCost>?) {
+    override fun updateSharedCostWith(id: Number, shared: List<SharedCost>?) {
         deleteSharedCostFor(id)
         insertSharedCostFor(id, shared!!)
     }
 
-    private fun deleteSharedCostFor(id: Number) {
+    override fun deleteSharedCostFor(id: Number) {
         val sql = """
             |DELETE FROM COST_SHARE
             |WHERE cost=:cost
