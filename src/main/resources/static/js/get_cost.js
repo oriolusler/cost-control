@@ -1,5 +1,4 @@
-$(function () {
-
+$(document).ready(function () {
 
     const categoriesSelector = document.getElementById("categoryCostGet");
     const subcategoriesSelector = document.getElementById("subcategoryCostGet");
@@ -12,10 +11,8 @@ $(function () {
     });
 
     window.addEventListener('load', () => {
-        setTimeout(function(){
-            setCurrentCategoryOption(categoriesSelector);
-            setCurrentSubcategoryOption(subcategoriesSelector);
-        }, 2000);
+        setCurrentCategoryOption(categoriesSelector);
+        setCurrentSubcategoryOption(subcategoriesSelector);
     });
 
     buttonDeleteSharedCost.addEventListener("click", function () {
