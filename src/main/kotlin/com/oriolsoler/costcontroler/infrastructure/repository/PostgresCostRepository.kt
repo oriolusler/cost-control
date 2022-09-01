@@ -29,7 +29,7 @@ class PostgresCostRepository(private val namedParameterJdbcTemplate: NamedParame
         params.addValue("comment", cost.comment)
         params.addValue("amount", cost.amount)
         params.addValue("username", cost.username)
-        params.addValue("identifier", cost.costIdentifier.value)
+        params.addValue("identifier", cost.identifier.value)
 
         val keyHolder = GeneratedKeyHolder()
 
@@ -62,15 +62,15 @@ class PostgresCostRepository(private val namedParameterJdbcTemplate: NamedParame
         return namedParameterJdbcTemplate.query(sql, params, mapTo()).firstOrNull()
     }
 
-    override fun insertSharedCostFor(costId: Number, sharedCost: List<SharedCost>) {
+    override fun insertSharedCostFor(id: Number, shared: List<SharedCost>) {
         val sql = """
             |INSERT INTO COST_SHARE (cost, amount, isPaid, debtor)
             |VALUES (:cost, :amount, :isPaid, :debtor)
         """.trimMargin()
 
-        sharedCost.forEach {
+        shared.forEach {
             val params = MapSqlParameterSource()
-            params.addValue("cost", costId)
+            params.addValue("cost", id)
             params.addValue("amount", it.amount)
             params.addValue("isPaid", it.isPaid)
             params.addValue("debtor", it.debtor)
@@ -79,6 +79,47 @@ class PostgresCostRepository(private val namedParameterJdbcTemplate: NamedParame
         }
     }
 
+    override fun update(cost: Cost) {
+        val sql = """
+            |UPDATE COST
+            |SET date=:date, description=:description, category=:category, subcategory=:subcategory, comment=:comment, amount=:amount
+            |WHERE identifier=:identifier
+            |AND username=:username
+        """.trimMargin()
+
+        val paramsUpdate = MapSqlParameterSource()
+        paramsUpdate.addValue("date", cost.date)
+        paramsUpdate.addValue("description", cost.description!!.value)
+        paramsUpdate.addValue("category", cost.category?.name)
+        paramsUpdate.addValue("subcategory", cost.subcategory?.name)
+        paramsUpdate.addValue("comment", cost.comment)
+        paramsUpdate.addValue("amount", cost.amount)
+        paramsUpdate.addValue("username", cost.username)
+        paramsUpdate.addValue("identifier", cost.identifier.value)
+
+        val keyHolder = GeneratedKeyHolder()
+        namedParameterJdbcTemplate.update(sql, paramsUpdate, keyHolder)
+
+        val dbCostId = keyHolder.keyList[0]["id"] as Number
+
+        updateSharedCostWith(dbCostId, cost.shared)
+    }
+
+    private fun updateSharedCostWith(id: Number, shared: List<SharedCost>?) {
+        deleteSharedCostFor(id)
+        insertSharedCostFor(id, shared!!)
+    }
+
+    private fun deleteSharedCostFor(id: Number) {
+        val sql = """
+            |DELETE FROM COST_SHARE
+            |WHERE cost=:cost
+        """.trimMargin()
+
+        val paramsDeleteShared = MapSqlParameterSource()
+        paramsDeleteShared.addValue("cost", id)
+        namedParameterJdbcTemplate.update(sql, paramsDeleteShared)
+    }
     private fun mapTo() = RowMapper { rs: ResultSet, _: Int ->
         Cost(
             rs.getDate("date").toLocalDate(),

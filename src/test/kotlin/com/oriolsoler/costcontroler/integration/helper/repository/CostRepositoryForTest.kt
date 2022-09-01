@@ -27,7 +27,7 @@ class CostRepositoryForTest(private val namedParameterJdbcTemplate: NamedParamet
         params.addValue("comment", cost.comment)
         params.addValue("amount", cost.amount)
         params.addValue("username", cost.username)
-        params.addValue("identifier", cost.costIdentifier.value)
+        params.addValue("identifier", cost.identifier.value)
 
         val keyHolder = GeneratedKeyHolder()
 

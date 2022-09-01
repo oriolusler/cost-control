@@ -3,11 +3,11 @@ package com.oriolsoler.costcontroler.infrastructure.controller.dto
 import com.oriolsoler.costcontroler.NoArgAnnotation
 import com.oriolsoler.costcontroler.application.registerCost.RegisterCostCommand
 import com.oriolsoler.costcontroler.application.registerCost.SharedCostCommand
+import com.oriolsoler.costcontroler.application.updateCost.UpdateCostCommand
 import com.oriolsoler.costcontroler.domain.Cost
 import org.springframework.format.annotation.DateTimeFormat
 import java.math.BigDecimal
 import java.math.BigDecimal.ZERO
-import java.math.BigDecimal.valueOf
 import java.time.LocalDate
 
 @NoArgAnnotation
@@ -29,7 +29,7 @@ data class SharedCostDto(
     var paid: Boolean? = false
 )
 
-fun CostDto.toCommandWith(username: String): RegisterCostCommand {
+fun CostDto.toRegisterCommandWith(username: String): RegisterCostCommand {
     val toList = shared.map {
         SharedCostCommand(
             it.amount!!,
@@ -49,6 +49,26 @@ fun CostDto.toCommandWith(username: String): RegisterCostCommand {
     )
 }
 
+fun CostDto.toUpdateCommandWith(username: String): UpdateCostCommand {
+    val toList = shared.map {
+        SharedCostCommand(
+            it.amount!!,
+            it.debtor!!,
+            it.paid!!
+        )
+    }.toList()
+    return UpdateCostCommand(
+        date!!,
+        description!!,
+        category!!,
+        subcategory!!,
+        comment!!,
+        BigDecimal(amount),
+        username,
+        toList,
+        id!!
+    )
+}
 
 fun Cost.toDto() = CostDto(
     date!!,
@@ -58,5 +78,5 @@ fun Cost.toDto() = CostDto(
     comment!!,
     amount!!.toEngineeringString(),
     shared!!.map { SharedCostDto(it.amount, it.debtor, it.isPaid) },
-    costIdentifier.value.toString()
+    identifier.value.toString()
 )
