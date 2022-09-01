@@ -1,143 +1,52 @@
 $(function () {
+
+
     const categoriesSelector = document.getElementById("categoryCostGet");
     const subcategoriesSelector = document.getElementById("subcategoryCostGet");
 
     const buttonAddSharedCost = document.getElementById("buttonAddSharedCostGet");
     const buttonDeleteSharedCost = document.getElementById("buttonDeleteSharedCostGet");
 
-
-    window.addEventListener('load', (event) => {
-        window.addEventListener("load", () => {
-            setCurrentCategoryOption(categoriesSelector);
-            setCurrentSubcategoryOption(subcategoriesSelector);
-        });
-
-        categoriesSelector.addEventListener("change", function () {
-            updateSubcategoryValue();
-        });
-
-        buttonDeleteSharedCost.addEventListener("click", function () {
-            const table = document.getElementById('sharedCostsGet');
-            const length = table.rows.length - 1;
-            if (length > 0) {
-                table.deleteRow(length);
-            }
-        });
-
-        buttonAddSharedCost.addEventListener("click", function () {
-            const table = document.getElementById('sharedCostsGet');
-            let length = table.rows.length - 1;
-            const nextLength = length++;
-
-            const nextSharedName = "shared[" + nextLength + "]";
-            const nextSharedId = "shared" + nextLength + "";
-
-            const cellDebtorHtml = "<td><input placeholder='Introduce a name' class=form-control name='" + nextSharedName + ".debtor' id='" + nextSharedId + ".debtor'></td>"
-            const cellAmountHtml = "<td><input placeholder='Introduce an amount' type=number step=any class=form-control name='" + nextSharedName + ".amount' id='" + nextSharedId + ".amount'></td>"
-            const cellPaidHtml = "<td class=centered><div><input type=checkbox class=form-check-input name='" + nextSharedName + ".paid' id='" + nextSharedId + ".paid'></div></td>"
-
-            const newRow = table.insertRow(table.rows.length);
-            const newCellDebtor = newRow.insertCell(0);
-            const newCellAmount = newRow.insertCell(1);
-            const newCellPaid = newRow.insertCell(2);
-
-            newCellPaid.classList.add("centered");
-
-            newCellDebtor.innerHTML = cellDebtorHtml;
-            newCellAmount.innerHTML = cellAmountHtml;
-            newCellPaid.innerHTML = cellPaidHtml;
-        });
-
+    categoriesSelector.addEventListener("change", function () {
+        updateSubcategoryValue();
     });
 
-    document.addEventListener('readystatechange', (event) => {
-        window.addEventListener("load", () => {
-            setCurrentCategoryOption(categoriesSelector);
-            setCurrentSubcategoryOption(subcategoriesSelector);
-        });
-
-        categoriesSelector.addEventListener("change", function () {
-            updateSubcategoryValue();
-        });
-
-        buttonDeleteSharedCost.addEventListener("click", function () {
-            const table = document.getElementById('sharedCostsGet');
-            const length = table.rows.length - 1;
-            if (length > 0) {
-                table.deleteRow(length);
-            }
-        });
-
-        buttonAddSharedCost.addEventListener("click", function () {
-            const table = document.getElementById('sharedCostsGet');
-            let length = table.rows.length - 1;
-            const nextLength = length++;
-
-            const nextSharedName = "shared[" + nextLength + "]";
-            const nextSharedId = "shared" + nextLength + "";
-
-            const cellDebtorHtml = "<td><input placeholder='Introduce a name' class=form-control name='" + nextSharedName + ".debtor' id='" + nextSharedId + ".debtor'></td>"
-            const cellAmountHtml = "<td><input placeholder='Introduce an amount' type=number step=any class=form-control name='" + nextSharedName + ".amount' id='" + nextSharedId + ".amount'></td>"
-            const cellPaidHtml = "<td class=centered><div><input type=checkbox class=form-check-input name='" + nextSharedName + ".paid' id='" + nextSharedId + ".paid'></div></td>"
-
-            const newRow = table.insertRow(table.rows.length);
-            const newCellDebtor = newRow.insertCell(0);
-            const newCellAmount = newRow.insertCell(1);
-            const newCellPaid = newRow.insertCell(2);
-
-            newCellPaid.classList.add("centered");
-
-            newCellDebtor.innerHTML = cellDebtorHtml;
-            newCellAmount.innerHTML = cellAmountHtml;
-            newCellPaid.innerHTML = cellPaidHtml;
-        });
-
+    window.addEventListener('load', () => {
+        setCurrentCategoryOption(categoriesSelector);
+        setCurrentSubcategoryOption(subcategoriesSelector);
     });
 
-    document.addEventListener('DOMContentLoaded', (event) => {
-        window.addEventListener("load", () => {
-            setCurrentCategoryOption(categoriesSelector);
-            setCurrentSubcategoryOption(subcategoriesSelector);
-        });
-
-        categoriesSelector.addEventListener("change", function () {
-            updateSubcategoryValue();
-        });
-
-        buttonDeleteSharedCost.addEventListener("click", function () {
-            const table = document.getElementById('sharedCostsGet');
-            const length = table.rows.length - 1;
-            if (length > 0) {
-                table.deleteRow(length);
-            }
-        });
-
-        buttonAddSharedCost.addEventListener("click", function () {
-            const table = document.getElementById('sharedCostsGet');
-            let length = table.rows.length - 1;
-            const nextLength = length++;
-
-            const nextSharedName = "shared[" + nextLength + "]";
-            const nextSharedId = "shared" + nextLength + "";
-
-            const cellDebtorHtml = "<td><input placeholder='Introduce a name' class=form-control name='" + nextSharedName + ".debtor' id='" + nextSharedId + ".debtor'></td>"
-            const cellAmountHtml = "<td><input placeholder='Introduce an amount' type=number step=any class=form-control name='" + nextSharedName + ".amount' id='" + nextSharedId + ".amount'></td>"
-            const cellPaidHtml = "<td class=centered><div><input type=checkbox class=form-check-input name='" + nextSharedName + ".paid' id='" + nextSharedId + ".paid'></div></td>"
-
-            const newRow = table.insertRow(table.rows.length);
-            const newCellDebtor = newRow.insertCell(0);
-            const newCellAmount = newRow.insertCell(1);
-            const newCellPaid = newRow.insertCell(2);
-
-            newCellPaid.classList.add("centered");
-
-            newCellDebtor.innerHTML = cellDebtorHtml;
-            newCellAmount.innerHTML = cellAmountHtml;
-            newCellPaid.innerHTML = cellPaidHtml;
-        });
-
+    buttonDeleteSharedCost.addEventListener("click", function () {
+        const table = document.getElementById('sharedCostsGet');
+        const length = table.rows.length - 1;
+        if (length > 0) {
+            table.deleteRow(length);
+        }
     });
 
+    buttonAddSharedCost.addEventListener("click", function () {
+        const table = document.getElementById('sharedCostsGet');
+        let length = table.rows.length - 1;
+        const nextLength = length++;
+
+        const nextSharedName = "shared[" + nextLength + "]";
+        const nextSharedId = "shared" + nextLength + "";
+
+        const cellDebtorHtml = "<td><input placeholder='Introduce a name' class=form-control name='" + nextSharedName + ".debtor' id='" + nextSharedId + ".debtor'></td>"
+        const cellAmountHtml = "<td><input placeholder='Introduce an amount' type=number step=any class=form-control name='" + nextSharedName + ".amount' id='" + nextSharedId + ".amount'></td>"
+        const cellPaidHtml = "<td class=centered><div><input type=checkbox class=form-check-input name='" + nextSharedName + ".paid' id='" + nextSharedId + ".paid'></div></td>"
+
+        const newRow = table.insertRow(table.rows.length);
+        const newCellDebtor = newRow.insertCell(0);
+        const newCellAmount = newRow.insertCell(1);
+        const newCellPaid = newRow.insertCell(2);
+
+        newCellPaid.classList.add("centered");
+
+        newCellDebtor.innerHTML = cellDebtorHtml;
+        newCellAmount.innerHTML = cellAmountHtml;
+        newCellPaid.innerHTML = cellPaidHtml;
+    });
 
     function updateSubcategoryValue() {
         const currentCategory = getCurrentCategoryValue();
@@ -198,4 +107,5 @@ $(function () {
             }
         }
     }
+
 });
