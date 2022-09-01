@@ -5,11 +5,9 @@ $(function () {
     const buttonAddSharedCost = document.getElementById("buttonAddSharedCost");
     const buttonDeleteSharedCost = document.getElementById("buttonDeleteSharedCost");
 
-    window.addEventListener("load", () => {
-        costRegisterForm.reset();
-        emptyAmountField();
-        setDefaultCategoriesSelectorsOption();
-    });
+    costRegisterForm.reset();
+    emptyAmountField();
+    setDefaultCategoriesSelectorsOption();
 
     categoriesSelector.addEventListener("change", function () {
         const currentCategory = getCurrentCategoryValue();
