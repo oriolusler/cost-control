@@ -1,0 +1,15 @@
+.pending_cost_date_cell {
+    width: 20%
+}
+
+.pending_cost_description_cell {
+    width: 40%
+}
+
+.pending_cost_amount_cell {
+    width: 10%
+}
+
+.pending_cost_debtor_cell {
+    width: 30%
+}

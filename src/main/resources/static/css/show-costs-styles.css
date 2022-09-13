@@ -1,0 +1,19 @@
+.date_cell{
+    width: 15%;
+}
+
+.amount_cell{
+    width: 10%;
+}
+
+.description_cell{
+    width: 30%;
+}
+
+.category_cell{
+    width: 30%;
+}
+
+.subcategory_cell{
+    width: 25%;
+}

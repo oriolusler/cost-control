@@ -1,10 +1,67 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-</head>
-<body>
 
+    <!--Links to boostrap-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!--Links to table data-->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
+    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
+
+    <link rel="stylesheet" th:href="@{/css/styles.css}"/>
+    <link rel="stylesheet" th:href="@{/css/show-pending-costs-styles.css}"/>
+    <link rel="stylesheet" th:href="@{/css/table-show.css}"/>
+</head>
+<body class="main">
+<section>
+    <div class="container py-5">
+        <div class="">
+            <div class="col-12">
+                <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                    <div class="card-body p-5">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover"
+                                   id="showPendingCostsTableId"
+                                   data-search-highlight="true">
+                                <thead>
+                                <tr>
+                                    <th class="pending_cost_date_cell" scope="col">Date</th>
+                                    <th class="pending_cost_description_cell" scope="col">Description</th>
+                                    <th class="pending_cost_amount_cell" scope="col">Amount</th>
+                                    <th class="pending_cost_debtor_cell" scope="col">Debtor</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <th:block th:each="cost : ${costs}">
+                                    <tr th:id="${cost.identifier}" onclick="handleClickCost(this)">
+                                        <td th:text="${cost.date}"></td>
+                                        <td th:text="${cost.description}"></td>
+                                        <td th:text="${cost.amount}"></td>
+                                        <td th:text="${cost.debtor}"></td>
+                                    </tr>
+                                </th:block>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    function handleClickCost(param) {
+        window.location.href = "/get/" + param.id
+    }
+</script>
+<script type="text/javascript" th:src="@{/js/show_pending_costs_table.js}"></script>
 </body>
 </html>

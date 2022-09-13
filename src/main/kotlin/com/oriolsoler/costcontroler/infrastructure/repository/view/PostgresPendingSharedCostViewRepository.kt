@@ -4,15 +4,15 @@ import org.springframework.jdbc.core.RowMapper
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate
 import java.math.BigDecimal
-import java.math.RoundingMode
 import java.math.RoundingMode.HALF_UP
 import java.sql.ResultSet
+import java.time.LocalDate
 
 
 class PostgresPendingSharedCostViewRepository(private val namedParameterJdbcTemplate: NamedParameterJdbcTemplate) {
     fun findBy(username: String): List<PendingSharedCostViewDto> {
         val sql = """
-            SELECT description, identifier, cs.amount as amount, debtor
+            SELECT description, identifier, cs.amount as amount, debtor, date
             FROM cost
             LEFT JOIN cost_share cs on cost.id = cs.cost
             WHERE ispaid is false
@@ -29,7 +29,8 @@ class PostgresPendingSharedCostViewRepository(private val namedParameterJdbcTemp
             rs.getString("description"),
             rs.getString("identifier"),
             rs.getBigDecimal("amount"),
-            rs.getString("debtor")
+            rs.getString("debtor"),
+            rs.getDate("date").toLocalDate(),
         )
     }
 }
@@ -38,7 +39,8 @@ data class PendingSharedCostViewDto(
     val description: String,
     val identifier: String,
     var amount: BigDecimal,
-    val debtor: String
+    val debtor: String,
+    val date: LocalDate
 ) {
     init {
        amount = amount.setScale(2, HALF_UP)

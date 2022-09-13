@@ -4,21 +4,14 @@ import com.oriolsoler.costcontroler.domain.Categories
 import com.oriolsoler.costcontroler.domain.CostIdentifier
 import com.oriolsoler.costcontroler.domain.SharedCost
 import com.oriolsoler.costcontroler.domain.Subcategorises
-import com.oriolsoler.costcontroler.infrastructure.controller.dto.SharedCostDto
-import com.oriolsoler.costcontroler.infrastructure.controller.dto.toDto
 import com.oriolsoler.costcontroler.infrastructure.repository.view.PendingSharedCostViewDto
 import com.oriolsoler.costcontroler.integration.helper.IntegrationTest
-import org.hamcrest.Matchers
-import org.hamcrest.Matchers.equalTo
 import org.hamcrest.Matchers.hasItem
 import org.hamcrest.Matchers.hasSize
-import org.hamcrest.Matchers.hasValue
 import org.junit.jupiter.api.Test
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.model
-import java.math.BigDecimal
 import java.math.BigDecimal.*
 
 
@@ -66,7 +59,8 @@ abstract class GetPendingSharedCostControllerFeature : IntegrationTest() {
                             "Description cost 1",
                             costIdentifier1.value.toString(),
                             valueOf(10.00),
-                            "Jimmy"
+                            "Jimmy",
+                            cost1.date!!
                         )
                     )
                 )
@@ -78,7 +72,8 @@ abstract class GetPendingSharedCostControllerFeature : IntegrationTest() {
                             "Description cost 2",
                             costIdentifier2.value.toString(),
                             valueOf(5.00),
-                            "Kessie"
+                            "Kessie",
+                            cost2.date!!
                         )
                     )
                 )
