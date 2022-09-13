@@ -79,7 +79,7 @@ class IntegrationTest {
             shared,
             costIdentifier
         )
-        costRepositoryForTest.register(cost)
+        costRepository.register(cost)
         return cost
     }
 }

@@ -2,6 +2,7 @@ package com.oriolsoler.costcontroler.integration
 
 import com.oriolsoler.costcontroler.integration.acceptance.ApplicationTestCase
 import com.oriolsoler.costcontroler.integration.acceptance.GetCostFeature
+import com.oriolsoler.costcontroler.integration.acceptance.GetPendingSharedCostControllerFeature
 import com.oriolsoler.costcontroler.integration.acceptance.LoginFeature
 import com.oriolsoler.costcontroler.integration.acceptance.RegisterNewCostFeature
 import com.oriolsoler.costcontroler.integration.acceptance.RegisterUserFeature
@@ -48,4 +49,7 @@ class ApplicationIntegrationTest {
 
     @Nested
     inner class UpdateCostFeatureNested : UpdateCostFeature()
+
+    @Nested
+    inner class GetPendingSharedCostControllerFeatureNested : GetPendingSharedCostControllerFeature()
 }
