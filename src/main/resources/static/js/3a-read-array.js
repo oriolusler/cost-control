@@ -66,10 +66,11 @@ async function handleFileAsync(e) {
             let importDescriptionElement = document.getElementById("importDescriptionId" + x);
             let importCommentElement = document.getElementById("importCommentId" + x);
             let importAmountElement = document.getElementById("importAmountId" + x);
+
             importDateElement.value = date.split("/").reverse().join("-");
             importDescriptionElement.value = description;
             importCommentElement.value = comment;
-            importAmountElement.value = amount;
+            importAmountElement.value = amount.replace(",","")
 
             const form = document.getElementById("importCostFormId" + x)
             form.addEventListener('submit', function handleSubmit(event) {
