@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+    <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
+    <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
+
     <meta charset="utf-8"/>
     <title>Swiper demo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"/>
@@ -12,6 +16,8 @@
 
     <!--Links to boostrap-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/json-form-data@^1.7.0/dist/jsonToFormData.min.js"></script>
 
     <!-- Demo styles -->
     <style>
@@ -73,7 +79,7 @@
         <div class="card shadow-2-strong" style="border-radius: 1rem;">
             <div class="card-body p-5">
                 <div class="row">
-                    <input type="file" id="demo" accept=".xls,.xlsx"/>
+                    <input type="file" id="demo" accept=".xls,.xlsx,.csv"/>
                 </div>
             </div>
         </div>
@@ -102,6 +108,5 @@
 
 <!-- Initialize Swiper -->
 <script type="text/javascript" th:src="@{/js/3a-read-array.js}"></script>
-
 </body>
 </html>

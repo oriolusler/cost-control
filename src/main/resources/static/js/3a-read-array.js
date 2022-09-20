@@ -10,7 +10,34 @@ const swiper = new Swiper(".mySwiper", {
 
 document.getElementById("demo").addEventListener("change", handleFileAsync, false);
 
+function removeAllSlides() {
+    swiper.removeAllSlides()
+}
+
+function allCostsAreConfirmed() {
+    return swiper.isLocked;
+}
+
+function processAndSendCosts() {
+    const token = $("meta[name='_csrf']").attr("content");
+    const header = $("meta[name='_csrf_header']").attr("content");
+
+    $.ajax({
+        type: "POST",
+        url: "/register/multi",
+        beforeSend: function (request) {
+            request.setRequestHeader(header, token);
+        },
+        contentType: "application/json",
+        dataType: "json",
+        data: JSON.stringify(confirmedImportedCosts)
+
+    });
+}
+
 async function handleFileAsync(e) {
+    removeAllSlides();
+
     const file = e.target.files[0];
     const data = await file.arrayBuffer();
     const workbook = XLSX.read(data);
@@ -70,7 +97,7 @@ async function handleFileAsync(e) {
             importDateElement.value = date.split("/").reverse().join("-");
             importDescriptionElement.value = description;
             importCommentElement.value = comment;
-            importAmountElement.value = amount.replace(",","")
+            importAmountElement.value = amount.replace(",", "")
 
             const form = document.getElementById("importCostFormId" + x)
             form.addEventListener('submit', function handleSubmit(event) {
@@ -86,9 +113,9 @@ async function handleFileAsync(e) {
                 swiper.slideNext();
                 swiper.removeSlide(swiper.activeIndex - 1);
 
-                if (swiper.isLocked) {
-                    swiper.removeAllSlides()
-                    console.log(confirmedImportedCosts)
+                if (allCostsAreConfirmed()) {
+                    removeAllSlides()
+                    processAndSendCosts();
                 }
             });
         }
