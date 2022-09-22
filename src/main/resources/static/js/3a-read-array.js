@@ -72,12 +72,21 @@ async function handleFileAsync(e) {
                         </select>
                     </div>
                     <div class="row justify-content-center">
+                        <div class="table-responsive">
+                            <table class="table table-striped" id="importSharedCosts` + x + `">
+                                <tr>
+                                    <th>Who?</th>
+                                    <th>How much?</th>
+                                    <th>Paid?</th>
+                                </tr>
+                            </table>
+                        </div>
                         <div class="d-flex">
-                            <input class="btn btn-success mr-1" id="buttonAddSharedCostGet" type="button"
+                            <input class="btn btn-success mr-1" id="importAddSharedButton` + x + `" type="button"
                                    value="Split cost"
                                    name="buttonShareCost"/>
 
-                            <input class="btn btn-danger mr-1" id="buttonDeleteSharedCostGet" type="button"
+                            <input class="btn btn-danger mr-1" id="importDeleteSharedButton` + x + `" type="button"
                                    value="Delete last split"
                                    name="buttonDeleteCost"/>
                         </div>
@@ -105,7 +114,13 @@ async function handleFileAsync(e) {
             let importAmountElement = document.getElementById("importAmountId" + x);
             let importCategoryElement = document.getElementById("importCategoryId" + x);
             let importSubcategoryElement = document.getElementById("importSubcategoryId" + x);
+
             let importDiscardButtonElement = document.getElementById("importDiscardButton" + x);
+
+            let importAddSharedButtonElement = document.getElementById("importAddSharedButton" + x);
+            let importDeleteSharedButtonElement = document.getElementById("importDeleteSharedButton" + x);
+
+            let importSharedCostsTableElement = document.getElementById("importSharedCosts" + x);
 
             const options = document.getElementById("importCategoriesSelectorId").options
             for (let i = 0; i < options.length; i++) {
@@ -137,36 +152,83 @@ async function handleFileAsync(e) {
             importCommentElement.value = comment;
             importAmountElement.value = amount.replace(",", "")
 
+            importDeleteSharedButtonElement.addEventListener("click", function () {
+                const length = importSharedCostsTableElement.rows.length - 1;
+                if (length > 0) {
+                    importSharedCostsTableElement.deleteRow(length);
+                }
+            });
+
+            importAddSharedButtonElement.addEventListener("click", function () {
+                let length = importSharedCostsTableElement.rows.length - 1;
+                const nextLength = length++;
+
+                const nextSharedName = "shared[" + nextLength + "]";
+                const nextSharedId = "shared" + nextLength + "";
+
+                const cellDebtorHtml = "<th><input placeholder='Introduce a name' class=form-control name='" + nextSharedName + ".debtor' id='" + nextSharedId + ".debtor'></th>"
+                const cellAmountHtml = "<th><input placeholder='Introduce an amount' type=number step=any class=form-control name='" + nextSharedName + ".amount' id='" + nextSharedId + ".amount'></th>"
+                const cellPaidHtml = "<th class=centered><div><input type=checkbox class=form-check-input name='" + nextSharedName + ".paid' id='" + nextSharedId + ".paid'></div></th>"
+
+                const newRow = importSharedCostsTableElement.insertRow(importSharedCostsTableElement.rows.length);
+                const newCellDebtor = newRow.insertCell(0);
+                const newCellAmount = newRow.insertCell(1);
+                const newCellPaid = newRow.insertCell(2);
+
+                newCellPaid.classList.add("centered");
+
+                newCellDebtor.innerHTML = cellDebtorHtml;
+                newCellAmount.innerHTML = cellAmountHtml;
+                newCellPaid.innerHTML = cellPaidHtml;
+            });
+
             importDiscardButtonElement.addEventListener('click', function handleDiscard(event) {
                 event.preventDefault();
-                console.log("H1")
-                swiper.slideNext();
-                swiper.removeSlide(swiper.activeIndex - 1);
 
                 if (allCostsAreConfirmed()) {
                     removeAllSlides()
                     processAndSendCosts();
+                } else {
+                    swiper.slideNext();
+                    swiper.removeSlide(swiper.activeIndex - 1);
                 }
-
             });
 
             const form = document.getElementById("importCostFormId" + x)
             form.addEventListener('submit', function handleSubmit(event) {
                 event.preventDefault();
 
+                let length = importSharedCostsTableElement.rows.length - 1;
+
+                const sharedCosts = []
+                for (let i = 0; i < length; i++) {
+                    const debtor = document.getElementById("shared" + i + ".debtor").value
+                    const amount = document.getElementById("shared" + i + ".amount").value
+                    const paid = document.getElementById("shared" + i + ".paid").checked
+
+                    sharedCosts.push({
+                        "debtor": debtor,
+                        "amount": amount,
+                        "paid": paid,
+                    })
+                }
+
                 confirmedImportedCosts.push({
                     "date": importDateElement.value,
                     "description": importDescriptionElement.value,
                     "comment": importCommentElement.value,
                     "amount": importAmountElement.value,
+                    "category": importCategoryElement.value,
+                    "subcategory": importSubcategoryElement.value,
+                    "shared": sharedCosts
                 })
-
-                swiper.slideNext();
-                swiper.removeSlide(swiper.activeIndex - 1);
 
                 if (allCostsAreConfirmed()) {
                     removeAllSlides()
                     processAndSendCosts();
+                } else {
+                    swiper.slideNext();
+                    swiper.removeSlide(swiper.activeIndex - 1);
                 }
             });
         }
