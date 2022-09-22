@@ -23,14 +23,9 @@ function processAndSendCosts() {
     const header = $("meta[name='_csrf_header']").attr("content");
 
     $.ajax({
-        type: "POST",
-        url: "/register/multi",
-        beforeSend: function (request) {
+        type: "POST", url: "/register/multi", beforeSend: function (request) {
             request.setRequestHeader(header, token);
-        },
-        contentType: "application/json",
-        dataType: "json",
-        data: JSON.stringify(confirmedImportedCosts)
+        }, contentType: "application/json", dataType: "json", data: JSON.stringify(confirmedImportedCosts)
 
     });
 }
@@ -66,6 +61,16 @@ async function handleFileAsync(e) {
                     <div class="row form-outline mb-4">
                         <input type="number" step="any" id="importAmountId` + x + `" class="form-control form-control-lg" placeholder="Introduce the amount"/>
                     </div>
+                    <div class="row form-outline mb-4">
+                        <select id="importCategoryId` + x + `" class="form-control form-control-lg"">
+                            <option value="" disabled selected>Select a category</option>
+                        </select>
+                    </div>
+                    <div class="row form-outline mb-4">
+                        <select id="importSubcategoryId` + x + `" class="form-control form-control-lg">
+                            <option value="" disabled selected>Select a subcategory</option>
+                        </select>
+                    </div>
                     <div class="row justify-content-center">
                         <div class="d-flex">
                             <input class="btn btn-success mr-1" id="buttonAddSharedCostGet" type="button"
@@ -79,10 +84,15 @@ async function handleFileAsync(e) {
                     </div>
                     <div class="row d-flex justify-content-center py-2">
                         <p>
-                            <button class="btn btn-primary btn-lg"
+                            <button class="btn btn-primary mr-1"
                                     type="submit"
                                     value="Submit">
                                 Confirm
+                            </button> 
+                            <button class="btn btn-danger mr-1"
+                             value="Discard"
+                              id="importDiscardButton` + x + `">
+                                Discard
                             </button>
                         </p>
                     </div>
@@ -93,11 +103,52 @@ async function handleFileAsync(e) {
             let importDescriptionElement = document.getElementById("importDescriptionId" + x);
             let importCommentElement = document.getElementById("importCommentId" + x);
             let importAmountElement = document.getElementById("importAmountId" + x);
+            let importCategoryElement = document.getElementById("importCategoryId" + x);
+            let importSubcategoryElement = document.getElementById("importSubcategoryId" + x);
+            let importDiscardButtonElement = document.getElementById("importDiscardButton" + x);
+
+            const options = document.getElementById("importCategoriesSelectorId").options
+            for (let i = 0; i < options.length; i++) {
+                const option = options[i]
+                importCategoryElement.add(new Option(option.text, option.value, false, false));
+            }
+
+            importCategoryElement.addEventListener("change", function () {
+                const currentCategory = importCategoryElement.options[importCategoryElement.selectedIndex].value;
+                const subcategories = categoriesMap[currentCategory];
+
+                clear(importSubcategoryElement)
+                const defaultSubcategoryOption = document.createElement('option');
+                defaultSubcategoryOption.selected = true
+                defaultSubcategoryOption.disabled = true
+                defaultSubcategoryOption.text = "Select a subcategory"
+                importSubcategoryElement.add(defaultSubcategoryOption);
+
+                for (let i = 0; i < subcategories.length; i++) {
+                    let option = document.createElement('option');
+                    option.value = subcategories[i].name;
+                    option.text = subcategories[i].displayName;
+                    importSubcategoryElement.add(option);
+                }
+            });
 
             importDateElement.value = date.split("/").reverse().join("-");
             importDescriptionElement.value = description;
             importCommentElement.value = comment;
             importAmountElement.value = amount.replace(",", "")
+
+            importDiscardButtonElement.addEventListener('click', function handleDiscard(event) {
+                event.preventDefault();
+                console.log("H1")
+                swiper.slideNext();
+                swiper.removeSlide(swiper.activeIndex - 1);
+
+                if (allCostsAreConfirmed()) {
+                    removeAllSlides()
+                    processAndSendCosts();
+                }
+
+            });
 
             const form = document.getElementById("importCostFormId" + x)
             form.addEventListener('submit', function handleSubmit(event) {
@@ -119,5 +170,11 @@ async function handleFileAsync(e) {
                 }
             });
         }
+    }
+}
+
+function clear(list) {
+    while (list.options.length) {
+        list.remove(0);
     }
 }

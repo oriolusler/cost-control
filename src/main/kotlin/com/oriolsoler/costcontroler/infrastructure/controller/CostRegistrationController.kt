@@ -3,7 +3,6 @@ package com.oriolsoler.costcontroler.infrastructure.controller
 import com.oriolsoler.costcontroler.application.registerCost.RegisterCost
 import com.oriolsoler.costcontroler.domain.Categories.Companion.getCategoriesWithSubtypes
 import com.oriolsoler.costcontroler.infrastructure.controller.dto.CostDto
-import com.oriolsoler.costcontroler.infrastructure.controller.dto.MultiCostDto
 import com.oriolsoler.costcontroler.infrastructure.controller.dto.SharedCostDto
 import com.oriolsoler.costcontroler.infrastructure.controller.dto.toRegisterCommandWith
 import org.springframework.stereotype.Controller
