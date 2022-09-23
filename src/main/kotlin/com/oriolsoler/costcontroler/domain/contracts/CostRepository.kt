@@ -12,4 +12,5 @@ interface CostRepository {
     fun update(cost: Cost)
     fun updateSharedCostWith(id: Number, shared: List<SharedCost>?)
     fun deleteSharedCostFor(id: Number)
+    fun multiRegister(capture: List<Cost>)
 }

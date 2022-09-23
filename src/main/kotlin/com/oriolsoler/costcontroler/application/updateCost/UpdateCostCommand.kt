@@ -1,6 +1,6 @@
 package com.oriolsoler.costcontroler.application.updateCost
 
-import com.oriolsoler.costcontroler.application.registerCost.SharedCostCommand
+import com.oriolsoler.costcontroler.application.registerCost.single.SharedCostCommand
 import com.oriolsoler.costcontroler.domain.Categories
 import com.oriolsoler.costcontroler.domain.Cost
 import com.oriolsoler.costcontroler.domain.CostIdentifier

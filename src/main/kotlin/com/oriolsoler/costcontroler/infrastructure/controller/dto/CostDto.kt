@@ -1,8 +1,8 @@
 package com.oriolsoler.costcontroler.infrastructure.controller.dto
 
 import com.oriolsoler.costcontroler.NoArgAnnotation
-import com.oriolsoler.costcontroler.application.registerCost.RegisterCostCommand
-import com.oriolsoler.costcontroler.application.registerCost.SharedCostCommand
+import com.oriolsoler.costcontroler.application.registerCost.single.RegisterCostCommand
+import com.oriolsoler.costcontroler.application.registerCost.single.SharedCostCommand
 import com.oriolsoler.costcontroler.application.updateCost.UpdateCostCommand
 import com.oriolsoler.costcontroler.domain.Cost
 import org.springframework.format.annotation.DateTimeFormat

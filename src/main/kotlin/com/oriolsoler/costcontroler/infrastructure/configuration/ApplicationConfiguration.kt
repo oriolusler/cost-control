@@ -1,7 +1,7 @@
 package com.oriolsoler.costcontroler.infrastructure.configuration
 
 import com.oriolsoler.costcontroler.application.getcost.GetCost
-import com.oriolsoler.costcontroler.application.registerCost.RegisterCost
+import com.oriolsoler.costcontroler.application.registerCost.single.RegisterCost
 import com.oriolsoler.costcontroler.application.registerUser.RegisterUser
 import com.oriolsoler.costcontroler.application.showCosts.ShowCosts
 import com.oriolsoler.costcontroler.application.updateCost.UpdateCost

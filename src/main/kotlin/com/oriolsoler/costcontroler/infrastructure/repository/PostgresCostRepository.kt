@@ -2,8 +2,8 @@ package com.oriolsoler.costcontroler.infrastructure.repository
 
 import com.oriolsoler.costcontroler.domain.Categories
 import com.oriolsoler.costcontroler.domain.Cost
-import com.oriolsoler.costcontroler.domain.Description
 import com.oriolsoler.costcontroler.domain.CostIdentifier
+import com.oriolsoler.costcontroler.domain.Description
 import com.oriolsoler.costcontroler.domain.SharedCost
 import com.oriolsoler.costcontroler.domain.Subcategorises
 import com.oriolsoler.costcontroler.domain.contracts.CostRepository
@@ -119,6 +119,10 @@ class PostgresCostRepository(private val namedParameterJdbcTemplate: NamedParame
         val paramsDeleteShared = MapSqlParameterSource()
         paramsDeleteShared.addValue("cost", id)
         namedParameterJdbcTemplate.update(sql, paramsDeleteShared)
+    }
+
+    override fun multiRegister(capture: List<Cost>) {
+        TODO("Not yet implemented")
     }
 
     private fun mapTo() = RowMapper { rs: ResultSet, _: Int ->

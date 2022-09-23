@@ -3,9 +3,9 @@ package com.oriolsoler.costcontroler.unitary.acceptance
 import com.nhaarman.mockito_kotlin.argumentCaptor
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
-import com.oriolsoler.costcontroler.application.registerCost.RegisterCost
-import com.oriolsoler.costcontroler.application.registerCost.RegisterCostCommand
-import com.oriolsoler.costcontroler.application.registerCost.SharedCostCommand
+import com.oriolsoler.costcontroler.application.registerCost.single.RegisterCost
+import com.oriolsoler.costcontroler.application.registerCost.single.RegisterCostCommand
+import com.oriolsoler.costcontroler.application.registerCost.single.SharedCostCommand
 import com.oriolsoler.costcontroler.domain.Cost
 import com.oriolsoler.costcontroler.domain.SharedCost
 import com.oriolsoler.costcontroler.domain.contracts.CostRepository

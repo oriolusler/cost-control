@@ -1,14 +1,6 @@
 package com.oriolsoler.costcontroler.integration
 
-import com.oriolsoler.costcontroler.integration.acceptance.ApplicationTestCase
-import com.oriolsoler.costcontroler.integration.acceptance.GetCostFeature
-import com.oriolsoler.costcontroler.integration.acceptance.GetPendingSharedCostControllerFeature
-import com.oriolsoler.costcontroler.integration.acceptance.ImportExcelFeature
-import com.oriolsoler.costcontroler.integration.acceptance.LoginFeature
-import com.oriolsoler.costcontroler.integration.acceptance.RegisterNewCostFeature
-import com.oriolsoler.costcontroler.integration.acceptance.RegisterUserFeature
-import com.oriolsoler.costcontroler.integration.acceptance.ShowAllCostsFeature
-import com.oriolsoler.costcontroler.integration.acceptance.UpdateCostFeature
+import com.oriolsoler.costcontroler.integration.acceptance.*
 import com.oriolsoler.costcontroler.integration.helper.docker.DockerComposeHelper
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Nested
@@ -56,4 +48,7 @@ class ApplicationIntegrationTest {
 
     @Nested
     inner class ImportExcelFeatureNested : ImportExcelFeature()
+
+    @Nested
+    inner class RegisterMultiCostsFeatureNested : RegisterMultiCostsFeature()
 }

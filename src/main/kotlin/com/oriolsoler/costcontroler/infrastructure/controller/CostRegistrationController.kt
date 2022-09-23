@@ -1,6 +1,6 @@
 package com.oriolsoler.costcontroler.infrastructure.controller
 
-import com.oriolsoler.costcontroler.application.registerCost.RegisterCost
+import com.oriolsoler.costcontroler.application.registerCost.single.RegisterCost
 import com.oriolsoler.costcontroler.domain.Categories.Companion.getCategoriesWithSubtypes
 import com.oriolsoler.costcontroler.infrastructure.controller.dto.CostDto
 import com.oriolsoler.costcontroler.infrastructure.controller.dto.SharedCostDto

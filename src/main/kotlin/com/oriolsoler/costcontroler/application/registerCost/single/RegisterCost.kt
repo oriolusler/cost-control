@@ -1,4 +1,4 @@
-package com.oriolsoler.costcontroler.application.registerCost
+package com.oriolsoler.costcontroler.application.registerCost.single
 
 import com.oriolsoler.costcontroler.domain.contracts.CostRepository
 
