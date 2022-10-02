@@ -10,8 +10,9 @@ import com.oriolsoler.costcontroler.domain.contracts.CostRepository
 import org.springframework.jdbc.core.RowMapper
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate
-import org.springframework.jdbc.support.GeneratedKeyHolder
 import java.sql.ResultSet
+import java.sql.SQLType
+import java.util.*
 
 
 class PostgresCostRepository(private val namedParameterJdbcTemplate: NamedParameterJdbcTemplate) : CostRepository {
@@ -31,13 +32,9 @@ class PostgresCostRepository(private val namedParameterJdbcTemplate: NamedParame
         paramsRegister.addValue("username", cost.username)
         paramsRegister.addValue("identifier", cost.identifier.value)
 
-        val keyHolder = GeneratedKeyHolder()
+        namedParameterJdbcTemplate.update(sql, paramsRegister)
 
-        namedParameterJdbcTemplate.update(sql, paramsRegister, keyHolder)
-
-        val newCostId = keyHolder.keyList[0]["id"] as Number
-
-        insertSharedCostFor(newCostId, cost.shared!!)
+        insertSharedCostFor(cost)
     }
 
     override fun findBy(username: String): List<Cost> {
@@ -62,15 +59,15 @@ class PostgresCostRepository(private val namedParameterJdbcTemplate: NamedParame
         return namedParameterJdbcTemplate.query(sql, params, mapTo()).firstOrNull()
     }
 
-    override fun insertSharedCostFor(id: Number, shared: List<SharedCost>) {
+    override fun insertSharedCostFor(cost: Cost) {
         val sql = """
-            |INSERT INTO COST_SHARE (cost, amount, isPaid, debtor)
-            |VALUES (:cost, :amount, :isPaid, :debtor)
+            |INSERT INTO COST_SHARE (cost_identifier, amount, isPaid, debtor)
+            |VALUES (:cost_identifier, :amount, :isPaid, :debtor)
         """.trimMargin()
 
-        shared.forEach {
+        cost.shared?.forEach {
             val params = MapSqlParameterSource()
-            params.addValue("cost", id)
+            params.addValue("cost_identifier", cost.identifier.value)
             params.addValue("amount", it.amount)
             params.addValue("isPaid", it.isPaid)
             params.addValue("debtor", it.debtor)
@@ -97,27 +94,24 @@ class PostgresCostRepository(private val namedParameterJdbcTemplate: NamedParame
         paramsUpdate.addValue("username", cost.username)
         paramsUpdate.addValue("identifier", cost.identifier.value)
 
-        val keyHolder = GeneratedKeyHolder()
-        namedParameterJdbcTemplate.update(sql, paramsUpdate, keyHolder)
+        namedParameterJdbcTemplate.update(sql, paramsUpdate)
 
-        val dbCostId = keyHolder.keyList[0]["id"] as Number
-
-        updateSharedCostWith(dbCostId, cost.shared)
+        updateSharedCostWith(cost)
     }
 
-    override fun updateSharedCostWith(id: Number, shared: List<SharedCost>?) {
-        deleteSharedCostFor(id)
-        insertSharedCostFor(id, shared!!)
+    override fun updateSharedCostWith(cost: Cost) {
+        deleteSharedCostFor(cost.identifier)
+        insertSharedCostFor(cost)
     }
 
-    override fun deleteSharedCostFor(id: Number) {
+    override fun deleteSharedCostFor(costIdentifier: CostIdentifier) {
         val sql = """
             |DELETE FROM COST_SHARE
-            |WHERE cost=:cost
+            |WHERE cost_identifier=:cost_identifier
         """.trimMargin()
 
         val paramsDeleteShared = MapSqlParameterSource()
-        paramsDeleteShared.addValue("cost", id)
+        paramsDeleteShared.addValue("cost_identifier", costIdentifier.value)
         namedParameterJdbcTemplate.update(sql, paramsDeleteShared)
     }
 
@@ -126,6 +120,7 @@ class PostgresCostRepository(private val namedParameterJdbcTemplate: NamedParame
     }
 
     private fun mapTo() = RowMapper { rs: ResultSet, _: Int ->
+        val identifier = CostIdentifier(rs.getString("identifier"))
         Cost(
             rs.getDate("date").toLocalDate(),
             Description(rs.getString("description")),
@@ -134,19 +129,19 @@ class PostgresCostRepository(private val namedParameterJdbcTemplate: NamedParame
             rs.getString("comment"),
             rs.getBigDecimal("amount"),
             rs.getString("username"),
-            getSharedCosts(rs.getInt("id")),
-            CostIdentifier(rs.getString("identifier"))
+            getSharedCosts(identifier),
+            identifier
         )
     }
 
-    private fun getSharedCosts(costId: Int): List<SharedCost> {
+    private fun getSharedCosts(costIdentifier: CostIdentifier): List<SharedCost> {
         val sql = """
             SELECT * 
             FROM COST_SHARE
-            WHERE cost = :cost_id
+            WHERE cost_identifier = :cost_identifier
             """.trimIndent()
         val params = MapSqlParameterSource()
-        params.addValue("cost_id", costId)
+        params.addValue("cost_identifier", costIdentifier.value)
         return namedParameterJdbcTemplate.query(sql, params, mapToSharedCost())
     }
 
