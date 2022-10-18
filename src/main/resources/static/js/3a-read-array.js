@@ -41,9 +41,9 @@ async function handleFileAsync(e) {
 
     for (const x in excelCostArray) {
         const date = excelCostArray[x][0]
-        const description = excelCostArray[x][2]
-        const comment = excelCostArray[x][3]
-        const amount = excelCostArray[x][4]
+        const description = excelCostArray[x][1]
+        const comment = excelCostArray[x][2]
+        const amount = excelCostArray[x][3]
 
         if (description && amount) {
             swiper.appendSlide(`         
@@ -149,8 +149,12 @@ async function handleFileAsync(e) {
 
             importDateElement.value = date.split("/").reverse().join("-");
             importDescriptionElement.value = description;
-            importCommentElement.value = comment;
-            importAmountElement.value = amount.replace(",", "")
+            if (comment !== undefined) {
+                importCommentElement.value = comment;
+            }
+            const inputAmountValue = amount.replace(",", "")
+            importAmountElement.value = Math.abs(inputAmountValue) * -1
+
 
             importDeleteSharedButtonElement.addEventListener("click", function () {
                 const length = importSharedCostsTableElement.rows.length - 1;
