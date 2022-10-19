@@ -1,13 +1,12 @@
 package com.oriolsoler.costcontroler.integration.acceptance
 
+import com.oriolsoler.costcontroler.domain.Categories.FOOD
+import com.oriolsoler.costcontroler.domain.Categories.SHOPPING
 import com.oriolsoler.costcontroler.infrastructure.controller.dto.CostDto
 import com.oriolsoler.costcontroler.infrastructure.controller.dto.SharedCostDto
 import com.oriolsoler.costcontroler.infrastructure.controller.dto.toDto
 import com.oriolsoler.costcontroler.integration.helper.IntegrationTest
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.springframework.beans.factory.annotation.Value
-import org.springframework.core.io.Resource
 import org.springframework.http.MediaType.APPLICATION_JSON
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user
@@ -19,9 +18,8 @@ import kotlin.test.assertEquals
 
 abstract class RegisterMultiCostsFeature : IntegrationTest() {
 
-    @Disabled
     @Test
-    fun `should register new cost`() {
+    fun `should register new costs`() {
         mvc.post("/register/multi") {
             with(user("Oriol"))
             with(csrf())
@@ -77,33 +75,37 @@ abstract class RegisterMultiCostsFeature : IntegrationTest() {
         val actual = costRepository.findBy("Oriol")
         assertEquals(2, actual.size)
 
-        val expectedDto = actual.map { it.toDto() }
+        val actualDtoList = actual.map { it.toDto() }
+        val costFoodId = actual.first { it.category == FOOD }.identifier.value
+        val costShoppingId = actual.first { it.category == SHOPPING }.identifier.value
         assertEquals(
-            expectedDto, listOf(
+            listOf(
                 CostDto(
                     LocalDate.of(2022, 9, 12),
                     "BIZUM ENVIADO",
-                    "SHOPPING",
-                    "SPORTING_GOODS",
+                    "Shopping",
+                    "Sporting goods",
                     "Comment 1",
                     "-0.92",
                     listOf(
                         SharedCostDto(BigDecimal.valueOf(1), "Eliot", true),
                         SharedCostDto(BigDecimal.valueOf(5), "Kate", false),
-                    )
+                    ),
+                    costShoppingId.toString()
                 ), CostDto(
                     LocalDate.of(2022, 9, 11),
-                    "BIZUM RECIBIDO",
-                    "FOOD",
-                    "RESTAURANTS",
+                    "BIZUM ENVIADO",
+                    "Food",
+                    "Restaurants",
                     "Dinner with friends",
                     "-22.84",
                     listOf(
-                        SharedCostDto(BigDecimal.valueOf(1), "Anthony", true),
                         SharedCostDto(BigDecimal.valueOf(5), "Jenny", false),
-                    )
+                        SharedCostDto(BigDecimal.valueOf(1), "Anthony", true),
+                    ),
+                    costFoodId.toString()
                 )
-            )
+            ), actualDtoList
         )
     }
 }

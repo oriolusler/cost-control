@@ -14,7 +14,7 @@ class PostgresPendingSharedCostViewRepository(private val namedParameterJdbcTemp
         val sql = """
             SELECT description, identifier, cs.amount as amount, debtor, date
             FROM cost
-            LEFT JOIN cost_share cs on cost.id = cs.cost
+            LEFT JOIN cost_share cs on cost.identifier = cs.cost_identifier
             WHERE ispaid is false
             AND username = :username;
             """.trimIndent()

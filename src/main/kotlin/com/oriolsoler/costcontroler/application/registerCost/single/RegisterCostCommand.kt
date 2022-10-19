@@ -31,8 +31,8 @@ fun RegisterCostCommand.toCost(): Cost {
     return Cost(
         date,
         Description(description),
-        Categories.valueOf(category),
-        Subcategorises.valueOf(subcategory),
+        Categories.getOrNull(category),
+        Subcategorises.getOrEmpty(subcategory),
         comment,
         amount,
         username,
