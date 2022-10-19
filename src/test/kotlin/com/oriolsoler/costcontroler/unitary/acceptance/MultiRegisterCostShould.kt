@@ -47,7 +47,7 @@ class MultiRegisterCostShould {
         multiRegisterCostUseCase.execute(multiRegisterCostCommand)
 
         val captor = argumentCaptor<List<Cost>>()
-        verify(costRepository).multiRegister(captor.capture())
+        verify(costRepository).insertMultiRegister(captor.capture())
 
         val capturedCost = captor.firstValue
         assertEquals(2, capturedCost.size)

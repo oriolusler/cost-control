@@ -11,8 +11,6 @@ import org.springframework.jdbc.core.RowMapper
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate
 import java.sql.ResultSet
-import java.sql.SQLType
-import java.util.*
 
 
 class PostgresCostRepository(private val namedParameterJdbcTemplate: NamedParameterJdbcTemplate) : CostRepository {
@@ -65,14 +63,17 @@ class PostgresCostRepository(private val namedParameterJdbcTemplate: NamedParame
             |VALUES (:cost_identifier, :amount, :isPaid, :debtor)
         """.trimMargin()
 
-        cost.shared?.forEach {
-            val params = MapSqlParameterSource()
-            params.addValue("cost_identifier", cost.identifier.value)
-            params.addValue("amount", it.amount)
-            params.addValue("isPaid", it.isPaid)
-            params.addValue("debtor", it.debtor)
+        val params = cost.shared?.map {
+            val paramShared = MapSqlParameterSource()
+            paramShared.addValue("cost_identifier", cost.identifier.value)
+            paramShared.addValue("amount", it.amount)
+            paramShared.addValue("isPaid", it.isPaid)
+            paramShared.addValue("debtor", it.debtor)
+            paramShared
+        }?.toTypedArray()
 
-            namedParameterJdbcTemplate.update(sql, params)
+        if (params != null) {
+            namedParameterJdbcTemplate.batchUpdate(sql, params)
         }
     }
 
@@ -115,8 +116,49 @@ class PostgresCostRepository(private val namedParameterJdbcTemplate: NamedParame
         namedParameterJdbcTemplate.update(sql, paramsDeleteShared)
     }
 
-    override fun multiRegister(capture: List<Cost>) {
-        TODO("Not yet implemented")
+    override fun insertMultiRegister(costs: List<Cost>) {
+        val sql = """
+            |INSERT INTO cost (date, description, category, subcategory, comment, amount, username, identifier)
+            |VALUES (:date, :description, :category, :subcategory, :comment, :amount, :username, :identifier)
+        """.trimMargin()
+
+        val paramsList = costs.map {
+            val paramsRegisterMulti = MapSqlParameterSource()
+            paramsRegisterMulti.addValue("date", it.date)
+            paramsRegisterMulti.addValue("description", it.description!!.value)
+            paramsRegisterMulti.addValue("category", it.category?.name)
+            paramsRegisterMulti.addValue("subcategory", it.subcategory?.name)
+            paramsRegisterMulti.addValue("comment", it.comment)
+            paramsRegisterMulti.addValue("amount", it.amount)
+            paramsRegisterMulti.addValue("username", it.username)
+            paramsRegisterMulti.addValue("identifier", it.identifier.value)
+            paramsRegisterMulti
+        }.toTypedArray()
+        namedParameterJdbcTemplate.batchUpdate(sql, paramsList)
+
+        insertMultiSharedCostFor(costs)
+    }
+
+    override fun insertMultiSharedCostFor(costs: List<Cost>) {
+        val sql = """
+            |INSERT INTO COST_SHARE (cost_identifier, amount, isPaid, debtor)
+            |VALUES (:cost_identifier, :amount, :isPaid, :debtor)
+        """.trimMargin()
+
+        val paramsRegisterMulti = mutableListOf<MapSqlParameterSource>()
+        costs.forEach { cost ->
+            val result = cost.shared?.map {
+                val params = MapSqlParameterSource()
+                params.addValue("cost_identifier", cost.identifier.value)
+                params.addValue("amount", it.amount)
+                params.addValue("isPaid", it.isPaid)
+                params.addValue("debtor", it.debtor)
+                params
+            }
+            paramsRegisterMulti.addAll(result!!)
+        }
+
+        namedParameterJdbcTemplate.batchUpdate(sql, paramsRegisterMulti.toTypedArray())
     }
 
     private fun mapTo() = RowMapper { rs: ResultSet, _: Int ->

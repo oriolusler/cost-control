@@ -105,11 +105,19 @@ enum class Categories(val displayName: String, val subtypes: List<Subcategorises
         listOf(STREAMING_SERVICES, ACTIVITIES, VIDEO_GAMES, CINEMA, SUBSCRIPTIONS)
     ),
     INVESTMENTS("Investments", listOf(ROBOADVISOR)),
-    CASH("Cash", listOf(NO_APPLY));
+    CASH("Cash", listOf(NO_APPLY)),
+    UNKNOWN("Unknown", listOf(NO_APPLY));
 
     companion object {
         fun getCategoriesWithSubtypes() = Categories.values()
             .associateWith { it.subtypes.map { sub -> SubtypeDto(sub.name, sub.displayName) }.toList() }
+
+        fun getOrNull(category: String) = try {
+            valueOf(category)
+        } catch (e: IllegalArgumentException) {
+            UNKNOWN
+        }
+
     }
 }
 
@@ -136,7 +144,7 @@ enum class Subcategorises(val displayName: String) {
 
     companion object {
         fun getOrEmpty(subcategory: String) = try {
-            Subcategorises.valueOf(subcategory)
+            valueOf(subcategory)
         } catch (e: IllegalArgumentException) {
             NO_APPLY
         }

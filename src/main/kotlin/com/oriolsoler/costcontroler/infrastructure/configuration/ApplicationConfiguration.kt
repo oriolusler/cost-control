@@ -1,6 +1,7 @@
 package com.oriolsoler.costcontroler.infrastructure.configuration
 
 import com.oriolsoler.costcontroler.application.getcost.GetCost
+import com.oriolsoler.costcontroler.application.registerCost.multi.MultiRegisterCost
 import com.oriolsoler.costcontroler.application.registerCost.single.RegisterCost
 import com.oriolsoler.costcontroler.application.registerUser.RegisterUser
 import com.oriolsoler.costcontroler.application.showCosts.ShowCosts
@@ -31,4 +32,7 @@ class ApplicationConfiguration {
 
     @Bean
     fun updateCost(costRepository: CostRepository) = UpdateCost(costRepository)
+
+    @Bean
+    fun multiRegisterCost(costRepository: CostRepository) = MultiRegisterCost(costRepository)
 }
