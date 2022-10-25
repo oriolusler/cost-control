@@ -153,7 +153,7 @@ async function handleFileAsync(e) {
                 importCommentElement.value = comment;
             }
             const inputAmountValue = amount.replace(",", "")
-            importAmountElement.value = Math.abs(inputAmountValue) * -1
+            importAmountElement.value = inputAmountValue * -1
 
 
             importDeleteSharedButtonElement.addEventListener("click", function () {
