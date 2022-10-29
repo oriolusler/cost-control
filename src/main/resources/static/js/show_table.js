@@ -2,8 +2,8 @@ $(document).ready(function () {
     $('#showTableId').DataTable({
         "bInfo": false,
         "pagingType": "full_numbers",
-        "bLengthChange": false,
-        "aaSorting": [],
+        "bLengthChange": true,
+        "order": [[ 0, "desc" ]],
         columnDefs: [{
             orderable: false,
             targets: 2
