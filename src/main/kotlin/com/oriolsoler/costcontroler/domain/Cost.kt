@@ -6,6 +6,7 @@ import com.oriolsoler.costcontroler.domain.Subcategorises.AIR_TRAVEL
 import com.oriolsoler.costcontroler.domain.Subcategorises.BANK_FEE
 import com.oriolsoler.costcontroler.domain.Subcategorises.BIKE_RENT
 import com.oriolsoler.costcontroler.domain.Subcategorises.BOOKS
+import com.oriolsoler.costcontroler.domain.Subcategorises.BUS
 import com.oriolsoler.costcontroler.domain.Subcategorises.CAR_RENT
 import com.oriolsoler.costcontroler.domain.Subcategorises.CINEMA
 import com.oriolsoler.costcontroler.domain.Subcategorises.CLOTHES_AND_SHOES
@@ -45,6 +46,7 @@ import com.oriolsoler.costcontroler.domain.Subcategorises.SPORTS
 import com.oriolsoler.costcontroler.domain.Subcategorises.STATE_TAX
 import com.oriolsoler.costcontroler.domain.Subcategorises.STREAMING_SERVICES
 import com.oriolsoler.costcontroler.domain.Subcategorises.SUBSCRIPTIONS
+import com.oriolsoler.costcontroler.domain.Subcategorises.SUBWAY
 import com.oriolsoler.costcontroler.domain.Subcategorises.VIDEO_GAMES
 import com.oriolsoler.costcontroler.domain.Subcategorises.WATER
 import com.oriolsoler.costcontroler.infrastructure.controller.SubtypeDto
@@ -95,7 +97,7 @@ enum class Categories(val displayName: String, val subtypes: List<Subcategorises
     ),
     EDUCATION("Education", listOf(BOOKS, EVENTS)),
     TRAVEL("Travel", listOf(AIR_TRAVEL, HOTEL, RENTAL_CAR_AND_TAXI)),
-    TRANSPORT("Transport", listOf(GAS_FUEL, BIKE_RENT, MOTO_RENT, CAR_RENT, PARKING)),
+    TRANSPORT("Transport", listOf(GAS_FUEL, BIKE_RENT, MOTO_RENT, CAR_RENT, PARKING, SUBWAY, BUS)),
     HOUSING("Housing", listOf(RENT, WATER, ELECTRICITY, GAS, INTERNET, INSURANCE, DEPOSIT)),
     TAXES_AND_FEES("Taxes and fees", listOf(STATE_TAX, BANK_FEE, HOUSE_FEE, DOCUMENTATION)),
     FOOD("Food", listOf(GROCERIES, RESTAURANTS, FOOD_DELIVERY, ESTABLISHMENT)),
@@ -128,7 +130,7 @@ enum class Subcategorises(val displayName: String) {
     HOBBIES("Hobbies"), SPORTING_GOODS("Sporting goods"), HOUSEHOLD_APPLIANCE("Household appliance"), REPLACEMENT("Replacement"),
     EVENTS("Events"),
     AIR_TRAVEL("Air travel"), HOTEL("Hotel"), RENTAL_CAR_AND_TAXI("Rental car and taxi"),
-    GAS_FUEL("Gas fuel"), BIKE_RENT("Bike rent"), MOTO_RENT("Moto rent"), CAR_RENT("Car rent"), PARKING("Parking"),
+    GAS_FUEL("Gas fuel"), BIKE_RENT("Bike rent"), MOTO_RENT("Moto rent"), CAR_RENT("Car rent"), PARKING("Parking"), SUBWAY("Subway"), BUS("Bus"),
     RENT("Rent"), WATER("Water"), ELECTRICITY("Electricity"), GAS("Gas"), INTERNET("Internet"), INSURANCE("Insurance"), FURNITURE_DECORATION(
         "Furniture decoration"
     ),
