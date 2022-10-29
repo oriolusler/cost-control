@@ -10,7 +10,12 @@ import java.security.Principal
 class GetPendingSharedCostController(private val postgresPendingSharedCostViewRepository: PostgresPendingSharedCostViewRepository) {
     @GetMapping("/get-pending-to-pay")
     fun getPendingSharedCost(model: Model, principal: Principal): String {
-        model.addAttribute("costs", postgresPendingSharedCostViewRepository.findBy(principal.name))
+        val pendingCosts = postgresPendingSharedCostViewRepository.findBy(principal.name)
+        model.addAttribute("costs", pendingCosts)
+        model.addAttribute(
+            "summary",
+            pendingCosts.groupBy { it.debtor }.mapValues { it.value.sumOf { it.amount } }.toMap()
+        )
         return "cost/pending-shared-cost"
     }
 }

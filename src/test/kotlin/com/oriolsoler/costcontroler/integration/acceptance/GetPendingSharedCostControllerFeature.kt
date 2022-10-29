@@ -12,7 +12,10 @@ import org.junit.jupiter.api.Test
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.model
-import java.math.BigDecimal.*
+import java.math.BigDecimal.valueOf
+import java.math.BigDecimal.TEN
+import java.math.BigDecimal.ONE
+import java.math.RoundingMode
 
 
 abstract class GetPendingSharedCostControllerFeature : IntegrationTest() {
@@ -44,14 +47,24 @@ abstract class GetPendingSharedCostControllerFeature : IntegrationTest() {
             "Oriol",
             listOf(
                 SharedCost(valueOf(5), false, "Kessie"),
-                SharedCost(valueOf(10), true, "Jordi")
+                SharedCost(valueOf(10), true, "Jordi"),
+                SharedCost(valueOf(10), false, "Jimmy")
             ),
             costIdentifier2
         )
 
-        mvc.perform(
-            get("/get-pending-to-pay").with(user("Oriol"))
-        ).andExpect(model().attribute("costs", hasSize<Int>(2)))
+        mvc
+            .perform(get("/get-pending-to-pay").with(user("Oriol")))
+            .andExpect(
+                model().attribute(
+                    "summary",
+                    hashMapOf(
+                        "Jimmy" to valueOf(20).setScale(2, RoundingMode.CEILING),
+                        "Kessie" to valueOf(5).setScale(2, RoundingMode.CEILING)
+                    )
+                )
+            )
+            .andExpect(model().attribute("costs", hasSize<Int>(3)))
             .andExpect(
                 model().attribute(
                     "costs", hasItem(
@@ -73,6 +86,19 @@ abstract class GetPendingSharedCostControllerFeature : IntegrationTest() {
                             costIdentifier2.value.toString(),
                             valueOf(5.00),
                             "Kessie",
+                            cost2.date!!
+                        )
+                    )
+                )
+            )
+            .andExpect(
+                model().attribute(
+                    "costs", hasItem(
+                        PendingSharedCostViewDto(
+                            "Description cost 2",
+                            costIdentifier2.value.toString(),
+                            valueOf(10.00),
+                            "Jimmy",
                             cost2.date!!
                         )
                     )
