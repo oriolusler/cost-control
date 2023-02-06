@@ -34,6 +34,7 @@ abstract class RegisterMultiCostsFeature : IntegrationTest() {
                     "amount": "-0.92",
                     "category": "SHOPPING",
                     "subcategory": "SPORTING_GOODS",
+                    "origin": "N26",
                     "shared": [
                       {
                         "debtor": "Eliot",
@@ -91,7 +92,8 @@ abstract class RegisterMultiCostsFeature : IntegrationTest() {
                         SharedCostDto(BigDecimal.valueOf(1), "Eliot", true),
                         SharedCostDto(BigDecimal.valueOf(5), "Kate", false),
                     ),
-                    costShoppingId.toString()
+                    costShoppingId.toString(),
+                    "N26"
                 ), CostDto(
                     LocalDate.of(2022, 9, 11),
                     "BIZUM ENVIADO",

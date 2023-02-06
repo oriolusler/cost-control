@@ -65,7 +65,8 @@ class IntegrationTest {
         amount: BigDecimal,
         user: String,
         shared: List<SharedCost>,
-        costIdentifier: CostIdentifier
+        costIdentifier: CostIdentifier,
+        origin: String
     ): Cost {
         val desc = Description(description)
         val cost = Cost(
@@ -77,7 +78,8 @@ class IntegrationTest {
             amount,
             user,
             shared,
-            costIdentifier
+            costIdentifier,
+            origin
         )
         costRepository.register(cost)
         return cost

@@ -27,7 +27,8 @@ abstract class GetCostFeature : IntegrationTest() {
             BigDecimal.valueOf(1.0),
             "Oriol",
             emptyList(),
-            costIdentifier
+            costIdentifier,
+            "N26"
         )
 
         mvc.perform(get("/get/${costIdentifier.value.toString()}").with(user("Oriol")))
@@ -45,7 +46,8 @@ abstract class GetCostFeature : IntegrationTest() {
             BigDecimal.valueOf(1.0),
             "Oriol",
             emptyList(),
-            costIdentifier
+            costIdentifier,
+            "N26"
         )
 
         mvc.perform(get("/get/${costIdentifier.value.toString()}"))

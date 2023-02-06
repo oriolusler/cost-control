@@ -65,7 +65,8 @@ data class Cost(
     val amount: BigDecimal?,
     val username: String?,
     val shared: List<SharedCost>? = ArrayList(20),
-    val identifier: CostIdentifier = CostIdentifier()
+    val identifier: CostIdentifier = CostIdentifier(),
+    val origin: String? = null
 )
 
 data class CostIdentifier(val value: UUID? = UUID.randomUUID()) {
@@ -130,7 +131,10 @@ enum class Subcategorises(val displayName: String) {
     HOBBIES("Hobbies"), SPORTING_GOODS("Sporting goods"), HOUSEHOLD_APPLIANCE("Household appliance"), REPLACEMENT("Replacement"),
     EVENTS("Events"),
     AIR_TRAVEL("Air travel"), HOTEL("Hotel"), RENTAL_CAR_AND_TAXI("Rental car and taxi"),
-    GAS_FUEL("Gas fuel"), BIKE_RENT("Bike rent"), MOTO_RENT("Moto rent"), CAR_RENT("Car rent"), PARKING("Parking"), SUBWAY("Subway"), BUS("Bus"),
+    GAS_FUEL("Gas fuel"), BIKE_RENT("Bike rent"), MOTO_RENT("Moto rent"), CAR_RENT("Car rent"), PARKING("Parking"), SUBWAY(
+        "Subway"
+    ),
+    BUS("Bus"),
     RENT("Rent"), WATER("Water"), ELECTRICITY("Electricity"), GAS("Gas"), INTERNET("Internet"), INSURANCE("Insurance"), FURNITURE_DECORATION(
         "Furniture decoration"
     ),

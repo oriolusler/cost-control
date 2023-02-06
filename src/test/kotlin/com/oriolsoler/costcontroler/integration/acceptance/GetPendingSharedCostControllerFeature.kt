@@ -35,7 +35,8 @@ abstract class GetPendingSharedCostControllerFeature : IntegrationTest() {
                 SharedCost(TEN, false, "Jimmy"),
                 SharedCost(ONE, true, "Pablo")
             ),
-            costIdentifier1
+            costIdentifier1,
+            "N26"
         )
 
         val cost2 = registerCost(
@@ -50,7 +51,8 @@ abstract class GetPendingSharedCostControllerFeature : IntegrationTest() {
                 SharedCost(valueOf(10), true, "Jordi"),
                 SharedCost(valueOf(10), false, "Jimmy")
             ),
-            costIdentifier2
+            costIdentifier2,
+            "N26"
         )
 
         mvc

@@ -21,7 +21,7 @@ function allCostsAreConfirmed() {
 function processAndSendCosts() {
     const token = $("meta[name='_csrf']").attr("content");
     const header = $("meta[name='_csrf_header']").attr("content");
-
+    console.log(JSON.stringify(confirmedImportedCosts))
     $.ajax({
         type: "POST", url: "/register/multi", beforeSend: function (request) {
             request.setRequestHeader(header, token);
@@ -38,6 +38,9 @@ async function handleFileAsync(e) {
     const workbook = XLSX.read(data);
     const first_ws = workbook.Sheets[workbook.SheetNames[0]];
     const excelCostArray = XLSX.utils.sheet_to_json(first_ws, {header: 1, raw: false});
+
+    const importOriginId = document.getElementById("importOriginId");
+
 
     for (const x in excelCostArray) {
         const date = excelCostArray[x][0]
@@ -224,7 +227,8 @@ async function handleFileAsync(e) {
                     "amount": importAmountElement.value,
                     "category": importCategoryElement.value,
                     "subcategory": importSubcategoryElement.value,
-                    "shared": sharedCosts
+                    "shared": sharedCosts,
+                    "origin": importOriginId.value
                 })
 
                 if (allCostsAreConfirmed()) {

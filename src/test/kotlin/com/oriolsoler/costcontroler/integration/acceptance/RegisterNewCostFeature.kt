@@ -44,6 +44,7 @@ abstract class RegisterNewCostFeature : IntegrationTest() {
             param("subcategory", "STREAMING_SERVICES")
             param("comment", "Subscription for 5 persons")
             param("amount", "15.99")
+            param("origin", "N26")
         }.andExpect { status().isFound }
 
         val actual = costRepository.findBy("Oriol")
@@ -63,6 +64,7 @@ abstract class RegisterNewCostFeature : IntegrationTest() {
             param("subcategory", "STREAMING_SERVICES")
             param("comment", "Subscription for 5 persons")
             param("amount", "15.99")
+            param("origin", "BBVA")
             param("shared[0].amount", "2.67")
             param("shared[0].debtor", "Jonny")
             param("shared[0].paid", "true")
