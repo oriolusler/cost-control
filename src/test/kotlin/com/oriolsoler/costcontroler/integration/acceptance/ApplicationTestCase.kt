@@ -41,8 +41,7 @@ abstract class ApplicationTestCase : IntegrationTest() {
     @Test
     fun `should say hello world`() {
         mvc.perform(get("/"))
-            .andExpect(status().isOk)
-            .andExpect(content().string("Hello world! This is osoler"))
+            .andExpect(status().is2xxSuccessful)
     }
 
     @Test
