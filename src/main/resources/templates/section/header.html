@@ -1,26 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
-<head th:fragments="header" >
-    <meta charset="UTF-8" />
-    <title>Thymeleaf in action</title>
-</head>
-<body>
-<div class="row mt-5 justify-content-center">
-    <div class="btn-group w-100">
-        <div class="col-sm d-flex justify-content-center">
-            <a th:href="@{/show}">
-                <button type="button" class="btn btn-outline-dark mr-1">Let's see the expenses</button>
-            </a>
-            <a th:href="@{/register}">
-                <button type="button" class="btn btn-outline-dark mr-1">Register a new one</button>
-            </a>
-            <a th:href="@{/get-pending-to-pay}">
-                <button type="button" class="btn btn-outline-dark mr-1">See pending payments</button>
-            </a>
-            <a th:href="@{/import}">
-                <button type="button" class="btn btn-outline-dark mr-1">Import payments</button>
-            </a>
 
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+
+<div th:fragment="buttons">
+    <div class="row mt-5 justify-content-center">
+        <div class="btn-group w-100">
+            <div class="col-sm d-flex justify-content-center">
+                <a th:href="@{/show}">
+                    <button type="button" class="btn btn-outline-dark mr-1">Let's see the expenses</button>
+                </a>
+                <a th:href="@{/register}">
+                    <button type="button" class="btn btn-outline-dark mr-1">Register a new one</button>
+                </a>
+                <a th:href="@{/get-pending-to-pay}">
+                    <button type="button" class="btn btn-outline-dark mr-1">See pending payments</button>
+                </a>
+                <a th:href="@{/import}">
+                    <button type="button" class="btn btn-outline-dark mr-1">Import payments</button>
+                </a>
+
+            </div>
         </div>
     </div>
 </div>
