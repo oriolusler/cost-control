@@ -1,10 +1,5 @@
 package com.oriolsoler.costcontroler.infrastructure.repository.view
 
-import com.oriolsoler.costcontroler.domain.Categories
-import com.oriolsoler.costcontroler.domain.Cost
-import com.oriolsoler.costcontroler.domain.CostIdentifier
-import com.oriolsoler.costcontroler.domain.Description
-import com.oriolsoler.costcontroler.domain.Subcategorises
 import org.springframework.jdbc.core.RowMapper
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate
@@ -35,10 +30,9 @@ class PostgresGetCostsRepository(private val namedParameterJdbcTemplate: NamedPa
         CostResponseDto(
             rs.getDate("date").toLocalDate(),
             rs.getString("category"),
-            rs.getBigDecimal("amount"),
-            rs.getString("origin"),
+            rs.getBigDecimal("amount")
         )
     }
 }
 
-data class CostResponseDto(val date: LocalDate, val category: String, val amount: BigDecimal, val origin: String)
+data class CostResponseDto(val date: LocalDate, val category: String, val amount: BigDecimal)

@@ -1,12 +1,12 @@
 package com.oriolsoler.costcontroler.infrastructure.controller
 
-import com.oriolsoler.costcontroler.domain.Categories
+import com.oriolsoler.costcontroler.domain.Categories.INCOME
+import com.oriolsoler.costcontroler.domain.Categories.INVESTMENTS
 import com.oriolsoler.costcontroler.infrastructure.repository.view.PostgresGetCostsRepository
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.RequestMapping
-import java.math.BigDecimal
 import java.security.Principal
 
 @Controller
@@ -20,24 +20,22 @@ class GreetingController(private val getCostsRepository: PostgresGetCostsReposit
         model.addAttribute("username", username)
         val costs = getCostsRepository.currentMonthFor(username)
 
-        val currentMonthValue = costs
-            .groupBy { it.amount > BigDecimal.ZERO }
-            .mapValues { it.value.sumOf { cost -> cost.amount }.abs() }
+        val invested = costs.filter { it.category == INVESTMENTS.name }.sumOf { cost -> cost.amount }
+        model.addAttribute("invested", invested)
 
-        val categoryBalancePerMonth = costs
-            .filter { it.category != Categories.INVESTMENTS.name && it.category != Categories.INCOME.name }
+        val income = costs.filter { it.category == INCOME.name }.sumOf { cost -> cost.amount }.abs()
+        model.addAttribute("income", income)
+
+        val expenses = costs
+            .filter { it.category != INVESTMENTS.name && it.category != INCOME.name }
+            .sumOf { cost -> cost.amount }
+        model.addAttribute("expenses", expenses)
+
+        val balancePerCategory = costs
+            .filter { it.category != INVESTMENTS.name && it.category != INCOME.name }
             .groupBy { it.category }
             .mapValues { it.value.sumOf { cost -> cost.amount } }
-
-        val originBalancePerMonth = costs
-            .filter { it.category != Categories.INVESTMENTS.name && it.category != Categories.INCOME.name }
-            .groupBy { it.origin }
-            .mapValues { it.value.sumOf { cost -> cost.amount } }
-
-        model.addAttribute("currentMonthValue", currentMonthValue)
-        model.addAttribute("categoryBalancePerMonth", categoryBalancePerMonth)
-        model.addAttribute("originBalancePerMonth", originBalancePerMonth)
-
+        model.addAttribute("categoryBalancePerMonth", balancePerCategory)
 
         return "cost/greeting"
     }
