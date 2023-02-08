@@ -2,6 +2,9 @@
     .container {
         max-width: 2200px !important;
     }
+    .row {
+        max-width: 2200px !important;
+    }
 }
 
 .main {

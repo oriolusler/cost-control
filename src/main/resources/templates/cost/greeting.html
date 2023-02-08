@@ -10,6 +10,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.2.0/chart.min.js"></script>
 
     <link rel="stylesheet" th:href="@{/css/styles.css}" type="text/css"/>
 </head>
@@ -48,5 +49,45 @@
         </div>
     </div>
 </div>
+<div class="container py-2">
+    <div class="row">
+        <h4>So for this month...</h4>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                <div class="card-body">
+                    <div>
+                        <canvas id="acquisitions"></canvas>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                <div class="card-body">
+                    <div>
+                        <canvas id="acquisitions1"></canvas>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script th:inline="javascript">
+    const currentMonthValue = [[${currentMonthValue}]];
+    const categoryBalancePerMonth = [[${categoryBalancePerMonth}]];
+    const originBalancePerMonth = [[${originBalancePerMonth}]];
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+<script type="text/javascript" src="jscript/graph.js"></script>
+
+<script type="text/javascript" th:src="@{/js/acquisitions.js}"></script>
+
 </body>
 </html>
