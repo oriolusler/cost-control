@@ -1,4 +1,3 @@
-const generalMonthBalance = getGeneralMonthBalance()
 const categoryMonthBalance = transformCategoryBalancePerMonth()
 
 function transformCategoryBalancePerMonth() {
@@ -11,56 +10,96 @@ function transformCategoryBalancePerMonth() {
     return result
 }
 
-function getGeneralMonthBalance() {
-    const result = [];
-    result.push({"status": "Expenses", "value": expenses})
-    result.push({"status": "Income", "value": income})
-    result.push({"status": "Invested", "value": invested})
+const pastel = [
+    '#e3ffc2',
+    '#ffffa1',
+    '#ffe2a4',
+    '#ffe4c8',
+    '#fcc9c3',
+    '#fdb0ba',
+    '#e9c5e4',
+    '#f6e1fc',
+    '#c9bfff',
+    '#a0cffd',
+    '#bff1fa',
+    '#a1ffd1',
+    '#cafda8',
+]
+
+function getCategoryLabels() {
+    const result = []
+    for (const x in categoryMonthBalance) {
+        result.push(categoryMonthBalance[x].category)
+    }
     return result
 }
 
-new Chart(document.getElementById('acquisitions'), {
-        type: 'bar',
-        data: {
-            datasets: [
-                {
-                    label: 'Earned',
-                    data: [income],
-                    borderColor: "#4bb6fa",
-                    backgroundColor: "#9cd0f6",
-                    borderWidth: 2
-                },
-                {
-                    label: 'Spent',
-                    data: [expenses],
-                    borderColor: "#fa2e2e",
-                    backgroundColor: "#fc8e9c",
-                    borderWidth: 2
-                },
-                {
-                    label: 'Invest',
-                    data: [invested],
-                    borderColor: "#2ec931",
-                    backgroundColor: "#c4ffa5",
-                    borderWidth: 2
-                }
-            ]
-        }
+function getCategoryValues() {
+    const result = []
+    for (const x in categoryMonthBalance) {
+        result.push(categoryMonthBalance[x].value)
     }
-);
+    return result
+}
+
+const labels = getCategoryLabels()
+
+const data = {
+    labels: labels,
+    datasets: [
+        {
+            label: 'Dataset 1',
+            data: getCategoryValues(),
+            backgroundColor: pastel.splice(categoryMonthBalance.length - pastel.length)
+        }
+    ]
+};
+
+new Chart(document.getElementById('acquisitions'), {
+    type: 'bar',
+    data: {
+        datasets: [
+            {
+                label: 'Earned',
+                data: [income],
+                borderColor: "#4bb6fa",
+                backgroundColor: "#9cd0f6",
+                borderWidth: 2
+            },
+            {
+                label: 'Spent',
+                data: [expenses],
+                borderColor: "#fa2e2e",
+                backgroundColor: "#fc8e9c",
+                borderWidth: 2
+            },
+            {
+                label: 'Invest',
+                data: [invested],
+                borderColor: "#2ec931",
+                backgroundColor: "#c4ffa5",
+                borderWidth: 2
+            }
+        ]
+    }
+});
 
 
 new Chart(document.getElementById('acquisitions1'), {
-        type: 'bar',
-        data: {
-            labels: categoryMonthBalance.map(row => row.category),
-            datasets: [
-                {
-                    label: 'By categories',
-                    data: categoryMonthBalance.map(row => row.value)
+        type: 'polarArea',
+        data: data,
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: 'Chart.js Polar Area Chart'
                 }
-            ]
-        }
+            }
+        },
     }
 );
 
