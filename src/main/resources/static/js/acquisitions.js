@@ -42,13 +42,11 @@ function getCategoryValues() {
     return result
 }
 
-const labels = getCategoryLabels()
-
 const data = {
-    labels: labels,
+    labels: getCategoryLabels(),
     datasets: [
         {
-            label: 'Dataset 1',
+            label: 'Category spent',
             data: getCategoryValues(),
             backgroundColor: pastel.splice(categoryMonthBalance.length - pastel.length)
         }
@@ -74,6 +72,13 @@ new Chart(document.getElementById('acquisitions'), {
                 borderWidth: 2
             },
             {
+                label: 'Housing',
+                data: [housing],
+                borderColor: "#faa22e",
+                backgroundColor: "#fcd69e",
+                borderWidth: 2
+            },
+            {
                 label: 'Invest',
                 data: [invested],
                 borderColor: "#2ec931",
@@ -96,7 +101,7 @@ new Chart(document.getElementById('acquisitions1'), {
                 },
                 title: {
                     display: true,
-                    text: 'Chart.js Polar Area Chart'
+                    text: 'Spent by category'
                 }
             }
         },
