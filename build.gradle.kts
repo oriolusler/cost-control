@@ -41,6 +41,9 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-security")
     testImplementation("org.springframework.security:spring-security-test")
 
+    implementation("org.apache.opennlp:opennlp-tools:1.9.3")
+    implementation("org.apache.opennlp:opennlp-uima:1.9.3")
+
     // Test
     testImplementation("org.springframework.boot:spring-boot-starter-test:2.6.1")
     testImplementation("org.testcontainers:junit-jupiter:1.16.2")

@@ -30,6 +30,45 @@ function processAndSendCosts() {
     });
 }
 
+function getExpenseCategoriesSuggestion(expense, importCategoryElement, importSubcategoryElement) {
+    const token = $("meta[name='_csrf']").attr("content");
+    const header = $("meta[name='_csrf_header']").attr("content");
+
+    $.ajax({
+        type: "GET",
+        url: "/expense/category/classifier?expense=" + expense,
+        beforeSend: function (request) {
+            request.setRequestHeader(header, token);
+        },
+        contentType: "application/json",
+        dataType: "json",
+        success: function (res) {
+            importCategoryElement.value = res.category
+            const categoryOption = importCategoryElement.options[importCategoryElement.selectedIndex];
+            categoryOption.text = categoryOption.text + " (Suggested)"
+
+            const currentCategory = importCategoryElement.options[importCategoryElement.selectedIndex].value;
+            const subcategories = categoriesMap[currentCategory];
+
+            clear(importSubcategoryElement)
+            const defaultSubcategoryOption = document.createElement('option');
+            defaultSubcategoryOption.selected = true
+            defaultSubcategoryOption.disabled = true
+            defaultSubcategoryOption.text = "Select a subcategory"
+            importSubcategoryElement.add(defaultSubcategoryOption);
+            for (let i = 0; i < subcategories.length; i++) {
+                let option = document.createElement('option');
+                option.value = subcategories[i].name;
+                option.text = subcategories[i].displayName;
+                importSubcategoryElement.add(option);
+            }
+            importSubcategoryElement.value = res.subcategory
+            const subcategoryOption = importSubcategoryElement.options[importSubcategoryElement.selectedIndex];
+            subcategoryOption.text = subcategoryOption.text + " (Suggested)"
+        }
+    });
+}
+
 async function handleFileAsync(e) {
     removeAllSlides();
 
@@ -130,6 +169,8 @@ async function handleFileAsync(e) {
                 const option = options[i]
                 importCategoryElement.add(new Option(option.text, option.value, false, false));
             }
+            const expenseCategorySuggestion = await getExpenseCategoriesSuggestion(description, importCategoryElement, importSubcategoryElement)
+
 
             importCategoryElement.addEventListener("change", function () {
                 const currentCategory = importCategoryElement.options[importCategoryElement.selectedIndex].value;
@@ -157,7 +198,6 @@ async function handleFileAsync(e) {
             }
             const inputAmountValue = amount.replace(",", "")
             importAmountElement.value = inputAmountValue * -1
-
 
             importDeleteSharedButtonElement.addEventListener("click", function () {
                 const length = importSharedCostsTableElement.rows.length - 1;
@@ -244,7 +284,13 @@ async function handleFileAsync(e) {
 }
 
 function clear(list) {
-    while (list.options.length) {
+    while (list && list.options.length) {
+        list.remove(0);
+    }
+}
+
+function clearWithoutOptions(list) {
+    while (list && list.length) {
         list.remove(0);
     }
 }
