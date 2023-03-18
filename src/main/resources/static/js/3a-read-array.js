@@ -56,15 +56,19 @@ function getExpenseCategoriesSuggestion(expense, importCategoryElement, importSu
             defaultSubcategoryOption.disabled = true
             defaultSubcategoryOption.text = "Select a subcategory"
             importSubcategoryElement.add(defaultSubcategoryOption);
+
             for (let i = 0; i < subcategories.length; i++) {
                 let option = document.createElement('option');
                 option.value = subcategories[i].name;
                 option.text = subcategories[i].displayName;
                 importSubcategoryElement.add(option);
             }
-            importSubcategoryElement.value = res.subcategory
-            const subcategoryOption = importSubcategoryElement.options[importSubcategoryElement.selectedIndex];
-            subcategoryOption.text = subcategoryOption.text + " (Suggested)"
+
+            if (res.subcategory) {
+                importSubcategoryElement.value = res.subcategory
+                const subcategoryOption = importSubcategoryElement.options[importSubcategoryElement.selectedIndex];
+                subcategoryOption.text = subcategoryOption.text + " (Suggested)"
+            }
         }
     });
 }
@@ -169,7 +173,8 @@ async function handleFileAsync(e) {
                 const option = options[i]
                 importCategoryElement.add(new Option(option.text, option.value, false, false));
             }
-            const expenseCategorySuggestion = await getExpenseCategoriesSuggestion(description, importCategoryElement, importSubcategoryElement)
+
+            await getExpenseCategoriesSuggestion(description, importCategoryElement, importSubcategoryElement)
 
 
             importCategoryElement.addEventListener("change", function () {
