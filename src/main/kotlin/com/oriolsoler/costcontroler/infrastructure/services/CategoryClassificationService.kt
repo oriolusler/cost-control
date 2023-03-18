@@ -16,8 +16,8 @@ import java.io.IOException
 class NaiveBayesModel {
     private var model: DoccatModel? = null
     @Throws(IOException::class, IOException::class)
-    fun trainModel(trainingDataFilePath: String?) {
-        val dataInputStream = MarkableFileInputStreamFactory(File(trainingDataFilePath))
+    fun trainModel(trainingFile: File) {
+        val dataInputStream = MarkableFileInputStreamFactory(trainingFile)
         // Create a stream of labeled documents from the training data
         val sampleStream: ObjectStream<DocumentSample> =
             DocumentSampleStream(PlainTextByLineStream(dataInputStream, "UTF-8"))
