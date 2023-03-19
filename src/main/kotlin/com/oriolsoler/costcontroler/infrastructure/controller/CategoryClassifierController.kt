@@ -1,10 +1,10 @@
 package com.oriolsoler.costcontroler.infrastructure.controller
 
 import com.oriolsoler.costcontroler.infrastructure.services.NaiveBayesModel
-import org.springframework.core.io.ClassPathResource
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
+import java.io.File
 
 @RestController
 class CategoryClassifierController {
@@ -13,8 +13,8 @@ class CategoryClassifierController {
 
     @GetMapping("/expense/category/classifier")
     fun classifyCategory(@RequestParam expense: String): ClassifierResponse {
-        nbyCategory.trainModel(ClassPathResource("data/categories_data.txt").file)
-        nbySubategory.trainModel(ClassPathResource("data/subcategories_data.txt").file)
+        nbyCategory.trainModel(File(this::class.java.classLoader.getResource("data/categories_data.txt").toURI()))
+        nbySubategory.trainModel(File(this::class.java.classLoader.getResource("data/subcategories_data.txt").toURI()))
 
         return ClassifierResponse(nbyCategory.categorizeExpense(expense), nbySubategory.categorizeExpense(expense))
     }
