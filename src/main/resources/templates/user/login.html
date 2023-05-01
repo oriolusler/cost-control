@@ -2,61 +2,118 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-    <title>Spring Security Example </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            background-color: #f2f2f2;
+            font-family: Arial, sans-serif;
+        }
 
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-top: 50px;
+        }
 
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        label, input, button, a {
+            display: block;
+        }
 
-    <link th:href="@{/css/styles.css}" rel="stylesheet" type="text/css"/>
+        .login-box {
+            padding: 20px;
+            width: 80%;
+            max-width: 400px;
+            border: 1px solid #ccc;
+            border-radius: 0.5rem;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            margin: 50px auto 0;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @media only screen and (max-width: 768px) {
+            .login-box {
+                width: 100%;
+            }
+        }
+
+        .general-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+
+        .label {
+            margin: 10px;
+            padding-top: 10px;
+        }
+
+        .input-style {
+            padding: 10px;
+            cursor: pointer;
+            margin: 10px;
+            width: 100%;
+            width: -moz-available; /* WebKit-based browsers will ignore this. */
+            width: -webkit-fill-available; /* Mozilla-based browsers will ignore this. */
+            width: fill-available;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            color: #555;
+            font-size: 1rem;
+        }
+
+        .input-style:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
+
+        .login {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 20px 10px 10px;
+            width: 100%;
+            width: -moz-available; /* WebKit-based browsers will ignore this. */
+            width: -webkit-fill-available; /* Mozilla-based browsers will ignore this. */
+            width: fill-available;
+        }
+
+        .login:hover {
+            background-color: #315833;
+        }
+
+        .register-text{
+            margin: 10px;
+            display: inline-flex;
+        }
+
+        .register-link{
+            margin-left: 5px;
+        }
+    </style>
 
 </head>
-<body class="main">
-<section>
-    <div class="container py-5 h-100">
-        <div class="row d-flex justify-content-center align-items-center h-100">
-            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-                <div class="card shadow-2-strong" style="border-radius: 1rem;">
-                    <div class="card-body p-5">
-                        <form th:action="@{/login}" method="post">
-                            <h3 class="mb-3 text-center">Sign in</h3>
+<body style="background-color: #dae2f1">
+<div class="general-container">
+    <div class="login-box">
+        <h1>Login</h1>
+        <form th:action="@{/login}" method="post">
+            <label for="login_username" class="label">Username</label>
+            <input type="text" id="login_username" name="username" required="" class="input-style">
+            <label for="login_password" class="label">Password</label>
+            <input type="password" id="login_password" name="password" required="" class="input-style">
+            <button type="submit" class="login">Login</button>
+        </form>
 
-                            <div class="form-outline">
-                                <label for="usernameEmail"></label><input type="text" id="usernameEmail"
-                                                                          class="form-control form-control-lg"
-                                                                          placeholder="Introduce your username"
-                                                                          name="username"/>
-                            </div>
-                            <div class="form-outline mb-4">
-                                <label for="loginPassword"></label><input type="password" id="loginPassword"
-                                                                          class="form-control form-control-lg"
-                                                                          placeholder="Introduce your password"
-                                                                          name="password"/>
-                            </div>
-                            <div class="btn-group w-100">
-                                <div class="col-sm d-flex justify-content-center">
-                                    <button class="btn btn-primary btn-lg btn-block mr-1" type="submit">Login</button>
-                                    <a th:href="@{/user/registration}">
-                                        <button type="button" class="btn btn-secondary btn-lg btn-block">Register</button>
-                                    </a>
-                                </div>
-                            </div>
-                        </form>
-                        <div style="color: red">
-                            <div th:if="${param.error}">
-                                Invalid username and password.
-                            </div>
-                            <div th:if="${param.logout}">
-                                You have been logged out.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <p class="register-text">Doesn't have an account yet? <a class="register-link" th:href="@{/user/registration}"> Register here!</a></p>
     </div>
-
-</section>
+</div>
 </body>
 </html>
