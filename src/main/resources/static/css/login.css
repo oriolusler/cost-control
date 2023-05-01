@@ -1,4 +1,3 @@
-
 body {
     background-color: #f2f2f2;
     font-family: Arial, sans-serif;
@@ -31,13 +30,6 @@ label, input, button {
     .login-box {
         width: 100%;
     }
-}
-
-.general-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
 }
 
 .label {
