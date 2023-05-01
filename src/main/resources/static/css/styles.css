@@ -1,11 +1,10 @@
-/* Responsive font sizes */
-h2 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-}
-
-label, input, button, a {
-    font-size: 1rem;
+@media (min-width: 1200px) {
+    .container {
+        max-width: 2200px !important;
+    }
+    .row {
+        max-width: 2200px !important;
+    }
 }
 
 .main {

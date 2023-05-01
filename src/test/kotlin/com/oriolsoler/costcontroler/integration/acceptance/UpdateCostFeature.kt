@@ -29,7 +29,8 @@ abstract class UpdateCostFeature : IntegrationTest() {
             BigDecimal.valueOf(1.0),
             "Oriol",
             emptyList(),
-            CostIdentifier()
+            CostIdentifier(),
+            "N26"
         )
         val actual = costRepository.findBy(cost.identifier)
         assertEquals("Description cost 1", actual?.description?.value)

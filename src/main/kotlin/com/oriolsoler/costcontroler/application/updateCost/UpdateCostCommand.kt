@@ -19,7 +19,8 @@ data class UpdateCostCommand(
     val amount: BigDecimal,
     val username: String,
     val sharedCost: List<SharedCostCommand>,
-    val identifier: String
+    val identifier: String,
+    val origin: String? = null
 ) {
     fun toCost() = Cost(
         dateNow,
@@ -30,6 +31,7 @@ data class UpdateCostCommand(
         amount,
         username,
         sharedCost.map { SharedCost(it.amount, it.isPaid, it.debtor) }.toList(),
-        CostIdentifier(identifier)
+        CostIdentifier(identifier),
+        origin
     )
 }

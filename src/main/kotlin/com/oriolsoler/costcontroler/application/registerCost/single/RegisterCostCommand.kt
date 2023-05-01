@@ -16,7 +16,8 @@ data class RegisterCostCommand(
     val comment: String,
     val amount: BigDecimal,
     val username: String,
-    val shared: List<SharedCostCommand>
+    val shared: List<SharedCostCommand>,
+    val origin: String? = null
 )
 
 data class SharedCostCommand(
@@ -36,6 +37,7 @@ fun RegisterCostCommand.toCost(): Cost {
         comment,
         amount,
         username,
-        sharedCostList
+        sharedCostList,
+        origin = origin
     )
 }

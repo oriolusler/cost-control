@@ -21,12 +21,55 @@ function allCostsAreConfirmed() {
 function processAndSendCosts() {
     const token = $("meta[name='_csrf']").attr("content");
     const header = $("meta[name='_csrf_header']").attr("content");
-
+    console.log(JSON.stringify(confirmedImportedCosts))
     $.ajax({
         type: "POST", url: "/register/multi", beforeSend: function (request) {
             request.setRequestHeader(header, token);
         }, contentType: "application/json", dataType: "json", data: JSON.stringify(confirmedImportedCosts)
 
+    });
+}
+
+function getExpenseCategoriesSuggestion(expense, importCategoryElement, importSubcategoryElement) {
+    const token = $("meta[name='_csrf']").attr("content");
+    const header = $("meta[name='_csrf_header']").attr("content");
+
+    $.ajax({
+        type: "GET",
+        url: "/expense/category/classifier?expense=" + expense,
+        beforeSend: function (request) {
+            request.setRequestHeader(header, token);
+        },
+        contentType: "application/json",
+        dataType: "json",
+        success: function (res) {
+            importCategoryElement.value = res.category
+            const categoryOption = importCategoryElement.options[importCategoryElement.selectedIndex];
+            categoryOption.text = categoryOption.text + " (Suggested)"
+
+            const currentCategory = importCategoryElement.options[importCategoryElement.selectedIndex].value;
+            const subcategories = categoriesMap[currentCategory];
+
+            clear(importSubcategoryElement)
+            const defaultSubcategoryOption = document.createElement('option');
+            defaultSubcategoryOption.selected = true
+            defaultSubcategoryOption.disabled = true
+            defaultSubcategoryOption.text = "Select a subcategory"
+            importSubcategoryElement.add(defaultSubcategoryOption);
+
+            for (let i = 0; i < subcategories.length; i++) {
+                let option = document.createElement('option');
+                option.value = subcategories[i].name;
+                option.text = subcategories[i].displayName;
+                importSubcategoryElement.add(option);
+            }
+
+            if (res.subcategory) {
+                importSubcategoryElement.value = res.subcategory
+                const subcategoryOption = importSubcategoryElement.options[importSubcategoryElement.selectedIndex];
+                subcategoryOption.text = subcategoryOption.text + " (Suggested)"
+            }
+        }
     });
 }
 
@@ -38,6 +81,9 @@ async function handleFileAsync(e) {
     const workbook = XLSX.read(data);
     const first_ws = workbook.Sheets[workbook.SheetNames[0]];
     const excelCostArray = XLSX.utils.sheet_to_json(first_ws, {header: 1, raw: false});
+
+    const importOriginId = document.getElementById("importOriginId");
+
 
     for (const x in excelCostArray) {
         const date = excelCostArray[x][0]
@@ -128,6 +174,9 @@ async function handleFileAsync(e) {
                 importCategoryElement.add(new Option(option.text, option.value, false, false));
             }
 
+            await getExpenseCategoriesSuggestion(description, importCategoryElement, importSubcategoryElement)
+
+
             importCategoryElement.addEventListener("change", function () {
                 const currentCategory = importCategoryElement.options[importCategoryElement.selectedIndex].value;
                 const subcategories = categoriesMap[currentCategory];
@@ -154,7 +203,6 @@ async function handleFileAsync(e) {
             }
             const inputAmountValue = amount.replace(",", "")
             importAmountElement.value = inputAmountValue * -1
-
 
             importDeleteSharedButtonElement.addEventListener("click", function () {
                 const length = importSharedCostsTableElement.rows.length - 1;
@@ -224,7 +272,8 @@ async function handleFileAsync(e) {
                     "amount": importAmountElement.value,
                     "category": importCategoryElement.value,
                     "subcategory": importSubcategoryElement.value,
-                    "shared": sharedCosts
+                    "shared": sharedCosts,
+                    "origin": importOriginId.value
                 })
 
                 if (allCostsAreConfirmed()) {
@@ -240,7 +289,13 @@ async function handleFileAsync(e) {
 }
 
 function clear(list) {
-    while (list.options.length) {
+    while (list && list.options.length) {
+        list.remove(0);
+    }
+}
+
+function clearWithoutOptions(list) {
+    while (list && list.length) {
         list.remove(0);
     }
 }

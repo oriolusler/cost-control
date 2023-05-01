@@ -24,6 +24,7 @@ import com.oriolsoler.costcontroler.domain.Subcategorises.GIFTS
 import com.oriolsoler.costcontroler.domain.Subcategorises.GROCERIES
 import com.oriolsoler.costcontroler.domain.Subcategorises.GYM
 import com.oriolsoler.costcontroler.domain.Subcategorises.HAIRDRESSER
+import com.oriolsoler.costcontroler.domain.Subcategorises.HEALTH
 import com.oriolsoler.costcontroler.domain.Subcategorises.HOBBIES
 import com.oriolsoler.costcontroler.domain.Subcategorises.HOTEL
 import com.oriolsoler.costcontroler.domain.Subcategorises.HOUSEHOLD_APPLIANCE
@@ -35,6 +36,7 @@ import com.oriolsoler.costcontroler.domain.Subcategorises.NO_APPLY
 import com.oriolsoler.costcontroler.domain.Subcategorises.PARKING
 import com.oriolsoler.costcontroler.domain.Subcategorises.PAYBACK
 import com.oriolsoler.costcontroler.domain.Subcategorises.PAYCHECK
+import com.oriolsoler.costcontroler.domain.Subcategorises.PENSION_PLAN
 import com.oriolsoler.costcontroler.domain.Subcategorises.RENT
 import com.oriolsoler.costcontroler.domain.Subcategorises.RENTAL_CAR_AND_TAXI
 import com.oriolsoler.costcontroler.domain.Subcategorises.REPLACEMENT
@@ -65,7 +67,8 @@ data class Cost(
     val amount: BigDecimal?,
     val username: String?,
     val shared: List<SharedCost>? = ArrayList(20),
-    val identifier: CostIdentifier = CostIdentifier()
+    val identifier: CostIdentifier = CostIdentifier(),
+    val origin: String? = null
 )
 
 data class CostIdentifier(val value: UUID? = UUID.randomUUID()) {
@@ -101,12 +104,12 @@ enum class Categories(val displayName: String, val subtypes: List<Subcategorises
     HOUSING("Housing", listOf(RENT, WATER, ELECTRICITY, GAS, INTERNET, INSURANCE, DEPOSIT)),
     TAXES_AND_FEES("Taxes and fees", listOf(STATE_TAX, BANK_FEE, HOUSE_FEE, DOCUMENTATION)),
     FOOD("Food", listOf(GROCERIES, RESTAURANTS, FOOD_DELIVERY, ESTABLISHMENT)),
-    PERSONAL_SPENDING("Personal spending", listOf(GYM, SPORTS, GIFTS, HAIRDRESSER)),
+    PERSONAL_SPENDING("Personal spending", listOf(GYM, SPORTS, GIFTS, HAIRDRESSER, HEALTH)),
     RECREATION_ENTERTAINMENT(
         "Recreation and entertainment",
         listOf(STREAMING_SERVICES, ACTIVITIES, VIDEO_GAMES, CINEMA, SUBSCRIPTIONS)
     ),
-    INVESTMENTS("Investments", listOf(ROBOADVISOR)),
+    INVESTMENTS("Investments", listOf(ROBOADVISOR, PENSION_PLAN)),
     CASH("Cash", listOf(NO_APPLY)),
     UNKNOWN("Unknown", listOf(NO_APPLY));
 
@@ -130,18 +133,23 @@ enum class Subcategorises(val displayName: String) {
     HOBBIES("Hobbies"), SPORTING_GOODS("Sporting goods"), HOUSEHOLD_APPLIANCE("Household appliance"), REPLACEMENT("Replacement"),
     EVENTS("Events"),
     AIR_TRAVEL("Air travel"), HOTEL("Hotel"), RENTAL_CAR_AND_TAXI("Rental car and taxi"),
-    GAS_FUEL("Gas fuel"), BIKE_RENT("Bike rent"), MOTO_RENT("Moto rent"), CAR_RENT("Car rent"), PARKING("Parking"), SUBWAY("Subway"), BUS("Bus"),
+    GAS_FUEL("Gas fuel"), BIKE_RENT("Bike rent"), MOTO_RENT("Moto rent"), CAR_RENT("Car rent"), PARKING("Parking"), SUBWAY(
+        "Subway"
+    ),
+    BUS("Bus"),
     RENT("Rent"), WATER("Water"), ELECTRICITY("Electricity"), GAS("Gas"), INTERNET("Internet"), INSURANCE("Insurance"), FURNITURE_DECORATION(
         "Furniture decoration"
     ),
     DEPOSIT("Deposit"),
     STATE_TAX("State tax"), BANK_FEE("Bank fee"), HOUSE_FEE("House fee"), DOCUMENTATION("Documentation"),
     GROCERIES("Groceries"), RESTAURANTS("Restaurants"), FOOD_DELIVERY("Food delivery"), ESTABLISHMENT("Establishment"),
-    GYM("Gym"), SPORTS("Sports"), GIFTS("Gifts"), CLOTHES_AND_SHOES("Clothes and shoes"), HAIRDRESSER("Hairdresser"),
+    GYM("Gym"), SPORTS("Sports"), GIFTS("Gifts"), CLOTHES_AND_SHOES("Clothes and shoes"), HAIRDRESSER("Hairdresser"), HEALTH(
+        "Health"
+    ),
     STREAMING_SERVICES("Streaming services"), ACTIVITIES("Activities"), VIDEO_GAMES("Video games"), CINEMA("Cinema"), SUBSCRIPTIONS(
         "Subscription"
     ),
-    ROBOADVISOR("Roboadvisor"),
+    ROBOADVISOR("Roboadvisor"), PENSION_PLAN("Pension plan"),
     NO_APPLY("-");
 
     companion object {

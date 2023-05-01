@@ -19,7 +19,8 @@ data class CostDto(
     var comment: String? = "",
     var amount: String? = "",
     var shared: List<SharedCostDto> = ArrayList(20),
-    var id: String? = ""
+    var id: String? = "",
+    var origin: String? = null
 )
 
 @NoArgAnnotation
@@ -45,7 +46,8 @@ fun CostDto.toRegisterCommandWith(username: String): RegisterCostCommand {
         comment!!,
         BigDecimal(amount),
         username,
-        toList
+        toList,
+        origin
     )
 }
 
@@ -66,7 +68,8 @@ fun CostDto.toUpdateCommandWith(username: String): UpdateCostCommand {
         BigDecimal(amount),
         username,
         toList,
-        id!!
+        id!!,
+        origin
     )
 }
 
@@ -79,5 +82,6 @@ fun Cost.toDto() = CostDto(
     comment!!,
     amount!!.toEngineeringString(),
     shared!!.map { SharedCostDto(it.amount, it.debtor, it.isPaid) },
-    identifier.value.toString()
+    identifier.value.toString(),
+    origin
 )

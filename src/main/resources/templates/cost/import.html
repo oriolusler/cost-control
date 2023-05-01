@@ -74,10 +74,21 @@
 </head>
 
 <body class="main">
+<div th:insert="section/header :: buttons"></div>
+
 <div class="container py-5">
     <div class="col-12">
         <div class="card shadow-2-strong" style="border-radius: 1rem;">
             <div class="card-body p-5">
+                <h4>Remember... follow the excel must contain this columns</h4>
+                <h5 style="color: cadetblue">Date -- Title -- Description -- Amount</h5>
+                </br>
+                <h4>Import origin</h4>
+                <div class="row form-outline mb-4">
+                    <input type="text" id="importOriginId" class="form-control form-control-lg"
+                           placeholder="Write the origin"/>
+                </div>
+                </br>
                 <div class="row">
                     <input type="file" id="demo" accept=".xls,.xlsx,.csv"/>
                 </div>

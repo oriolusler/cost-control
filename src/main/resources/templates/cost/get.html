@@ -13,6 +13,7 @@
 </head>
 
 <body class="main">
+<div th:insert="section/header :: buttons"></div>
 <div class="row">
     <div class="col"></div>
     <div class="col-8">
@@ -56,8 +57,14 @@
                                            placeholder="Write a comment" th:field="*{comment}"/>
                                 </div>
                                 <div class="form-outline mb-4">
-                                    <input type="number" step="any" id="amountCostGet" class="form-control form-control-lg"
+                                    <input type="number" step="any" id="amountCostGet"
+                                           class="form-control form-control-lg"
                                            placeholder="Introduce the amount" th:field="*{amount}"/>
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <input type="text" step="any" id="originCostGet"
+                                           class="form-control form-control-lg"
+                                           placeholder="Introduce origin" th:field="*{origin}"/>
                                 </div>
                                 <div class="form-outline mb-4">
                                     <div class="table-responsive">

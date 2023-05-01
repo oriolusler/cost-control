@@ -16,7 +16,7 @@
             margin-top: 50px;
         }
 
-        label, input, button, a {
+        label, input, button {
             display: block;
         }
 
@@ -91,7 +91,7 @@
 
         .register-text{
             margin: 10px;
-            display: inline-flex;
+
         }
 
         .register-link{
@@ -112,7 +112,7 @@
             <button type="submit" class="login">Login</button>
         </form>
 
-        <p class="register-text">Doesn't have an account yet? <a class="register-link" th:href="@{/user/registration}"> Register here!</a></p>
+        <div class="register-text">Doesn't have an account yet? <a class="register-link" th:href="@{/user/registration}"> Register here!</a></p>
     </div>
 </div>
 </body>

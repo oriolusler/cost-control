@@ -16,8 +16,8 @@ import java.sql.ResultSet
 class PostgresCostRepository(private val namedParameterJdbcTemplate: NamedParameterJdbcTemplate) : CostRepository {
     override fun register(cost: Cost) {
         val sql = """
-            |INSERT INTO cost (date, description, category, subcategory, comment, amount, username, identifier)
-            |VALUES (:date, :description, :category, :subcategory, :comment, :amount, :username, :identifier)
+            |INSERT INTO cost (date, description, category, subcategory, comment, amount, username, identifier, origin)
+            |VALUES (:date, :description, :category, :subcategory, :comment, :amount, :username, :identifier, :origin)
         """.trimMargin()
 
         val paramsRegister = MapSqlParameterSource()
@@ -29,6 +29,7 @@ class PostgresCostRepository(private val namedParameterJdbcTemplate: NamedParame
         paramsRegister.addValue("amount", cost.amount)
         paramsRegister.addValue("username", cost.username)
         paramsRegister.addValue("identifier", cost.identifier.value)
+        paramsRegister.addValue("origin", cost.origin)
 
         namedParameterJdbcTemplate.update(sql, paramsRegister)
 
@@ -80,7 +81,7 @@ class PostgresCostRepository(private val namedParameterJdbcTemplate: NamedParame
     override fun update(cost: Cost) {
         val sql = """
             |UPDATE COST
-            |SET date=:date, description=:description, category=:category, subcategory=:subcategory, comment=:comment, amount=:amount
+            |SET date=:date, description=:description, category=:category, subcategory=:subcategory, comment=:comment, amount=:amount, origin =:origin
             |WHERE identifier=:identifier
             |AND username=:username
         """.trimMargin()
@@ -94,6 +95,7 @@ class PostgresCostRepository(private val namedParameterJdbcTemplate: NamedParame
         paramsUpdate.addValue("amount", cost.amount)
         paramsUpdate.addValue("username", cost.username)
         paramsUpdate.addValue("identifier", cost.identifier.value)
+        paramsUpdate.addValue("origin", cost.origin)
 
         namedParameterJdbcTemplate.update(sql, paramsUpdate)
 
@@ -118,8 +120,8 @@ class PostgresCostRepository(private val namedParameterJdbcTemplate: NamedParame
 
     override fun insertMultiRegister(costs: List<Cost>) {
         val sql = """
-            |INSERT INTO cost (date, description, category, subcategory, comment, amount, username, identifier)
-            |VALUES (:date, :description, :category, :subcategory, :comment, :amount, :username, :identifier)
+            |INSERT INTO cost (date, description, category, subcategory, comment, amount, username, identifier, origin)
+            |VALUES (:date, :description, :category, :subcategory, :comment, :amount, :username, :identifier, :origin)
         """.trimMargin()
 
         val paramsList = costs.map {
@@ -132,6 +134,7 @@ class PostgresCostRepository(private val namedParameterJdbcTemplate: NamedParame
             paramsRegisterMulti.addValue("amount", it.amount)
             paramsRegisterMulti.addValue("username", it.username)
             paramsRegisterMulti.addValue("identifier", it.identifier.value)
+            paramsRegisterMulti.addValue("origin", it.origin)
             paramsRegisterMulti
         }.toTypedArray()
         namedParameterJdbcTemplate.batchUpdate(sql, paramsList)
@@ -172,7 +175,8 @@ class PostgresCostRepository(private val namedParameterJdbcTemplate: NamedParame
             rs.getBigDecimal("amount"),
             rs.getString("username"),
             getSharedCosts(identifier),
-            identifier
+            identifier,
+            rs.getString("origin"),
         )
     }
 

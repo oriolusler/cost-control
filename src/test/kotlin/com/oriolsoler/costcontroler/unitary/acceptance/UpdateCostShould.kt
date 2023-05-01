@@ -37,7 +37,8 @@ class UpdateCostShould {
                 BigDecimal.TEN,
                 "Jonny",
                 emptyList(),
-                costIdentifier
+                costIdentifier,
+                "N26"
             )
         }
 
@@ -51,7 +52,8 @@ class UpdateCostShould {
             BigDecimal.valueOf(12.99),
             "Oriol",
             emptyList(),
-            costIdentifier.value.toString()
+            costIdentifier.value.toString(),
+            "BBVA"
         )
 
         val updateCostUseCase = UpdateCost(costRepository)
@@ -69,7 +71,8 @@ class UpdateCostShould {
             BigDecimal.valueOf(12.99),
             "Oriol",
             emptyList(),
-            costIdentifier
+            costIdentifier,
+            "BBVA"
         )
         verify(costRepository).update(updatedCost)
     }
