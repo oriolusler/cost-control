@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greetings</title>
+    <style>
+        <!--General-->
+        .general-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+
+        .body {
+            background-color: #f2f2f2;
+            font-family: Arial, sans-serif;
+        }
+
+        .h1 {
+            text-align: center;
+            color: #333;
+            margin-top: 50px;
+        }
+        .greetings-box {
+            padding: 20px;
+            width: 80%;
+            max-width: 900px;
+            border: 1px solid #ccc;
+            border-radius: 0.5rem;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            margin: 50px auto 0;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @media only screen and (max-width: 768px) {
+            .greetings-box {
+                width: 85%;
+            }
+        }
+
+        .actions{
+
+        }
+
+        .action-button{
+            margin: 5px;
+        }
+    </style>
+</head>
+<body style="background-color: #dae2f1">
+<div class="general-container">
+    <div class="greetings-box">
+        <h1 style="color: #2d3139"> Welcome home Oriol!</h1>
+
+        <div class="actions">
+            <button type="button" class="action-button">Let's see the expenses</button>
+            <button type="button" class="action-button">Register a new one</button>
+            <button type="button" class="action-button">See pending payments</button>
+            <button type="button" class="action-button">Import payments</button>
+        </div>
+    </div>
+</div>
+<script th:inline="javascript">
+    const invested = [[${invested}]];
+    const income = [[${income}]];
+    const housing = [[${housing}]];
+    const expenses = [[${expenses}]];
+    const categoryBalancePerMonth = [[${categoryBalancePerMonth}]];
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+<script type="text/javascript" src="jscript/graph.js"></script>
+
+<script type="text/javascript" th:src="@{/js/acquisitions.js}"></script>
+
+</body>
+</html>

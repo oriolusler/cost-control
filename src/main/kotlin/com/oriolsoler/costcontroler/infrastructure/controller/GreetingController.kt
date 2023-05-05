@@ -12,6 +12,9 @@ import java.security.Principal
 
 @Controller
 class GreetingController(private val getCostsRepository: PostgresGetCostsRepository) {
+    @RequestMapping("/new")
+    fun helloWord1() = "cost/greeting-new"
+
     @RequestMapping("/greeting")
     fun helloWord(
         @AuthenticationPrincipal(expression = "username") username: String,
