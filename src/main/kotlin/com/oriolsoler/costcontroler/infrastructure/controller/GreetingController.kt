@@ -44,6 +44,6 @@ class GreetingController(private val getCostsRepository: PostgresGetCostsReposit
             .mapValues { it.value.sumOf { cost -> cost.amount } }
         model.addAttribute("categoryBalancePerMonth", balancePerCategory)
 
-        return "cost/greeting"
+        return "cost/greeting-new"
     }
 }

@@ -1,0 +1,48 @@
+.greetings-box {
+    padding: 20px;
+    width: 80%;
+    max-width: 900px;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    margin: 50px auto 0;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.welcome-text {
+    color: #2d3139;
+    font-family: sans-serif;
+}
+
+@media only screen and (max-width: 768px) {
+    .greetings-box {
+        width: 85%;
+    }
+
+    .action-button {
+        display: block;
+        width: 100%;
+    }
+}
+
+.action-button {
+    margin-top: 5px;
+    padding: 6px;
+    font-size: 1rem;
+    border: 1px solid #999b96;
+    border-radius: 8px;
+    background: transparent;
+    cursor: pointer;
+}
+
+.action-button:hover {
+    color: #f6f8f6;
+    background: #999b96;
+}
+
+.button-link {
+    text-decoration: none
+}
