@@ -12,6 +12,9 @@ import java.security.Principal
 
 @Controller
 class GreetingController(private val getCostsRepository: PostgresGetCostsRepository) {
+    @RequestMapping("/new")
+    fun helloWord1() = "cost/greeting-new"
+
     @RequestMapping("/greeting")
     fun helloWord(
         @AuthenticationPrincipal(expression = "username") username: String,
@@ -41,6 +44,6 @@ class GreetingController(private val getCostsRepository: PostgresGetCostsReposit
             .mapValues { it.value.sumOf { cost -> cost.amount } }
         model.addAttribute("categoryBalancePerMonth", balancePerCategory)
 
-        return "cost/greeting"
+        return "cost/greeting-new"
     }
 }
