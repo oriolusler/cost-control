@@ -3,7 +3,8 @@ $(document).ready(function () {
         "bInfo": false,
         "pagingType": "full_numbers",
         "bLengthChange": true,
-        "order": [[ 0, "desc" ]],
+        "order": [[0, "desc"]],
+        "stateSave": true,
         columnDefs: [{
             orderable: false,
             targets: 2

@@ -1,0 +1,109 @@
+body {
+    font-family: "Open Sans", sans-serif;
+    line-height: 1.25;
+}
+
+table {
+    border: 1px solid #ccc;
+    border-collapse: collapse;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    table-layout: fixed;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+table thead tr {
+    background-color: #08389a;
+    color: #ffffff;
+    text-align: center;
+}
+
+table tr {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+
+}
+
+table tr:nth-child(even) {
+    background-color: #dae2f1;
+}
+
+table tbody tr:hover {
+    font-weight: bold;
+    color: #08389AFF;
+    font-size: 1.1rem;
+}
+
+table th,
+table td {
+    padding: .625em;
+    min-height: 1rem;
+}
+
+@media screen and (max-width: 868px) {
+    table {
+        border: 0;
+    }
+
+    table thead {
+        border: none;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;
+    }
+
+    table tr {
+        border-bottom: 3px solid #ddd;
+        display: block;
+        margin-bottom: .625em;
+        background-color: #E9EBEFFF;
+    }
+
+    table tr:nth-child(even) {
+        background-color: #E9EBEFFF;
+    }
+
+    table tr:hover {
+        font-weight: bold;
+        color: #009879;
+        font-size: 1.1rem;
+    }
+
+    table td {
+        border-bottom: 1px solid #ddd;
+        display: block;
+        font-size: .8em;
+        text-align: right;
+    }
+
+    table td::before {
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    table td:last-child {
+        border-bottom: 0;
+    }
+}
+
+.expenses-box {
+    padding: 20px;
+    width: 100%;
+    margin: 50px 100px;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
