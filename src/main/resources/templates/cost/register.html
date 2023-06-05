@@ -1,117 +1,346 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="">
 <head>
-    <title>Spring Security Example </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register new expense</title>
+    <style>
+        .general-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
 
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        .register-box {
+            padding: 20px;
+            width: 80%;
+            max-width: 600px;
+            border: 1px solid #ccc;
+            border-radius: 0.5rem;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            margin: 50px auto 0;
+            justify-content: center;
+            align-items: center;
+        }
 
-    <link rel="stylesheet" th:href="@{/css/styles.css}"/>
+        .title {
+            font-family: 'Muli', sans-serif;
+            text-align: center;
+            padding-bottom: 20px;
+        }
+
+        select {
+            width: 100% !important;
+        }
+
+        .input-wrapper {
+            font-family: 'Muli', sans-serif;
+            padding-bottom: 20px;
+        }
+
+        .input-wrapper-first-row {
+            font-family: 'Muli', sans-serif;
+            padding-bottom: 20px;
+            width: 33%;
+            display: block;
+        }
+
+        .form-element {
+            width: 98%;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+            padding-left: 10px;
+            border: solid 1px #9e9e9e;
+            border-radius: 10px;
+            background: none;
+            font-family: 'Muli', sans-serif;
+            font-size: 1rem;
+        }
+
+        .first-row-form {
+            display: flex;
+            width: 100%;
+            flex-direction: row;
+            flex-wrap: wrap;
+            padding-left: 6px;
+        }
+
+        .first-row-form-element {
+            width: 90%;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+            padding-left: 10px;
+            border: solid 1px #9e9e9e;
+            border-radius: 10px;
+            background: none;
+            font-family: 'Muli', sans-serif;
+            font-size: 1rem;
+        }
+
+        .share-table-row {
+            width: 90%;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+            padding-left: 10px;
+            border: solid 1px #9e9e9e;
+            border-radius: 10px;
+            background: none;
+            font-family: 'Muli', sans-serif;
+            font-size: 1rem;
+        }
+
+        .share-box {
+            font-family: 'Muli', sans-serif;
+            text-align: center;
+        }
+
+        .share-table {
+            width: -moz-available; /* WebKit-based browsers will ignore this. */
+            width: -webkit-fill-available; /* Mozilla-based browsers will ignore this. */
+            width: fill-available;
+        }
+
+        .share-buttons {
+            padding-top: 15px;
+        }
+
+        .add-share-button {
+            cursor: pointer;
+            outline: 0;
+            color: #fff;
+            background-color: #0d6efd;
+            display: inline-block;
+            font-weight: 400;
+            line-height: 1.5;
+            text-align: center;
+            border: 1px solid transparent;
+            padding: 6px 12px;
+            font-size: 16px;
+            border-radius: .25rem;
+            transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+        }
+
+        .add-share-button:hover {
+            color: #fff;
+            background-color: #0b4291;
+            border-color: #0a58ca;
+        }
+
+        .remove-share-button {
+            cursor: pointer;
+            outline: 0;
+            color: #fff;
+            background-color: #fd0d39;
+            display: inline-block;
+            font-weight: 400;
+            line-height: 1.5;
+            text-align: center;
+            border: 1px solid transparent;
+            padding: 6px 12px;
+            font-size: 16px;
+            border-radius: .25rem;
+            transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+        }
+
+        .remove-share-button:hover {
+            color: #fff;
+            background-color: #910b0b;
+            border-color: #ca0a20;
+        }
+
+        .form-buttons {
+            font-family: 'Muli', sans-serif;
+            text-align: center;
+            padding-top: 25px;
+        }
+
+        .register-button {
+            cursor: pointer;
+            outline: 0;
+            color: #fff;
+            background-color: #57b94f;
+            display: inline-block;
+            font-weight: 400;
+            line-height: 1.5;
+            text-align: center;
+            border: 1px solid transparent;
+            padding: 6px 12px;
+            font-size: 16px;
+            border-radius: .25rem;
+            transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+        }
+
+        .register-button:hover {
+            color: #fff;
+            background-color: #3d8037;
+            border-color: #3d8037;
+        }
+
+        .clean-button {
+            cursor: pointer;
+            outline: 0;
+            color: #fff;
+            background-color: #fdb90d;
+            display: inline-block;
+            font-weight: 400;
+            line-height: 1.5;
+            text-align: center;
+            border: 1px solid transparent;
+            padding: 6px 12px;
+            font-size: 16px;
+            border-radius: .25rem;
+            transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+        }
+
+        .clean-button:hover {
+            color: #fff;
+            background-color: #c0890e;
+            border-color: #c0890e;
+        }
+
+        @media only screen and (max-width: 768px) {
+            .first-row-form-element {
+                width: 91% !important;
+                padding-left: 0 !important;
+                text-align: center !important;
+            }
+        }
+
+
+        @media only screen and (max-width: 450px) {
+            .register-box {
+                width: 100%;
+            }
+
+            .first-row-form {
+                display: block !important;
+                width: 100%;
+                padding-left: 0 !important;
+            }
+
+            .first-row-form-element {
+                padding-left: 10px !important;
+                text-align: left !important;
+                width: 96% !important;
+                display: block !important;
+            }
+
+            .form-element {
+                width: 96% !important;
+                display: block !important;
+            }
+
+            .input-wrapper-first-row {
+                font-family: 'Muli', sans-serif;
+                width: 100% !important;
+                display: block;
+            }
+
+            .share-table-row {
+                width: 80% !important;
+            }
+        }
+    </style>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
-<body class="main">
-<div th:insert="section/header :: buttons"></div>
+<body style="background-color: #dae2f1">
+<div class="general-container">
+    <div class="register-box">
 
-<div class="row">
-    <div class="col"></div>
-    <div class="col-8">
-        <div class="container py-5">
-            <div class="">
-                <div class="col-12">
-                    <div class="card shadow-2-strong" style="border-radius: 1rem;">
-                        <div class="card-body p-5">
-                            <form action="#" th:action="@{/register}" th:object="${cost}" method="post"
-                                  id="costRegistrationId">
-                                <h3 class="mb-5 text-center">Register in</h3>
-                                <div class="form-outline mb-4">
-                                    <input type="date" id="dateCostRegister" class="form-control form-control-lg"
-                                           placeholder="Select a day" th:field="*{date}"/>
-                                </div>
-                                <div class="form-outline mb-4">
-                                    <input type="text" id="descriptionCostRegister" class="form-control form-control-lg"
-                                           placeholder="Write a description" th:field="*{description}"/>
-                                </div>
-                                <div class="form-outline mb-4">
-                                    <select id="categoryCostRegister"
-                                            class="form-control form-control-lg"
-                                            th:field="*{category}">
-                                        <option value="" disabled selected>Select a category</option>
-                                        <option th:each="category : ${categoriesMap.keySet()}"
-                                                th:value="${category.name}"
-                                                th:text="${category.displayName}"></option>
-                                    </select>
-                                </div>
-                                <div class="form-outline mb-4">
-                                    <select id="subcategoryCostRegister"
-                                            class="form-control form-control-lg"
-                                            th:field="*{subcategory}">
-                                        <option value="" disabled selected>Select a subcategory</option>
-                                    </select>
-                                </div>
-                                <div class="form-outline mb-4">
-                                    <input type="text" id="commentCostRegister" class="form-control form-control-lg"
-                                           placeholder="Write a comment" th:field="*{comment}"/>
-                                </div>
-                                <div class="form-outline mb-4">
-                                    <input type="number" step="any" id="amountCostRegister" class="form-control form-control-lg"
-                                           placeholder="Introduce the amount" th:field="*{amount}"/>
-                                </div>
-                                <div class="form-outline mb-4">
-                                    <input type="text" step="any" id="originCostRegister" class="form-control form-control-lg"
-                                           placeholder="Introduce origin" th:field="*{origin}"/>
-                                </div>
-                                <div class="form-outline mb-4">
-                                    <div class="table-responsive">
-                                        <table class="table table-striped" id="sharedCosts">
-                                            <tr>
-                                                <th>Who?</th>
-                                                <th>How much?</th>
-                                                <th>Paid?</th>
-                                            </tr>
-                                            <tr th:each="parent, stat : *{shared}">
-                                                <td><input type="text" class="form-control"
-                                                           th:name="*{shared[__${stat.index}__].debtor}"
-                                                           th:field="*{shared[__${stat.index}__].debtor}"></td>
-                                                <td><input type="number" step="any" class="form-control"
-                                                           th:name="*{shared[__${stat.index}__].amount}"
-                                                           th:field="*{shared[__${stat.index}__].amount}"></td>
-                                                <td class="centered">
-                                                    <input type="checkbox" class="form-check-input"
-                                                           th:name="*{shared[__${stat.index}__].paid}"
-                                                           th:field="*{shared[__${stat.index}__].paid}">
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                    <div class="d-flex">
-                                        <input class="btn btn-success mr-1" id="buttonAddSharedCost" type="button"
-                                               value="Split cost"
-                                               name="buttonShareCost"/>
+        <form action="#" th:action="@{/register}" th:object="${cost}" method="post"
+              id="costRegistrationId">
+            <div class="title">
+                <h1>Register a new expense</h1>
+            </div>
 
-                                        <input class="btn btn-danger mr-1" id="buttonDeleteSharedCost" type="button"
-                                               value="Delete last split"
-                                               name="buttonDeleteCost"/>
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-center">
-                                    <p>
-                                        <button class="btn btn-primary btn-lg" type="submit" value="Submit">Register
-                                        </button>
-                                        <button class="btn btn-warning btn-lg" type="reset" value="reset">Clean form
-                                        </button>
-                                    </p>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
+            <div class="first-row-form">
+                <div class="input-wrapper-first-row">
+                    <label class="label" for="dateCostRegister">Date</label>
+                    <input type="date" id="dateCostRegister" class="first-row-form-element" th:field="*{date}"/>
+                </div>
+                <div class="input-wrapper-first-row">
+                    <label for="amountCostRegister">Amount</label>
+                    <input type="number" step="any" id="amountCostRegister" class="first-row-form-element"
+                           th:field="*{amount}"/>
+                </div>
+                <div class="input-wrapper-first-row">
+                    <label for="originCostRegister">Origin</label>
+                    <input type="text" step="any" id="originCostRegister" class="first-row-form-element"
+                           th:field="*{origin}"/>
                 </div>
             </div>
-        </div>
-    </div>
+            <div class="input-wrapper">
+                <label for="descriptionCostRegister">Description</label>
+                <input type="text" id="descriptionCostRegister" class="form-element" th:field="*{description}"/>
+            </div>
 
-    <div class="col"></div>
+            <div class="input-wrapper">
+                <label for="categoryCostRegister">Category</label>
+                <select id="categoryCostRegister" class="form-element" th:field="*{category}">
+                    <option value="" disabled selected>Select a category</option>
+                    <option th:each="category : ${categoriesMap.keySet()}"
+                            th:value="${category.name}"
+                            th:text="${category.displayName}"></option>
+                </select>
+            </div>
+
+            <div class="input-wrapper">
+                <label for="subcategoryCostRegister">Subcategory</label>
+                <select id="subcategoryCostRegister" class="form-element" th:field="*{subcategory}">
+                    <option value="" disabled selected>Select a subcategory</option>
+                </select>
+            </div>
+
+            <div class="input-wrapper">
+                <label for="commentCostRegister">Comment</label>
+                <input type="text" id="commentCostRegister" class="form-element" th:field="*{comment}"/>
+            </div>
+
+            <div class="share-box">
+                <h3>Do you want to split?</h3>
+                <table class="share-table" id="sharedCosts">
+                    <tr>
+                        <th>Who?</th>
+                        <th>Amount?</th>
+                        <th>Paid?</th>
+                    </tr>
+                    <tr th:each="parent, stat : *{shared}">
+                        <td><input type="text" class="share-table-row"
+                                   th:name="*{shared[__${stat.index}__].debtor}"
+                                   th:field="*{shared[__${stat.index}__].debtor}"></td>
+                        <td><input type="number" step="any" class="share-table-row"
+                                   th:name="*{shared[__${stat.index}__].amount}"
+                                   th:field="*{shared[__${stat.index}__].amount}"></td>
+                        <td class="centered">
+                            <input type="checkbox" class="share-table-row"
+                                   th:name="*{shared[__${stat.index}__].paid}"
+                                   th:field="*{shared[__${stat.index}__].paid}">
+                        </td>
+                    </tr>
+                </table>
+                <div class="share-buttons">
+                    <input class="add-share-button" id="buttonAddSharedCost" type="button"
+                           value="+"
+                           name="buttonShareCost"/>
+
+                    <input class="remove-share-button" id="buttonDeleteSharedCost" type="button"
+                           value="-"
+                           name="buttonDeleteCost"/>
+                </div>
+            </div>
+
+            <div class="form-buttons">
+                <button class="register-button" type="submit" value="Submit">Register</button>
+                <button class="clean-button" type="reset" value="reset">Clean form</button>
+            </div>
+
+        </form>
+    </div>
 </div>
+
 <script th:inline="javascript">
     const categoriesMap = [[${categoriesMap}]];
 </script>
