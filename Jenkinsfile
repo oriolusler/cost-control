@@ -2,21 +2,12 @@ pipeline {
     agent any
 
     stages {
-        stage('Checkout') {
+        stage('Build JAR') {
             steps {
-               echo 'hello checkout'
-            }
-        }
-
-        stage('Build') {
-            steps {
-                 echo 'hello build'
-            }
-        }
-
-        stage('Test') {
-            steps {
-                 sh "docker ps"
+                echo 'Building JAR'
+                script {
+                    sh './gradlew clean build'
+                }
             }
         }
     }
