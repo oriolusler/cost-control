@@ -11,5 +11,13 @@ pipeline {
                 }
             }
         }
+        stage('Testing Dcoker') {
+            steps {
+                echo 'Testing Docker'
+                script {
+                    sh 'docker ps'
+                }
+            }
+        }
     }
 }
